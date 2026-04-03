@@ -154,7 +154,7 @@ img { display: block; max-width: 100%; }
   transition: transform var(--transition);
   opacity: .6;
 }
-.nav__links > li:hover .nav__arrow { transform: rotate(180deg); }
+.nav__links > li.dropdown-open .nav__arrow { transform: rotate(180deg); }
 
 /* Dropdown */
 .nav__dropdown {
@@ -173,7 +173,7 @@ img { display: block; max-width: 100%; }
   transition: all var(--transition);
   z-index: 100;
 }
-.nav__links > li:hover .nav__dropdown {
+.nav__links > li.dropdown-open .nav__dropdown {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);

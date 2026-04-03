@@ -361,6 +361,9 @@
     </div>
   </div>
 </footer>
-<script>const nav=document.getElementById('mainNav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));</script>
+<script>
+const nav=document.getElementById('mainNav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+document.querySelectorAll('.nav__links > li').forEach(li=>{const t=li.querySelector('span');if(!t)return;t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});li.classList.toggle('dropdown-open');});});document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
+</script>
 </body>
 </html>

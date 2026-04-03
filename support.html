@@ -394,6 +394,7 @@ function switchTab(id,btn){
   document.getElementById('panel-'+id).classList.add('active');
   btn.classList.add('active');
 }
+document.querySelectorAll('.nav__links > li').forEach(li=>{const t=li.querySelector('span');if(!t)return;t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});li.classList.toggle('dropdown-open');});});document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
 </script>
 </body>
 </html>
