@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>5G集群 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── INTRO ── */
+.intro { background:var(--c-surface); }
+.intro__inner { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+.intro__text .section__title { font-size:clamp(22px,3vw,36px); }
+.intro__text p { font-size:15px;color:var(--c-text-sub);line-height:1.85;margin-bottom:14px; }
+.intro__visual {
+  background:var(--grad-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  padding:32px;
+  box-shadow:var(--shadow-md);
+}
+.arch-row { display:flex;align-items:center;gap:12px;margin-bottom:12px; }
+.arch-row:last-child { margin-bottom:0; }
+.arch-node {
+  flex:1; background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  font-size:13px;font-weight:600;color:var(--c-text);
+  display:flex;align-items:center;gap:8px;
+}
+.arch-node .ico { font-size:18px; }
+.arch-arrow { color:var(--c-text-pale);font-size:20px; }
+.arch-core {
+  background:linear-gradient(135deg,var(--c-primary),var(--c-primary-lt));
+  color:#fff; border:none;
+  text-align:center; justify-content:center;
+}
+
+/* ── FEATURES ── */
+.features-5g { background:var(--c-bg); }
+.feat-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:22px; }
+.feat-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:26px 22px;
+  transition:all var(--transition);
+  position:relative;overflow:hidden;
+}
+.feat-card::after {
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--grad-btn);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform var(--transition);
+}
+.feat-card:hover { transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(21,101,192,.22); }
+.feat-card:hover::after { transform:scaleX(1); }
+.feat-card__icon {
+  width:50px;height:50px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,rgba(21,101,192,.12),rgba(41,182,246,.12));
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  margin-bottom:14px;
+}
+.feat-card__title { font-size:16px;font-weight:800;color:var(--c-text);margin-bottom:8px; }
+.feat-card__desc { font-size:13.5px;color:var(--c-text-sub);line-height:1.75; }
+
+/* ── ADVANTAGES ── */
+.advantages { background:linear-gradient(160deg,#EBF4FF,#F0F8FF); }
+.adv-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:24px; }
+.adv-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:28px 26px;
+  display:grid;grid-template-columns:60px 1fr;gap:18px;align-items:start;
+  transition:all var(--transition);
+}
+.adv-card:hover { transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(21,101,192,.22); }
+.adv-card__num {
+  width:56px;height:56px;border-radius:var(--radius-sm);
+  background:var(--grad-btn);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:900;color:#fff;
+  box-shadow:0 4px 12px rgba(21,101,192,.28);
+  flex-shrink:0;
+}
+.adv-card__title { font-size:17px;font-weight:800;color:var(--c-text);margin-bottom:6px; }
+.adv-card__desc { font-size:13.5px;color:var(--c-text-sub);line-height:1.75; }
+
+/* ── SCENARIOS ── */
+.scenarios-5g { background:var(--c-surface); }
+.scene-list { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
+.scene-item {
+  background:var(--grad-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:22px 18px;
+  text-align:center;
+  transition:all var(--transition);
+}
+.scene-item:hover { transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:rgba(21,101,192,.22); }
+.scene-item__icon { font-size:36px;margin-bottom:10px; }
+.scene-item__name { font-size:15px;font-weight:800;color:var(--c-text);margin-bottom:5px; }
+.scene-item__tags { display:flex;gap:5px;justify-content:center;flex-wrap:wrap; }
+
+/* ── SPECS ── */
+.specs-bar {
+  background:linear-gradient(135deg,#1565C0,#1E88E5);
+  padding:52px 0;
+}
+.specs-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px; }
+.spec-item { text-align:center;padding:10px; border-right:1px solid rgba(255,255,255,.15); }
+.spec-item:last-child { border-right:none; }
+.spec-item__val { font-size:32px;font-weight:900;color:#fff;line-height:1; }
+.spec-item__unit { font-size:14px;color:rgba(255,255,255,.7);margin-left:3px; }
+.spec-item__lbl { font-size:12px;color:rgba(255,255,255,.6);margin-top:7px; }
+
+@media(max-width:900px){
+  .intro__inner,.adv-grid{grid-template-columns:1fr;}
+  .feat-grid{grid-template-columns:1fr 1fr;}
+  .specs-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){.feat-grid,.scene-list{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html" class="active">5G集群</a></li>
+      <li>
+        <span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header__eyebrow">📶 5G集群</div>
+    <h1 class="page-header__title">新一代<em>5G宽带集群</em>通信平台</h1>
+    <p class="page-header__desc">超大容量 · 超低时延 · 高可靠性，为政企行业打造专属的宽带集群通信解决方案，推动指挥调度进入5G时代。</p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="container intro__inner">
+    <div class="intro__text">
+      <div class="section__eyebrow">平台介绍</div>
+      <h2 class="section__title">汇特讯5G集群<br>融合通信平台</h2>
+      <p>汇特讯5G集群平台是基于5G新空口（NR）技术构建的新一代宽带集群通信系统，突破了传统窄带集群的容量限制，将高清视频、实时数据、语音指挥融为一体，构建统一的多媒体指挥调度中枢。</p>
+      <p>平台采用云原生架构，支持弹性扩缩容，可快速融合现有4G/WiFi等多种网络，实现平滑升级。兼容 eMBB、uRLLC、mMTC 三大5G业务场景，满足不同行业差异化需求。</p>
+      <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn--primary">申请演示</a>
+        <a href="docs.html" class="btn btn--outline">查看文档</a>
+      </div>
+    </div>
+    <div class="intro__visual">
+      <div style="font-size:12px;color:var(--c-text-pale);margin-bottom:16px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">系统架构示意</div>
+      <div>
+        <div class="arch-row">
+          <div class="arch-node"><span class="ico">📱</span>移动终端</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node arch-core">5G核心网</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node"><span class="ico">🖥️</span>指挥调度台</div>
+        </div>
+        <div style="text-align:center;color:var(--c-text-pale);font-size:20px;margin:8px 0;">↕</div>
+        <div class="arch-row">
+          <div class="arch-node"><span class="ico">🤖</span>AI视觉平台</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node arch-core">云管理平台</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node"><span class="ico">🗺️</span>GIS态势图</div>
+        </div>
+        <div style="text-align:center;color:var(--c-text-pale);font-size:20px;margin:8px 0;">↕</div>
+        <div class="arch-row">
+          <div class="arch-node"><span class="ico">📍</span>定位服务</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node arch-core">数据中台</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node"><span class="ico">📊</span>分析报表</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEC BAR -->
+<div class="specs-bar">
+  <div class="container">
+    <div class="specs-grid">
+      <div class="spec-item"><div class="spec-item__val">&lt;10<span class="spec-item__unit">ms</span></div><div class="spec-item__lbl">端到端时延</div></div>
+      <div class="spec-item"><div class="spec-item__val">1<span class="spec-item__unit">Gbps+</span></div><div class="spec-item__lbl">峰值传输速率</div></div>
+      <div class="spec-item"><div class="spec-item__val">10<span class="spec-item__unit">万+</span></div><div class="spec-item__lbl">终端并发容量</div></div>
+      <div class="spec-item"><div class="spec-item__val">99.99<span class="spec-item__unit">%</span></div><div class="spec-item__lbl">系统可用性</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-5g">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">平台特点</div>
+      <h2 class="section__title">核心功能特点</h2>
+      <p class="section__desc">汇特讯5G集群平台围绕"融合、智能、高效、可靠"设计，以下是六大核心功能特点。</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-card__icon">🎯</div>
+        <div class="feat-card__title">一键组呼 / 广播</div>
+        <div class="feat-card__desc">支持单呼、组呼、全呼和广播通话模式，指挥员可一键呼叫指定群组，实现毫秒级语音建立，适用于紧急指挥场景。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__icon">🎥</div>
+        <div class="feat-card__title">高清视频回传</div>
+        <div class="feat-card__desc">支持1080P高清视频实时上传与多路画面拼接，指挥中心可同时查看多点现场视频，配合AI识别实现智能预警。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__icon">🗺️</div>
+        <div class="feat-card__title">GIS可视化调度</div>
+        <div class="feat-card__desc">接入百度/高德/自建地图，实时显示人员位置与运动轨迹，支持电子围栏、区域划定与可视化任务分配。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__icon">🔀</div>
+        <div class="feat-card__title">多网融合接入</div>
+        <div class="feat-card__desc">兼容5G/4G/WiFi/有线网络，实现多网无缝切换，保障通信连续性，支持跨运营商互联互通。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__icon">🔐</div>
+        <div class="feat-card__title">端到端安全加密</div>
+        <div class="feat-card__desc">采用国密算法对通信内容全程加密，支持身份认证与访问控制，满足政务、公安等高安全等级场景需求。</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card__icon">📊</div>
+        <div class="feat-card__title">智能数据分析</div>
+        <div class="feat-card__desc">内置通话记录、视频存档、人员轨迹回放等数据管理模块，支持多维统计报表生成，辅助管理决策。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="advantages">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">差异化优势</div>
+      <h2 class="section__title">为什么选择汇特讯5G集群</h2>
+      <p class="section__desc">相比传统集群通信方案，汇特讯在技术深度、生态开放性和服务能力上具备显著差异化优势。</p>
+    </div>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="adv-card__num">01</div>
+        <div>
+          <div class="adv-card__title">真5G原生架构</div>
+          <div class="adv-card__desc">基于5G NR独立组网（SA）构建，充分发挥5G网络切片与QoS优先级保障能力，而非4G改造方案，从底层保证时延与带宽。</div>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card__num">02</div>
+        <div>
+          <div class="adv-card__title">多媒体融合一体化</div>
+          <div class="adv-card__desc">语音、视频、数据、定位在同一平台内融合，无需多套系统割裂部署，大幅降低集成成本，提升整体运营效率。</div>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card__num">03</div>
+        <div>
+          <div class="adv-card__title">开放API生态</div>
+          <div class="adv-card__desc">提供完整的 REST API 与 SDK，可与第三方业务系统深度对接，支持定制化开发，满足各行业个性化需求。</div>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-card__num">04</div>
+        <div>
+          <div class="adv-card__title">灵活部署方式</div>
+          <div class="adv-card__desc">支持公有云 SaaS、私有化本地部署和混合云三种方式，适应不同安全等级和成本预算，快速上线投入使用。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="scenarios-5g">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">应用场景</div>
+      <h2 class="section__title">覆盖六大典型行业</h2>
+    </div>
+    <div class="scene-list">
+      <div class="scene-item">
+        <div class="scene-item__icon">⚖️</div>
+        <div class="scene-item__name">智慧执法</div>
+        <div class="scene-item__tags"><span class="tag tag--blue">执法记录</span><span class="tag tag--cyan">视频取证</span></div>
+      </div>
+      <div class="scene-item">
+        <div class="scene-item__icon">🏗️</div>
+        <div class="scene-item__name">安全生产</div>
+        <div class="scene-item__tags"><span class="tag tag--warn">隐患排查</span><span class="tag tag--green">人员定位</span></div>
+      </div>
+      <div class="scene-item">
+        <div class="scene-item__icon">🚨</div>
+        <div class="scene-item__name">应急指挥</div>
+        <div class="scene-item__tags"><span class="tag tag--blue">态势感知</span><span class="tag tag--cyan">多部门协同</span></div>
+      </div>
+      <div class="scene-item">
+        <div class="scene-item__icon">🏙️</div>
+        <div class="scene-item__name">智慧城市</div>
+        <div class="scene-item__tags"><span class="tag tag--blue">城市治理</span><span class="tag tag--green">数字孪生</span></div>
+      </div>
+      <div class="scene-item">
+        <div class="scene-item__icon">👴</div>
+        <div class="scene-item__name">智慧养老</div>
+        <div class="scene-item__tags"><span class="tag tag--green">健康监测</span><span class="tag tag--cyan">一键呼救</span></div>
+      </div>
+      <div class="scene-item">
+        <div class="scene-item__icon">🔐</div>
+        <div class="scene-item__name">智慧安防</div>
+        <div class="scene-item__tags"><span class="tag tag--blue">AI识别</span><span class="tag tag--warn">异常预警</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+<script>const nav=document.getElementById('mainNav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));</script>
+</body>
+</html>

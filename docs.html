@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>使用文档 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── SEARCH BAR ── */
+.search-bar { background:var(--c-surface); padding:0 0 0 0; }
+.search-wrap {
+  max-width:600px;margin:-30px auto 0;position:relative;z-index:2;
+}
+.search-input-wrap {
+  display:flex;align-items:center;
+  background:var(--c-surface);
+  border:1.5px solid var(--c-border);
+  border-radius:99px;
+  padding:6px 6px 6px 22px;
+  box-shadow:var(--shadow-md);
+  transition:border-color var(--transition),box-shadow var(--transition);
+}
+.search-input-wrap:focus-within { border-color:var(--c-primary-lt);box-shadow:0 0 0 4px rgba(21,101,192,.12); }
+.search-input-wrap svg { color:var(--c-text-pale);flex-shrink:0; }
+.search-input-wrap input {
+  flex:1;border:none;outline:none;font-family:var(--font);
+  font-size:15px;color:var(--c-text);padding:8px 12px;background:transparent;
+}
+.search-input-wrap input::placeholder { color:var(--c-text-pale); }
+
+/* ── CATEGORY TABS ── */
+.cat-tabs { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px; }
+.cat-tab {
+  padding:9px 20px;border-radius:99px;font-size:13.5px;font-weight:600;
+  color:var(--c-text-sub);cursor:pointer;
+  border:1.5px solid var(--c-border);background:var(--c-surface);
+  transition:all var(--transition);font-family:var(--font);
+}
+.cat-tab.active {
+  background:var(--grad-btn);color:#fff;border-color:transparent;
+  box-shadow:0 3px 10px rgba(21,101,192,.22);
+}
+.cat-tab:hover:not(.active) { border-color:rgba(21,101,192,.3);color:var(--c-primary);background:rgba(21,101,192,.05); }
+
+/* ── DOC GRID ── */
+.doc-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:20px; }
+.doc-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:22px 24px;
+  display:grid;grid-template-columns:48px 1fr auto;gap:16px;align-items:start;
+  transition:all var(--transition);
+}
+.doc-card:hover { transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(21,101,192,.22); }
+.doc-card__icon {
+  width:48px;height:48px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.doc-card__icon--pdf { background:rgba(239,83,80,.1); }
+.doc-card__icon--doc { background:rgba(21,101,192,.1); }
+.doc-card__icon--api { background:rgba(139,92,246,.1); }
+.doc-card__icon--faq { background:rgba(38,166,154,.1); }
+.doc-card__icon--guide { background:rgba(255,167,38,.1); }
+.doc-card__body { min-width:0; }
+.doc-card__title {
+  font-size:14.5px;font-weight:700;color:var(--c-text);
+  margin-bottom:5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.doc-card__meta { display:flex;gap:12px;flex-wrap:wrap; }
+.doc-card__meta span { font-size:11.5px;color:var(--c-text-pale);display:flex;align-items:center;gap:3px; }
+.doc-card__actions { display:flex;gap:8px;flex-shrink:0; }
+.doc-action {
+  padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;
+  transition:all var(--transition);display:flex;align-items:center;gap:4px;
+  white-space:nowrap;cursor:pointer;border:none;font-family:var(--font);
+}
+.doc-action--view { background:rgba(21,101,192,.08);color:var(--c-primary); }
+.doc-action--view:hover { background:var(--c-primary);color:#fff; }
+.doc-action--dl { background:rgba(38,166,154,.08);color:#00897B; }
+.doc-action--dl:hover { background:#26A69A;color:#fff; }
+
+/* ── QUICK LINKS ── */
+.quick-links { background:linear-gradient(135deg,#EBF4FF,#F0F8FF); }
+.ql-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px; }
+.ql-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:26px 22px;
+  text-align:center;
+  transition:all var(--transition);
+}
+.ql-card:hover { transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(21,101,192,.22); }
+.ql-card__icon {
+  width:52px;height:52px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  background:linear-gradient(135deg,rgba(21,101,192,.1),rgba(41,182,246,.1));
+  margin:0 auto 12px;
+}
+.ql-card__name { font-size:15px;font-weight:700;color:var(--c-text);margin-bottom:5px; }
+.ql-card__count { font-size:12px;color:var(--c-text-pale); }
+
+@media(max-width:900px){.doc-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.ql-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li>
+        <span class="active" style="color:var(--c-primary)!important;background:rgba(21,101,192,.07)!important;border-radius:var(--radius-sm);">技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header__eyebrow">📚 知识库</div>
+    <h1 class="page-header__title"><em>使用文档</em>中心</h1>
+    <p class="page-header__desc">汇集平台操作手册、接入指南、API 参考与常见问题解答，支持在线阅读与 PDF 下载。</p>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<section class="search-bar">
+  <div class="container">
+    <div class="search-wrap">
+      <div class="search-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" placeholder="搜索文档名称、关键词…" id="searchInput" oninput="filterDocs()"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCS -->
+<section>
+  <div class="container">
+    <div class="cat-tabs">
+      <button class="cat-tab active" onclick="filterCat('all',this)">全部文档</button>
+      <button class="cat-tab" onclick="filterCat('guide',this)">操作指南</button>
+      <button class="cat-tab" onclick="filterCat('setup',this)">部署接入</button>
+      <button class="cat-tab" onclick="filterCat('api',this)">API文档</button>
+      <button class="cat-tab" onclick="filterCat('faq',this)">常见问题</button>
+    </div>
+
+    <div class="doc-grid" id="docGrid">
+      <!-- 操作指南 -->
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">指挥调度台操作手册（v3.2）</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 PDF · 12.4MB</span><span>📅 2024-03</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">企业管理平台使用指南（v3.2）</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 PDF · 8.7MB</span><span>📅 2024-03</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">Android / iOS 客户端操作手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 PDF · 6.2MB</span><span>📅 2024-02</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">GIS 可视化调度操作说明</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 PDF · 5.1MB</span><span>📅 2024-01</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+
+      <!-- 部署接入 -->
+      <div class="doc-card" data-cat="setup">
+        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">私有化部署指南（Linux）</div>
+          <div class="doc-card__meta">
+            <span>🔧 部署接入</span><span>📄 PDF · 4.8MB</span><span>📅 2024-03</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="setup">
+        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">5G 专用终端接入配置手册</div>
+          <div class="doc-card__meta">
+            <span>🔧 部署接入</span><span>📄 PDF · 3.6MB</span><span>📅 2024-02</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="setup">
+        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">SaaS 版快速上手指南</div>
+          <div class="doc-card__meta">
+            <span>🔧 部署接入</span><span>📄 PDF · 2.9MB</span><span>📅 2024-03</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="setup">
+        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">高精定位设备对接文档</div>
+          <div class="doc-card__meta">
+            <span>🔧 部署接入</span><span>📄 PDF · 3.3MB</span><span>📅 2024-01</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+
+      <!-- API -->
+      <div class="doc-card" data-cat="api">
+        <div class="doc-card__icon doc-card__icon--api">⚡</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">REST API 开发者文档（v3.2）</div>
+          <div class="doc-card__meta">
+            <span>⚡ API文档</span><span>📄 PDF · 7.1MB</span><span>📅 2024-03</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="api">
+        <div class="doc-card__icon doc-card__icon--api">⚡</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">SDK 集成开发指南（Android / iOS）</div>
+          <div class="doc-card__meta">
+            <span>⚡ API文档</span><span>📄 PDF · 5.5MB</span><span>📅 2024-02</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="api">
+        <div class="doc-card__icon doc-card__icon--api">⚡</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">Webhook 回调通知配置说明</div>
+          <div class="doc-card__meta">
+            <span>⚡ API文档</span><span>📄 PDF · 1.8MB</span><span>📅 2024-01</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="doc-card" data-cat="faq">
+        <div class="doc-card__icon doc-card__icon--faq">❓</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">常见问题解答（FAQ）</div>
+          <div class="doc-card__meta">
+            <span>❓ 常见问题</span><span>📄 PDF · 2.1MB</span><span>📅 2024-03</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="faq">
+        <div class="doc-card__icon doc-card__icon--faq">❓</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">故障排查与应急处理手册</div>
+          <div class="doc-card__meta">
+            <span>❓ 常见问题</span><span>📄 PDF · 3.4MB</span><span>📅 2024-02</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <button class="doc-action doc-action--view">在线阅读</button>
+          <button class="doc-action doc-action--dl">下载</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK LINKS -->
+<section class="quick-links">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">快捷导航</div>
+      <h2 class="section__title">按类型浏览文档</h2>
+    </div>
+    <div class="ql-grid">
+      <div class="ql-card" onclick="filterCat('guide',document.querySelectorAll('.cat-tab')[1])">
+        <div class="ql-card__icon">📘</div>
+        <div class="ql-card__name">操作指南</div>
+        <div class="ql-card__count">4 篇文档</div>
+      </div>
+      <div class="ql-card" onclick="filterCat('setup',document.querySelectorAll('.cat-tab')[2])">
+        <div class="ql-card__icon">🔧</div>
+        <div class="ql-card__name">部署接入</div>
+        <div class="ql-card__count">4 篇文档</div>
+      </div>
+      <div class="ql-card" onclick="filterCat('api',document.querySelectorAll('.cat-tab')[3])">
+        <div class="ql-card__icon">⚡</div>
+        <div class="ql-card__name">API文档</div>
+        <div class="ql-card__count">3 篇文档</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+
+let currentCat='all';
+function filterCat(cat,btn){
+  currentCat=cat;
+  document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter();
+}
+function filterDocs(){
+  applyFilter();
+}
+function applyFilter(){
+  const q=(document.getElementById('searchInput').value||'').toLowerCase();
+  document.querySelectorAll('.doc-card').forEach(card=>{
+    const catMatch=currentCat==='all'||card.dataset.cat===currentCat;
+    const textMatch=!q||card.textContent.toLowerCase().includes(q);
+    card.style.display=(catMatch&&textMatch)?'grid':'none';
+  });
+}
+</script>
+</body>
+</html>

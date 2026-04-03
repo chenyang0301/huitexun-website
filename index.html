@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>汇特讯 · 5G数智化融合通信平台</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── HERO ── */
+.hero {
+  padding: calc(var(--nav-h) + 80px) 0 90px;
+  background: var(--grad-hero);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 600px 500px at 75% 50%, rgba(41,182,246,.15) 0%,transparent 65%),
+    radial-gradient(ellipse 400px 350px at 15% 70%, rgba(21,101,192,.09) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero::after {
+  content:'';
+  position:absolute; right:-80px; top:-80px;
+  width:560px; height:560px;
+  background-image:
+    linear-gradient(rgba(21,101,192,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(21,101,192,.05) 1px,transparent 1px);
+  background-size:44px 44px;
+  border-radius:50%; transform:rotate(-10deg);
+  pointer-events:none;
+}
+.hero__inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:56px; align-items:center;
+  position:relative; z-index:1;
+}
+.hero__eyebrow {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(21,101,192,.1); color:var(--c-primary);
+  font-size:12px; font-weight:700;
+  padding:5px 14px; border-radius:99px;
+  border:1px solid rgba(21,101,192,.18);
+  margin-bottom:20px;
+}
+.hero__dot {
+  width:7px;height:7px;border-radius:50%;
+  background:var(--c-accent);
+  animation:blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+.hero__title {
+  font-size:clamp(28px,4vw,50px);
+  font-weight:800; line-height:1.2;
+  color:var(--c-text); margin-bottom:18px;
+}
+.hero__title em {
+  font-style:normal;
+  background:var(--grad-btn);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero__desc {
+  font-size:16px; color:var(--c-text-sub);
+  line-height:1.85; margin-bottom:36px;
+  max-width:460px;
+}
+.hero__btns { display:flex; gap:14px; flex-wrap:wrap; }
+
+/* hero visual */
+.hero__visual { position:relative; }
+.hero__screen {
+  background:var(--c-surface);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--c-border);
+  box-shadow:var(--shadow-lg);
+  padding:24px;
+}
+.hero__screen-bar {
+  display:flex; align-items:center; gap:7px;
+  padding-bottom:16px; margin-bottom:18px;
+  border-bottom:1px solid var(--c-border);
+}
+.hero__screen-dot { width:10px;height:10px;border-radius:50%; }
+.hero__screen-title { font-size:13px;color:var(--c-text-sub);margin-left:6px; }
+.stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+.stat-item {
+  background:var(--c-bg);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+}
+.stat-item__num {
+  font-size:24px;font-weight:800;
+  background:var(--grad-btn);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;margin-bottom:3px;
+}
+.stat-item__lbl { font-size:11.5px;color:var(--c-text-pale); }
+.hero__band {
+  background:linear-gradient(90deg,var(--c-primary),var(--c-accent));
+  border-radius:var(--radius-sm);
+  padding:13px 18px;
+  display:flex;justify-content:space-between;align-items:center;
+  color:#fff;
+}
+.hero__band-l { font-size:12px;opacity:.8; }
+.hero__band-r { font-size:17px;font-weight:700; }
+.hero__float-a {
+  position:absolute; top:-16px; right:-16px;
+  background:var(--c-surface);border:1px solid var(--c-border);
+  border-radius:var(--radius-sm); padding:10px 14px;
+  box-shadow:var(--shadow-md);
+  display:flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:600;color:#26A69A;
+}
+.hero__float-b {
+  position:absolute; bottom:-16px; left:-16px;
+  background:var(--c-surface);border:1px solid var(--c-border);
+  border-radius:var(--radius-sm); padding:10px 14px;
+  box-shadow:var(--shadow-md); font-size:11.5px;color:var(--c-text-sub);
+}
+.hero__float-b strong {color:var(--c-primary);}
+
+/* ── MODULES GRID ── */
+.modules { background:var(--c-surface); }
+.modules__grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.mod-card {
+  background:var(--grad-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  padding:32px 28px;
+  display:flex; flex-direction:column; gap:14px;
+  position:relative; overflow:hidden;
+  transition:all var(--transition); cursor:pointer;
+}
+.mod-card::before {
+  content:'';
+  position:absolute; top:0;left:0;right:0; height:4px;
+  background:var(--grad-btn);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform var(--transition);
+}
+.mod-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:rgba(21,101,192,.25); }
+.mod-card:hover::before { transform:scaleX(1); }
+.mod-card__num {
+  position:absolute; top:20px;right:24px;
+  font-size:52px; font-weight:900; line-height:1;
+  background:var(--grad-btn);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  opacity:.08;
+}
+.mod-card__icon {
+  width:52px;height:52px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+  background:rgba(21,101,192,.1);
+}
+.mod-card__title { font-size:20px;font-weight:800;color:var(--c-text); }
+.mod-card__desc { font-size:14px;color:var(--c-text-sub);line-height:1.75; }
+.mod-card__link {
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13.5px;font-weight:600;color:var(--c-primary);
+  margin-top:auto;
+}
+.mod-card__link svg { transition:transform var(--transition); }
+.mod-card:hover .mod-card__link svg { transform:translateX(4px); }
+
+/* ── STATS BAR ── */
+.stats-bar { background:linear-gradient(135deg,#1565C0,#1E88E5); padding:48px 0; }
+.stats-bar__grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; }
+.stats-bar__item {
+  text-align:center; padding:10px 20px;
+  border-right:1px solid rgba(255,255,255,.15);
+}
+.stats-bar__item:last-child { border-right:none; }
+.stats-bar__num { font-size:36px;font-weight:800;color:#fff;line-height:1; }
+.stats-bar__unit { font-size:16px;font-weight:600;color:rgba(255,255,255,.7);margin-left:2px; }
+.stats-bar__lbl { font-size:12.5px;color:rgba(255,255,255,.6);margin-top:6px; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero__inner,.modules__grid{grid-template-columns:1fr;}
+  .hero__visual{display:none;}
+  .stats-bar__grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div>
+        <div class="nav__logo-name">汇特讯</div>
+        <div class="nav__logo-tag">5G数智化融合通信平台</div>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li>
+        <span>
+          技术支持
+          <svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <div class="hero__eyebrow"><span class="hero__dot"></span>5G · AIoT · 云计算 · SaaS</div>
+      <h1 class="hero__title">面向未来的<br><em>融合通信</em><br>调度平台</h1>
+      <p class="hero__desc">汇特讯依托 5G/4G 宽带无线网络，整合多媒体指挥调度、视觉 AI 识别、高精定位等核心技术，为政企行业提供一体化数智融合通信解决方案。</p>
+      <div class="hero__btns">
+        <a href="5g-cluster.html" class="btn btn--primary btn--lg">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          了解5G集群
+        </a>
+        <a href="products.html" class="btn btn--outline btn--lg">查看产品方案</a>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div style="position:relative;">
+        <div class="hero__float-a">🟢 系统运行正常</div>
+        <div class="hero__screen">
+          <div class="hero__screen-bar">
+            <div class="hero__screen-dot" style="background:#FF5F57"></div>
+            <div class="hero__screen-dot" style="background:#FEBC2E"></div>
+            <div class="hero__screen-dot" style="background:#28C840"></div>
+            <span class="hero__screen-title">平台运营总览</span>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-item"><div class="stat-item__num">5G</div><div class="stat-item__lbl">网络融合接入</div></div>
+            <div class="stat-item"><div class="stat-item__num">AI+</div><div class="stat-item__lbl">视觉识别引擎</div></div>
+            <div class="stat-item"><div class="stat-item__num">6+</div><div class="stat-item__lbl">行业应用场景</div></div>
+            <div class="stat-item"><div class="stat-item__num">全端</div><div class="stat-item__lbl">多终端统一接入</div></div>
+          </div>
+          <div class="hero__band">
+            <div><div class="hero__band-l">SaaS 业务平台</div><div class="hero__band-r">产业互联网服务</div></div>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+        </div>
+        <div class="hero__float-b"><strong>京ICP备2021038921号-2</strong><br>七山创智 · 汇特讯</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-bar__grid">
+      <div class="stats-bar__item"><div class="stats-bar__num">5G<span class="stats-bar__unit">+4G</span></div><div class="stats-bar__lbl">双模无线融合接入</div></div>
+      <div class="stats-bar__item"><div class="stats-bar__num">6<span class="stats-bar__unit">+</span></div><div class="stats-bar__lbl">典型行业应用场景</div></div>
+      <div class="stats-bar__item"><div class="stats-bar__num">AI<span class="stats-bar__unit">视觉</span></div><div class="stats-bar__lbl">云边协同识别引擎</div></div>
+      <div class="stats-bar__item"><div class="stats-bar__num">SaaS<span class="stats-bar__unit"></span></div><div class="stats-bar__lbl">弹性云端服务架构</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<section class="modules">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">核心模块</div>
+      <h2 class="section__title">四大功能板块，一站式服务</h2>
+      <p class="section__desc">产品方案、5G集群、技术支持、联系我们，全面覆盖您的业务需求。</p>
+    </div>
+    <div class="modules__grid">
+      <a href="products.html" class="mod-card">
+        <div class="mod-card__num">01</div>
+        <div class="mod-card__icon">📦</div>
+        <div class="mod-card__title">产品方案</div>
+        <div class="mod-card__desc">涵盖多媒体指挥调度、AI视觉识别、高精定位等完整产品体系，并展示真实合作案例，见证汇特讯在各行业的落地成果。</div>
+        <div class="mod-card__link">查看方案 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="5g-cluster.html" class="mod-card">
+        <div class="mod-card__num">02</div>
+        <div class="mod-card__icon">📶</div>
+        <div class="mod-card__title">5G集群</div>
+        <div class="mod-card__desc">深度介绍汇特讯5G宽带集群平台的技术架构、核心功能与差异化优势，展现低延迟、大容量、广覆盖的现代集群通信能力。</div>
+        <div class="mod-card__link">了解集群 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="support.html" class="mod-card">
+        <div class="mod-card__num">03</div>
+        <div class="mod-card__icon">🛠️</div>
+        <div class="mod-card__title">技术支持</div>
+        <div class="mod-card__desc">提供代理商、企业管理、指挥调度台三大平台直达链接，以及标准版 / 中性版软件下载中心、使用文档知识库和功能演示视频中心。</div>
+        <div class="mod-card__link">进入支持 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="contact.html" class="mod-card">
+        <div class="mod-card__num">04</div>
+        <div class="mod-card__icon">📞</div>
+        <div class="mod-card__title">联系我们</div>
+        <div class="mod-card__desc">获取汇特讯官方联系方式、商务合作渠道与售后服务信息，专属团队随时响应您的咨询与需求。</div>
+        <div class="mod-card__link">立即联系 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div>
+          <div class="footer__logo-name">汇特讯</div>
+          <div class="footer__logo-tag">七山创智（北京）科技有限公司</div>
+        </div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a>
+        <a href="5g-cluster.html">5G集群</a>
+        <a href="support.html">技术支持</a>
+        <a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a>
+        <a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+</script>
+</body>
+</html>

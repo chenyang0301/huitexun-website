@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>联系我们 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── CONTACT GRID ── */
+.contact-grid { display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start; }
+
+.contact-info { display:flex;flex-direction:column;gap:20px; }
+.contact-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:24px 26px;
+  display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;
+  transition:all var(--transition);
+}
+.contact-card:hover { box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:rgba(21,101,192,.22); }
+.contact-card__icon {
+  width:52px;height:52px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  background:linear-gradient(135deg,rgba(21,101,192,.1),rgba(41,182,246,.1));
+}
+.contact-card__label { font-size:12px;font-weight:700;color:var(--c-text-pale);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px; }
+.contact-card__value { font-size:15px;font-weight:600;color:var(--c-text); }
+.contact-card__sub { font-size:13px;color:var(--c-text-sub);margin-top:4px; }
+
+/* ── FORM ── */
+.contact-form-wrap {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  padding:36px 32px;
+  box-shadow:var(--shadow-sm);
+}
+.contact-form-wrap h3 {
+  font-size:22px;font-weight:800;color:var(--c-text);
+  margin-bottom:6px;
+}
+.contact-form-wrap > p { font-size:14px;color:var(--c-text-sub);margin-bottom:24px; }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px; }
+.form-group { margin-bottom:16px; }
+.form-group label { display:block;font-size:13px;font-weight:600;color:var(--c-text);margin-bottom:6px; }
+.form-group label .req { color:var(--c-danger);margin-left:2px; }
+.form-input {
+  width:100%;padding:11px 14px;
+  border:1.5px solid var(--c-border);
+  border-radius:var(--radius-sm);
+  font-family:var(--font);font-size:14px;color:var(--c-text);
+  background:var(--c-surface);
+  transition:border-color var(--transition),box-shadow var(--transition);
+  outline:none;
+}
+.form-input:focus { border-color:var(--c-primary-lt);box-shadow:0 0 0 3px rgba(21,101,192,.1); }
+textarea.form-input { resize:vertical;min-height:100px; }
+select.form-input { cursor:pointer;appearance:auto; }
+.form-submit {
+  width:100%;
+  background:var(--grad-btn);color:#fff;
+  border:none;border-radius:99px;
+  padding:14px;font-size:15px;font-weight:700;
+  cursor:pointer;font-family:var(--font);
+  transition:all var(--transition);
+  box-shadow:0 4px 14px rgba(21,101,192,.25);
+  margin-top:6px;
+}
+.form-submit:hover { transform:translateY(-2px);box-shadow:0 8px 24px rgba(21,101,192,.35); }
+.form-note { font-size:12px;color:var(--c-text-pale);margin-top:12px;text-align:center; }
+
+/* ── MAP PLACEHOLDER ── */
+.map-section { background:var(--c-bg); }
+.map-wrap {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  height:360px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.map-placeholder {
+  text-align:center;color:var(--c-text-pale);
+}
+.map-placeholder svg { margin-bottom:12px;opacity:.4; }
+.map-placeholder p { font-size:14px; }
+.map-placeholder small { font-size:12px;opacity:.7; }
+
+/* ── CTA BAR ── */
+.cta-bar {
+  background:linear-gradient(135deg,#1565C0,#1E88E5);
+  padding:44px 0;
+}
+.cta-bar__inner {
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:20px;
+}
+.cta-bar__text h3 { font-size:22px;font-weight:800;color:#fff;margin-bottom:4px; }
+.cta-bar__text p { font-size:14px;color:rgba(255,255,255,.65); }
+.cta-bar__btn {
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--c-primary);
+  padding:13px 28px;border-radius:99px;
+  font-size:14.5px;font-weight:700;
+  box-shadow:0 4px 16px rgba(0,0,0,.15);
+  transition:all var(--transition);flex-shrink:0;
+}
+.cta-bar__btn:hover { transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25); }
+
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li>
+        <span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html" class="active">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header__eyebrow">📞 联系我们</div>
+    <h1 class="page-header__title">期待与您<em>取得联系</em></h1>
+    <p class="page-header__desc">无论您是咨询产品方案、寻求技术支持还是商务合作，汇特讯团队都将快速响应。</p>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section>
+  <div class="container">
+    <div class="contact-grid">
+      <!-- LEFT: Info -->
+      <div class="contact-info">
+        <div class="contact-card">
+          <div class="contact-card__icon">🏢</div>
+          <div>
+            <div class="contact-card__label">公司名称</div>
+            <div class="contact-card__value">七山创智（北京）科技有限公司</div>
+            <div class="contact-card__sub">汇特讯 · 5G数智化融合通信平台</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__icon">📞</div>
+          <div>
+            <div class="contact-card__label">联系电话</div>
+            <div class="contact-card__value">400-XXX-XXXX</div>
+            <div class="contact-card__sub">工作日 9:00 - 18:00</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__icon">📧</div>
+          <div>
+            <div class="contact-card__label">电子邮箱</div>
+            <div class="contact-card__value">contact@huitexun.com.cn</div>
+            <div class="contact-card__sub">商务合作 / 技术咨询</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__icon">📍</div>
+          <div>
+            <div class="contact-card__label">公司地址</div>
+            <div class="contact-card__value">北京市</div>
+            <div class="contact-card__sub">（详细地址请通过电话或邮件咨询）</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__icon">🌐</div>
+          <div>
+            <div class="contact-card__label">官方网站</div>
+            <div class="contact-card__value">www.huitexun.com.cn</div>
+            <div class="contact-card__sub">了解更多产品与服务信息</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="contact-form-wrap">
+        <h3>在线留言咨询</h3>
+        <p>请填写以下信息，我们将尽快安排专人联系您。</p>
+        <form id="contactForm" onsubmit="return submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>您的姓名<span class="req">*</span></label>
+              <input class="form-input" type="text" placeholder="请输入姓名" required/>
+            </div>
+            <div class="form-group">
+              <label>联系电话<span class="req">*</span></label>
+              <input class="form-input" type="tel" placeholder="请输入手机号" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>公司名称</label>
+            <input class="form-input" type="text" placeholder="请输入您的公司名称（选填）"/>
+          </div>
+          <div class="form-group">
+            <label>咨询类型</label>
+            <select class="form-input">
+              <option value="">请选择咨询类型</option>
+              <option>产品方案咨询</option>
+              <option>5G集群合作</option>
+              <option>技术支持</option>
+              <option>商务合作</option>
+              <option>代理商加盟</option>
+              <option>其他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>需求描述</label>
+            <textarea class="form-input" placeholder="请简要描述您的需求或问题…"></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="formSubmitBtn">📨 提交咨询</button>
+          <div class="form-note">提交即表示您同意我们处理您的个人信息用于回复咨询</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">公司位置</div>
+      <h2 class="section__title">地图导航</h2>
+    </div>
+    <div class="map-wrap">
+      <div class="map-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p>公司位置地图</p>
+        <small>（接入地图API后展示实际位置）</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAR -->
+<div class="cta-bar">
+  <div class="container cta-bar__inner">
+    <div class="cta-bar__text">
+      <h3>需要定制化解决方案？</h3>
+      <p>汇特讯提供专属方案设计与免费技术咨询服务</p>
+    </div>
+    <a href="products.html" class="cta-bar__btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      查看产品方案
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+
+function submitForm(e){
+  e.preventDefault();
+  const btn=document.getElementById('formSubmitBtn');
+  btn.textContent='✅ 提交成功！我们将尽快联系您';
+  btn.style.background='linear-gradient(135deg,#059669,#10b981)';
+  btn.disabled=true;
+  setTimeout(()=>{
+    btn.textContent='📨 提交咨询';
+    btn.style.background='';
+    btn.disabled=false;
+    document.getElementById('contactForm').reset();
+  },2500);
+  return false;
+}
+</script>
+</body>
+</html>

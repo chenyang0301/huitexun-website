@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>产品方案 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── PRODUCT CARDS ── */
+.products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.prod-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:all var(--transition);
+}
+.prod-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:rgba(21,101,192,.22); }
+.prod-card__top {
+  padding:24px 22px 18px;
+  background:var(--grad-card);
+  border-bottom:1px solid var(--c-border);
+}
+.prod-card__icon {
+  width:48px;height:48px;border-radius:var(--radius-sm);
+  background:rgba(21,101,192,.12);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  margin-bottom:14px;
+}
+.prod-card__name { font-size:17px;font-weight:800;color:var(--c-text);margin-bottom:6px; }
+.prod-card__tags { display:flex;gap:6px;flex-wrap:wrap; }
+.prod-card__body { padding:18px 22px; }
+.prod-card__desc { font-size:13.5px;color:var(--c-text-sub);line-height:1.75; }
+
+/* ── CASES ── */
+.cases { background:var(--c-bg); }
+.cases-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.case-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:all var(--transition);
+}
+.case-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+.case-card__cover {
+  height:160px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:48px;
+  position:relative;
+}
+.case-card__body { padding:20px 22px; }
+.case-card__industry {
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:700;
+  padding:3px 10px; border-radius:99px;
+  margin-bottom:10px;
+}
+.case-card__title { font-size:17px;font-weight:800;color:var(--c-text);margin-bottom:8px; }
+.case-card__desc { font-size:13.5px;color:var(--c-text-sub);line-height:1.75;margin-bottom:14px; }
+.case-card__result {
+  display:flex;gap:16px;
+  border-top:1px solid var(--c-border);
+  padding-top:14px;margin-top:14px;
+}
+.case-result-item { text-align:center; }
+.case-result-item__num { font-size:20px;font-weight:800;background:var(--grad-btn);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.case-result-item__lbl { font-size:11px;color:var(--c-text-pale); }
+
+@media(max-width:900px){.products-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.products-grid,.cases-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html" class="active">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li>
+        <span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header__eyebrow">📦 产品方案</div>
+    <h1 class="page-header__title">全场景<em>融合通信</em>产品体系</h1>
+    <p class="page-header__desc">汇特讯提供从多媒体调度到AI视觉、从高精定位到全端接入的完整产品矩阵，助力各行业数字化转型。</p>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section>
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">产品矩阵</div>
+      <h2 class="section__title">六大核心产品线</h2>
+      <p class="section__desc">覆盖通信调度、AI感知、定位服务和接入管理，构成完整的融合通信技术体系。</p>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📡</div>
+          <div class="prod-card__name">多媒体指挥调度</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">音视频</span><span class="tag tag--cyan">GIS可视化</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">融合 SIP 软交换与互联网流媒体技术，支持音视频融合指挥、GIS 可视化调度及融媒体直播，实现跨网统一管控。适用于大规模多部门协同指挥场景。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">🤖</div>
+          <div class="prod-card__name">视觉AI识别平台</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">云边协同</span><span class="tag tag--green">AI算法</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">自主 AI 视觉识别算法模型管理平台，支持个性化低成本模型定制，实现边缘侧与云端协同推理。千人千面的智能感知解决方案。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📍</div>
+          <div class="prod-card__name">高精定位服务</div>
+          <div class="prod-card__tags"><span class="tag tag--cyan">GPS/RTK</span><span class="tag tag--warn">室内定位</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">覆盖 GPS/RTK 室外高精定位与 UWB/BT 室内定位，兼容百度、高德及自建地图，满足矿山、工厂、楼宇等复杂场景全域定位需求。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📱</div>
+          <div class="prod-card__name">全客户端接入</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">iOS/Android</span><span class="tag tag--green">Web端</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">支持 iOS/Android APP、Windows APP、Web端、PC客户端、微信小程序及 5G 专用嵌入式终端，统一接入、统一管控、统一指挥。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">☁️</div>
+          <div class="prod-card__name">SaaS 弹性服务</div>
+          <div class="prod-card__tags"><span class="tag tag--cyan">云原生</span><span class="tag tag--blue">快速部署</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">产业互联网 SaaS 模式，快速部署、弹性扩容，降低企业 IT 建设成本，支持私有化部署，专注核心业务运营，开箱即用。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📶</div>
+          <div class="prod-card__name">5G 宽带集群</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">5G专网</span><span class="tag tag--green">低延迟</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">基于 5G 专网的宽带集群通信系统，提供超大容量、超低时延、高可靠的专业指挥调度能力，覆盖执法、应急、交通等关键行业。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">合作案例</div>
+      <h2 class="section__title">真实落地，见证价值</h2>
+      <p class="section__desc">汇特讯已在多个行业实现规模化部署，以下为部分典型合作案例。</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-card__cover" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);">⚖️</div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--blue">🏛️ 政府执法</div>
+          <div class="case-card__title">某省综合行政执法局 · 智慧执法平台</div>
+          <p class="case-card__desc">部署融合通信指挥调度系统，整合执法记录仪、移动终端与后台指挥中心，实现音视频实时上传、GIS轨迹追踪与远程指挥协同。</p>
+          <div class="case-card__result">
+            <div class="case-result-item"><div class="case-result-item__num">98%</div><div class="case-result-item__lbl">通信覆盖率</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">60%</div><div class="case-result-item__lbl">响应效率提升</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">500+</div><div class="case-result-item__lbl">终端接入</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover" style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2);">🏗️</div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--warn">🏗️ 安全生产</div>
+          <div class="case-card__title">某大型建筑集团 · 智慧工地管理系统</div>
+          <p class="case-card__desc">结合UWB室内定位与AI视觉识别技术，实现作业人员实时定位、危险区域预警、安全帽佩戴检测，大幅降低安全事故率。</p>
+          <div class="case-card__result">
+            <div class="case-result-item"><div class="case-result-item__num">30cm</div><div class="case-result-item__lbl">定位精度</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">45%</div><div class="case-result-item__lbl">事故率降低</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">1000+</div><div class="case-result-item__lbl">人员管控</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);">🚨</div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--green">🚨 应急管理</div>
+          <div class="case-card__title">某市应急管理局 · 应急指挥通信系统</div>
+          <p class="case-card__desc">构建全市统一的应急指挥通信网络，支持多部门协同调度、现场视频回传与态势感知，实现突发事件快速响应与有效处置。</p>
+          <div class="case-card__result">
+            <div class="case-result-item"><div class="case-result-item__num">&lt;3s</div><div class="case-result-item__lbl">指令响应时延</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">20+</div><div class="case-result-item__lbl">部门协同接入</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">7×24</div><div class="case-result-item__lbl">不间断运行</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7);">👴</div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--blue">👴 智慧养老</div>
+          <div class="case-card__title">某养老服务机构 · 智慧养老关爱平台</div>
+          <p class="case-card__desc">为老年群体提供定位手环、一键呼救、健康数据监测与家属远程关爱功能，打通养老机构与家庭、医院的信息通道。</p>
+          <div class="case-card__result">
+            <div class="case-result-item"><div class="case-result-item__num">99.9%</div><div class="case-result-item__lbl">系统可用性</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">2000+</div><div class="case-result-item__lbl">服务老人</div></div>
+            <div class="case-result-item"><div class="case-result-item__num">95%</div><div class="case-result-item__lbl">家属满意度</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+<script>const nav=document.getElementById('mainNav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));</script>
+</body>
+</html>

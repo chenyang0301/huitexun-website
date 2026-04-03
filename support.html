@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>技术支持 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── PLATFORM LINKS ── */
+.platforms { background:var(--c-surface); }
+.plat-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px; }
+.plat-card {
+  background:var(--grad-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  padding:32px 26px;
+  text-align:center;
+  transition:all var(--transition);
+  display:flex;flex-direction:column;gap:12px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.plat-card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--grad-btn);
+  transform:scaleX(0);transform-origin:left;transition:transform var(--transition);
+}
+.plat-card:hover { transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:rgba(21,101,192,.25); }
+.plat-card:hover::before { transform:scaleX(1); }
+.plat-card__icon {
+  width:64px;height:64px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(21,101,192,.12),rgba(41,182,246,.12));
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+}
+.plat-card__name { font-size:18px;font-weight:800;color:var(--c-text); }
+.plat-card__desc { font-size:13.5px;color:var(--c-text-sub);line-height:1.75; }
+.plat-card__btn {
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--grad-btn);color:#fff;
+  padding:10px 24px;border-radius:99px;
+  font-size:13.5px;font-weight:700;
+  box-shadow:0 3px 12px rgba(21,101,192,.25);
+  transition:all var(--transition);
+  margin-top:6px;
+}
+.plat-card__btn:hover { transform:translateY(-2px);box-shadow:0 6px 20px rgba(21,101,192,.35); }
+
+/* ── DOWNLOAD CENTER ── */
+.download-center { background:var(--c-bg); }
+.dl-tabs {
+  display:flex;gap:10px;
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:8px;
+  margin-bottom:28px;
+  width:fit-content;
+}
+.dl-tab {
+  padding:10px 24px;
+  border-radius:var(--radius-sm);
+  font-size:14px;font-weight:600;color:var(--c-text-sub);
+  cursor:pointer;transition:all var(--transition);
+  border:none;background:transparent;font-family:var(--font);
+}
+.dl-tab.active {
+  background:var(--grad-btn);color:#fff;
+  box-shadow:0 3px 12px rgba(21,101,192,.28);
+}
+.dl-tab:hover:not(.active) { background:rgba(21,101,192,.08);color:var(--c-primary); }
+
+.dl-panel { display:none; }
+.dl-panel.active { display:block; }
+
+.dl-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:18px; }
+.dl-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:20px 22px;
+  display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;
+  transition:all var(--transition);
+}
+.dl-card:hover { box-shadow:var(--shadow-sm);border-color:rgba(21,101,192,.22);transform:translateY(-2px); }
+.dl-card__icon {
+  width:48px;height:48px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,rgba(21,101,192,.1),rgba(41,182,246,.1));
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.dl-card__name { font-size:14.5px;font-weight:700;color:var(--c-text);margin-bottom:4px; }
+.dl-card__info { font-size:12px;color:var(--c-text-pale); }
+.dl-card__info span { margin-right:10px; }
+.dl-card__btn {
+  display:flex;align-items:center;gap:5px;
+  background:rgba(21,101,192,.08);
+  color:var(--c-primary);
+  padding:8px 14px;border-radius:99px;
+  font-size:12.5px;font-weight:700;
+  transition:all var(--transition);
+  white-space:nowrap;
+}
+.dl-card__btn:hover { background:var(--c-primary);color:#fff; }
+
+/* ── SUB-LINKS (docs & demo) ── */
+.sub-links { background:linear-gradient(135deg,#EBF4FF,#F0F8FF); }
+.sub-link-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px; }
+.sub-link-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  padding:36px 32px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:all var(--transition);
+  position:relative;overflow:hidden;
+}
+.sub-link-card:hover { transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(21,101,192,.22); }
+.sub-link-card__badge {
+  position:absolute;top:18px;right:18px;
+  font-size:28px;opacity:.12;
+}
+.sub-link-card__icon {
+  width:56px;height:56px;border-radius:var(--radius-md);
+  background:linear-gradient(135deg,rgba(21,101,192,.12),rgba(41,182,246,.12));
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+}
+.sub-link-card__title { font-size:20px;font-weight:800;color:var(--c-text); }
+.sub-link-card__desc { font-size:14px;color:var(--c-text-sub);line-height:1.8; }
+.sub-link-card__link {
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--grad-btn);color:#fff;
+  padding:11px 26px;border-radius:99px;
+  font-size:14px;font-weight:700;
+  box-shadow:0 3px 12px rgba(21,101,192,.25);
+  transition:all var(--transition);
+  width:fit-content;
+  margin-top:6px;
+}
+.sub-link-card__link:hover { transform:translateY(-2px);box-shadow:0 6px 20px rgba(21,101,192,.35); }
+
+@media(max-width:900px){.plat-grid,.sub-link-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.plat-grid,.dl-grid,.sub-link-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li>
+        <span class="active" style="color:var(--c-primary)!important;background:rgba(21,101,192,.07)!important;border-radius:var(--radius-sm);">技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header__eyebrow">🛠️ 技术支持</div>
+    <h1 class="page-header__title"><em>专业支持</em>，全程陪伴</h1>
+    <p class="page-header__desc">提供平台直达入口、软件下载中心、使用文档知识库与功能演示视频，助力您快速上手汇特讯平台。</p>
+  </div>
+</div>
+
+<!-- PLATFORMS -->
+<section class="platforms">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">平台入口</div>
+      <h2 class="section__title">三大管理平台，快速直达</h2>
+      <p class="section__desc">根据您的角色选择对应平台入口，代理商、企业用户和调度员均可通过专属入口登录使用。</p>
+    </div>
+    <div class="plat-grid">
+      <div class="plat-card">
+        <div class="plat-card__icon">🏢</div>
+        <div class="plat-card__name">代理商管理平台</div>
+        <p class="plat-card__desc">面向渠道合作伙伴，管理客户资源、产品配置、订单信息与业务数据统计报表。</p>
+        <a href="https://n2.wisecommey.com/amp/" target="_blank" class="plat-card__btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          进入平台
+        </a>
+      </div>
+      <div class="plat-card">
+        <div class="plat-card__icon">🏬</div>
+        <div class="plat-card__name">企业管理平台</div>
+        <p class="plat-card__desc">企业用户专属后台，完成设备管理、人员配置、权限分配与业务数据全面分析。</p>
+        <a href="https://n2.wisecommey.com/emp/" target="_blank" class="plat-card__btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          进入平台
+        </a>
+      </div>
+      <div class="plat-card">
+        <div class="plat-card__icon">🖥️</div>
+        <div class="plat-card__name">WEB 指挥调度台</div>
+        <p class="plat-card__desc">浏览器端多媒体指挥调度界面，支持音视频融合调度与 GIS 可视化态势显示。</p>
+        <a href="https://rtc.wisecommey.com:2553/" target="_blank" class="plat-card__btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          进入平台
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD CENTER -->
+<section class="download-center">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">软件下载中心</div>
+      <h2 class="section__title">按需获取，即刻使用</h2>
+      <p class="section__desc">提供标准版本与中性版本两套软件体系，适配不同部署需求与品牌定制场景。</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="dl-tabs">
+      <button class="dl-tab active" onclick="switchTab('standard',this)">📦 标准版本</button>
+      <button class="dl-tab" onclick="switchTab('neutral',this)">🔲 中性版本</button>
+    </div>
+
+    <!-- Standard -->
+    <div class="dl-panel active" id="panel-standard">
+      <div class="dl-grid">
+        <div class="dl-card">
+          <div class="dl-card__icon">🤖</div>
+          <div>
+            <div class="dl-card__name">Android 客户端（标准版）</div>
+            <div class="dl-card__info"><span>v3.2.1</span><span>42.6 MB</span><span>2024-03</span></div>
+          </div>
+          <a href="#" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            下载
+          </a>
+        </div>
+        <div class="dl-card">
+          <div class="dl-card__icon">🍎</div>
+          <div>
+            <div class="dl-card__name">iOS 客户端（标准版）</div>
+            <div class="dl-card__info"><span>v3.2.1</span><span>AppStore</span><span>2024-03</span></div>
+          </div>
+          <a href="#" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            前往
+          </a>
+        </div>
+        <div class="dl-card">
+          <div class="dl-card__icon">🪟</div>
+          <div>
+            <div class="dl-card__name">Windows 客户端（标准版）</div>
+            <div class="dl-card__info"><span>v3.2.1</span><span>86.4 MB</span><span>2024-03</span></div>
+          </div>
+          <a href="#" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            下载
+          </a>
+        </div>
+        <div class="dl-card">
+          <div class="dl-card__icon">📟</div>
+          <div>
+            <div class="dl-card__name">嵌入式终端固件（标准版）</div>
+            <div class="dl-card__info"><span>v2.8.0</span><span>联系获取</span><span>2024-01</span></div>
+          </div>
+          <a href="contact.html" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            咨询
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Neutral -->
+    <div class="dl-panel" id="panel-neutral">
+      <div class="dl-grid">
+        <div class="dl-card">
+          <div class="dl-card__icon">🤖</div>
+          <div>
+            <div class="dl-card__name">Android 客户端（中性版）</div>
+            <div class="dl-card__info"><span>v3.2.1</span><span>41.2 MB</span><span>2024-03</span></div>
+          </div>
+          <a href="#" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            下载
+          </a>
+        </div>
+        <div class="dl-card">
+          <div class="dl-card__icon">🍎</div>
+          <div>
+            <div class="dl-card__name">iOS 客户端（中性版）</div>
+            <div class="dl-card__info"><span>v3.2.1</span><span>AppStore</span><span>2024-03</span></div>
+          </div>
+          <a href="#" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            前往
+          </a>
+        </div>
+        <div class="dl-card">
+          <div class="dl-card__icon">🪟</div>
+          <div>
+            <div class="dl-card__name">Windows 客户端（中性版）</div>
+            <div class="dl-card__info"><span>v3.2.1</span><span>84.8 MB</span><span>2024-03</span></div>
+          </div>
+          <a href="#" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            下载
+          </a>
+        </div>
+        <div class="dl-card">
+          <div class="dl-card__icon">📟</div>
+          <div>
+            <div class="dl-card__name">嵌入式终端固件（中性版）</div>
+            <div class="dl-card__info"><span>v2.8.0</span><span>联系获取</span><span>2024-01</span></div>
+          </div>
+          <a href="contact.html" class="dl-card__btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            咨询
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUB LINKS -->
+<section class="sub-links">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">更多支持资源</div>
+      <h2 class="section__title">文档知识库 · 视频演示中心</h2>
+    </div>
+    <div class="sub-link-grid">
+      <div class="sub-link-card">
+        <div class="sub-link-card__badge">📚</div>
+        <div class="sub-link-card__icon">📚</div>
+        <div class="sub-link-card__title">使用文档知识库</div>
+        <p class="sub-link-card__desc">汇集平台操作手册、接入指南、API参考文档和常见问题解答，支持在线阅读和 PDF 下载，方便用户随时查阅。</p>
+        <a href="docs.html" class="sub-link-card__link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          进入知识库
+        </a>
+      </div>
+      <div class="sub-link-card">
+        <div class="sub-link-card__badge">▶️</div>
+        <div class="sub-link-card__icon">▶️</div>
+        <div class="sub-link-card__title">功能演示视频中心</div>
+        <p class="sub-link-card__desc">提供产品功能演示视频、操作教程与最新版本更新说明，用户可在线直接观看，快速了解平台全貌。</p>
+        <a href="demo.html" class="sub-link-card__link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          进入视频中心
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+function switchTab(id,btn){
+  document.querySelectorAll('.dl-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.dl-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>功能演示 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── FEATURED VIDEO ── */
+.featured-video {
+  background:var(--c-surface);
+}
+.featured-wrap {
+  display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center;
+}
+.video-player {
+  background:linear-gradient(135deg,#0D47A1,#1565C0,#1976D2);
+  border-radius:var(--radius-lg);
+  aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;cursor:pointer;
+  box-shadow:var(--shadow-lg);
+  transition:transform var(--transition),box-shadow var(--transition);
+}
+.video-player:hover { transform:scale(1.01);box-shadow:0 20px 56px rgba(21,101,192,.28); }
+.video-player::before {
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 30% 40%,rgba(41,182,246,.2) 0%,transparent 50%),
+    radial-gradient(circle at 70% 60%,rgba(255,255,255,.08) 0%,transparent 40%);
+}
+.play-btn {
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid rgba(255,255,255,.4);
+  z-index:1;
+  transition:all var(--transition);
+}
+.video-player:hover .play-btn { background:rgba(255,255,255,.35);transform:scale(1.08); }
+.play-btn svg { margin-left:4px; }
+.video-tag {
+  position:absolute;top:18px;left:18px;z-index:2;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(8px);
+  color:#fff;font-size:11px;font-weight:700;
+  padding:5px 12px;border-radius:99px;
+  letter-spacing:.5px;
+}
+.video-dur {
+  position:absolute;bottom:18px;right:18px;z-index:2;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(8px);
+  color:#fff;font-size:12px;font-weight:600;
+  padding:4px 10px;border-radius:99px;
+}
+.featured-info { display:flex;flex-direction:column;gap:16px; }
+.featured-info h3 { font-size:24px;font-weight:800;color:var(--c-text);line-height:1.3; }
+.featured-info p { font-size:14.5px;color:var(--c-text-sub);line-height:1.8; }
+.featured-tags { display:flex;gap:8px;flex-wrap:wrap; }
+.featured-chapters { margin-top:8px; }
+.featured-chapters h4 { font-size:13px;font-weight:700;color:var(--c-text);margin-bottom:10px; }
+.chapter-list { list-style:none;display:flex;flex-direction:column;gap:8px; }
+.chapter-item {
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;
+  background:var(--grad-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-sm);
+  font-size:13.5px;color:var(--c-text-sub);
+  cursor:pointer;transition:all var(--transition);
+}
+.chapter-item:hover { border-color:rgba(21,101,192,.25);color:var(--c-primary);background:rgba(21,101,192,.05); }
+.chapter-num {
+  width:24px;height:24px;border-radius:6px;
+  background:var(--grad-btn);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;
+}
+.chapter-dur { margin-left:auto;font-size:11.5px;color:var(--c-text-pale); }
+
+/* ── VIDEO GRID ── */
+.video-section { background:var(--c-bg); }
+.vid-filters { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px; }
+.vid-filter {
+  padding:9px 20px;border-radius:99px;font-size:13.5px;font-weight:600;
+  color:var(--c-text-sub);cursor:pointer;
+  border:1.5px solid var(--c-border);background:var(--c-surface);
+  transition:all var(--transition);font-family:var(--font);
+}
+.vid-filter.active {
+  background:var(--grad-btn);color:#fff;border-color:transparent;
+  box-shadow:0 3px 10px rgba(21,101,192,.22);
+}
+.vid-filter:hover:not(.active) { border-color:rgba(21,101,192,.3);color:var(--c-primary); }
+
+.vid-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:22px; }
+.vid-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:all var(--transition);
+}
+.vid-card:hover { transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(21,101,192,.22); }
+.vid-card__thumb {
+  aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;cursor:pointer;
+}
+.vid-card__thumb::before {
+  content:'';position:absolute;inset:0;
+  background:inherit;opacity:.9;
+}
+.vid-card__play {
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.25);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(255,255,255,.45);
+  z-index:1;transition:all var(--transition);
+}
+.vid-card:hover .vid-card__play { background:rgba(255,255,255,.4);transform:scale(1.08); }
+.vid-card__play svg { margin-left:2px; }
+.vid-card__dur {
+  position:absolute;bottom:8px;right:8px;z-index:2;
+  background:rgba(0,0,0,.55);color:#fff;
+  font-size:11px;font-weight:600;
+  padding:3px 8px;border-radius:99px;
+}
+.vid-card__badge {
+  position:absolute;top:8px;left:8px;z-index:2;
+  font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:99px;
+  color:#fff;
+}
+.vid-card__body { padding:16px 18px; }
+.vid-card__title {
+  font-size:14px;font-weight:700;color:var(--c-text);
+  margin-bottom:5px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.vid-card__meta { display:flex;gap:10px; }
+.vid-card__meta span { font-size:11.5px;color:var(--c-text-pale); }
+
+/* ── VIDEO MODAL ── */
+.video-modal {
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.8);backdrop-filter:blur(8px);
+  z-index:1000;align-items:center;justify-content:center;
+}
+.video-modal.open { display:flex;animation:fadeIn .2s; }
+.video-modal__wrap {
+  width:90%;max-width:900px;background:#000;border-radius:var(--radius-lg);
+  overflow:hidden;position:relative;animation:slideUp .25s;
+}
+.video-modal__close {
+  position:absolute;top:12px;right:12px;z-index:10;
+  width:36px;height:36px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.15);color:#fff;font-size:18px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background var(--transition);
+}
+.video-modal__close:hover { background:rgba(255,255,255,.3); }
+.video-modal__player {
+  aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#0D47A1,#1565C0);
+  color:rgba(255,255,255,.6);font-size:15px;
+}
+.video-modal__title {
+  padding:14px 20px;background:#111;color:#fff;
+  font-size:14px;font-weight:600;
+}
+
+@media(max-width:900px){.featured-wrap{grid-template-columns:1fr;}.vid-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.vid-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li>
+        <span class="active" style="color:var(--c-primary)!important;background:rgba(21,101,192,.07)!important;border-radius:var(--radius-sm);">技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header__eyebrow">▶️ 功能演示</div>
+    <h1 class="page-header__title"><em>视频演示</em>中心</h1>
+    <p class="page-header__desc">通过产品功能演示视频与操作教程，快速了解汇特讯平台的全貌与核心操作流程。</p>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<section class="featured-video">
+  <div class="container">
+    <div class="featured-wrap">
+      <div class="video-player" onclick="openVideo('汇特讯5G数智化融合通信平台 · 全面介绍','15:32')">
+        <div class="video-tag">推荐</div>
+        <div class="video-dur">15:32</div>
+        <div class="play-btn">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><polygon points="8 5 20 12 8 19"/></svg>
+        </div>
+      </div>
+      <div class="featured-info">
+        <div>
+          <h3>汇特讯5G数智化融合通信平台<br>全面功能介绍</h3>
+          <p>本视频全面展示汇特讯平台的六大核心能力：多媒体指挥调度、AI视觉识别、高精定位、全终端接入、SaaS弹性服务与安全架构。</p>
+        </div>
+        <div class="featured-tags">
+          <span class="tag tag--blue">平台概览</span>
+          <span class="tag tag--cyan">功能演示</span>
+          <span class="tag tag--green">15分32秒</span>
+        </div>
+        <div class="featured-chapters">
+          <h4>📖 视频章节</h4>
+          <ul class="chapter-list">
+            <li class="chapter-item" onclick="openVideo('平台总览与架构介绍','02:15')">
+              <span class="chapter-num">1</span>平台总览与架构介绍<span class="chapter-dur">02:15</span>
+            </li>
+            <li class="chapter-item" onclick="openVideo('多媒体指挥调度功能演示','04:30')">
+              <span class="chapter-num">2</span>多媒体指挥调度功能演示<span class="chapter-dur">04:30</span>
+            </li>
+            <li class="chapter-item" onclick="openVideo('AI视觉识别与高精定位','03:45')">
+              <span class="chapter-num">3</span>AI视觉识别与高精定位<span class="chapter-dur">03:45</span>
+            </li>
+            <li class="chapter-item" onclick="openVideo('全终端接入与SaaS部署','03:02')">
+              <span class="chapter-num">4</span>全终端接入与SaaS部署<span class="chapter-dur">03:02</span>
+            </li>
+            <li class="chapter-item" onclick="openVideo('典型行业应用案例展示','02:00')">
+              <span class="chapter-num">5</span>典型行业应用案例展示<span class="chapter-dur">02:00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MORE VIDEOS -->
+<section class="video-section">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">更多视频</div>
+      <h2 class="section__title">分类浏览演示视频</h2>
+      <p class="section__desc">按功能模块分类，快速找到您需要的演示内容。</p>
+    </div>
+    <div class="vid-filters">
+      <button class="vid-filter active" onclick="filterVid('all',this)">全部视频</button>
+      <button class="vid-filter" onclick="filterVid('dispatch',this)">指挥调度</button>
+      <button class="vid-filter" onclick="filterVid('ai',this)">AI视觉</button>
+      <button class="vid-filter" onclick="filterVid('pos',this)">定位服务</button>
+      <button class="vid-filter" onclick="filterVid('tutorial',this)">操作教程</button>
+    </div>
+    <div class="vid-grid" id="vidGrid">
+      <div class="vid-card" data-vid="dispatch">
+        <div class="vid-card__thumb" style="background:linear-gradient(135deg,#1565C0,#42A5F5);" onclick="openVideo('音视频融合指挥调度演示','08:45')">
+          <div class="vid-card__badge tag tag--blue">指挥调度</div>
+          <div class="vid-card__dur">08:45</div>
+          <div class="vid-card__play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="8 5 20 12 8 19"/></svg></div>
+        </div>
+        <div class="vid-card__body">
+          <div class="vid-card__title">音视频融合指挥调度功能演示</div>
+          <div class="vid-card__meta"><span>2024-03</span><span>指挥调度</span></div>
+        </div>
+      </div>
+      <div class="vid-card" data-vid="dispatch">
+        <div class="vid-card__thumb" style="background:linear-gradient(135deg,#0D47A1,#1E88E5);" onclick="openVideo('GIS可视化态势指挥演示','06:20')">
+          <div class="vid-card__badge tag tag--blue">指挥调度</div>
+          <div class="vid-card__dur">06:20</div>
+          <div class="vid-card__play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="8 5 20 12 8 19"/></svg></div>
+        </div>
+        <div class="vid-card__body">
+          <div class="vid-card__title">GIS可视化态势指挥调度操作演示</div>
+          <div class="vid-card__meta"><span>2024-03</span><span>指挥调度</span></div>
+        </div>
+      </div>
+      <div class="vid-card" data-vid="ai">
+        <div class="vid-card__thumb" style="background:linear-gradient(135deg,#00897B,#26A69A);" onclick="openVideo('AI视觉识别算法演示','07:10')">
+          <div class="vid-card__badge tag tag--green">AI视觉</div>
+          <div class="vid-card__dur">07:10</div>
+          <div class="vid-card__play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="8 5 20 12 8 19"/></svg></div>
+        </div>
+        <div class="vid-card__body">
+          <div class="vid-card__title">云边协同AI视觉识别算法模型演示</div>
+          <div class="vid-card__meta"><span>2024-02</span><span>AI视觉</span></div>
+        </div>
+      </div>
+      <div class="vid-card" data-vid="pos">
+        <div class="vid-card__thumb" style="background:linear-gradient(135deg,#0288D1,#29B6F6);" onclick="openVideo('高精定位服务演示','05:50')">
+          <div class="vid-card__badge tag tag--cyan">定位服务</div>
+          <div class="vid-card__dur">05:50</div>
+          <div class="vid-card__play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="8 5 20 12 8 19"/></svg></div>
+        </div>
+        <div class="vid-card__body">
+          <div class="vid-card__title">GPS/RTK/UWB 高精定位功能演示</div>
+          <div class="vid-card__meta"><span>2024-02</span><span>定位服务</span></div>
+        </div>
+      </div>
+      <div class="vid-card" data-vid="tutorial">
+        <div class="vid-card__thumb" style="background:linear-gradient(135deg,#E65100,#FF8F00);" onclick="openVideo('企业管理平台快速上手','10:15')">
+          <div class="vid-card__badge tag tag--warn">操作教程</div>
+          <div class="vid-card__dur">10:15</div>
+          <div class="vid-card__play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="8 5 20 12 8 19"/></svg></div>
+        </div>
+        <div class="vid-card__body">
+          <div class="vid-card__title">企业管理平台新用户快速上手教程</div>
+          <div class="vid-card__meta"><span>2024-03</span><span>操作教程</span></div>
+        </div>
+      </div>
+      <div class="vid-card" data-vid="tutorial">
+        <div class="vid-card__thumb" style="background:linear-gradient(135deg,#6A1B9A,#AB47BC);" onclick="openVideo('指挥调度台完整操作教程','12:30')">
+          <div class="vid-card__badge tag tag--warn">操作教程</div>
+          <div class="vid-card__dur">12:30</div>
+          <div class="vid-card__play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="8 5 20 12 8 19"/></svg></div>
+        </div>
+        <div class="vid-card__body">
+          <div class="vid-card__title">WEB指挥调度台完整操作流程教程</div>
+          <div class="vid-card__meta"><span>2024-03</span><span>操作教程</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
+  <div class="video-modal__wrap">
+    <button class="video-modal__close" onclick="document.getElementById('videoModal').classList.remove('open')">✕</button>
+    <div class="video-modal__player">
+      <div style="text-align:center;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="rgba(255,255,255,.3)"><polygon points="8 5 20 12 8 19"/></svg>
+        <div style="margin-top:12px;">视频播放区域</div>
+        <div style="font-size:13px;margin-top:4px;" id="modalVideoTitle"></div>
+      </div>
+    </div>
+    <div class="video-modal__title" id="modalVideoTitleBar"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+
+let currentVid='all';
+function filterVid(cat,btn){
+  currentVid=cat;
+  document.querySelectorAll('.vid-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.vid-card').forEach(card=>{
+    card.style.display=(currentVid==='all'||card.dataset.vid===cat)?'block':'none';
+  });
+}
+function openVideo(title,dur){
+  document.getElementById('modalVideoTitle').textContent=title+' · '+dur;
+  document.getElementById('modalVideoTitleBar').textContent=title;
+  document.getElementById('videoModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVideoModal(e){
+  if(e.target===document.getElementById('videoModal')){
+    document.getElementById('videoModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('videoModal').classList.remove('open');document.body.style.overflow='';}});
+</script>
+</body>
+</html>
