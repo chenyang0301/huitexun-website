@@ -138,6 +138,124 @@
   font-size:12.5px; font-weight:600; color:#2E7D32;
 }
 
+/* ── PRODUCT VERSIONS ── */
+.ai-products { background:var(--c-surface); }
+.ai-prod-tabs {
+  display:flex; gap:10px;
+  background:var(--grad-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  padding:8px;
+  margin-bottom:32px;
+  width:fit-content;
+}
+.ai-prod-tab {
+  padding:10px 24px;
+  border-radius:var(--radius-sm);
+  font-size:14px; font-weight:600; color:var(--c-text-sub);
+  cursor:pointer; transition:all var(--transition);
+  border:none; background:transparent; font-family:var(--font);
+  white-space:nowrap;
+}
+.ai-prod-tab.active {
+  background:linear-gradient(135deg,#4CAF50,#29B6F6); color:#fff;
+  box-shadow:0 3px 12px rgba(76,175,80,.28);
+}
+.ai-prod-tab:hover:not(.active) { background:rgba(76,175,80,.08); color:#2E7D32; }
+
+.ai-prod-panel { display:none; }
+.ai-prod-panel.active { display:block; }
+
+.ai-prod-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px; align-items:center;
+}
+.ai-prod-visual {
+  background:linear-gradient(135deg,#E8F5E9,#E3F2FD);
+  border-radius:var(--radius-lg);
+  border:1px solid rgba(76,175,80,.2);
+  padding:36px; text-align:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; min-height:280px;
+}
+.ai-prod-visual__icon { font-size:56px; }
+.ai-prod-visual__label {
+  font-size:22px; font-weight:800;
+  background:linear-gradient(135deg,#2E7D32,#1565C0);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.ai-prod-visual__tag {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 14px; border-radius:99px;
+  font-size:11.5px; font-weight:700;
+}
+.ai-prod-visual__tag--premium {
+  background:linear-gradient(135deg,rgba(255,167,38,.15),rgba(255,167,38,.08));
+  color:#E65100; border:1px solid rgba(255,167,38,.25);
+}
+.ai-prod-visual__tag--pure {
+  background:rgba(76,175,80,.12); color:#2E7D32;
+  border:1px solid rgba(76,175,80,.22);
+}
+.ai-prod-features { display:flex; flex-direction:column; gap:14px; }
+.ai-prod-feat {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:14px 18px;
+  background:var(--grad-card);
+  border-radius:var(--radius-sm);
+  border:1px solid var(--c-border);
+  transition:all var(--transition);
+}
+.ai-prod-feat:hover { border-color:rgba(76,175,80,.25); transform:translateX(4px); }
+.ai-prod-feat__check {
+  width:24px; height:24px; border-radius:50%;
+  background:linear-gradient(135deg,#4CAF50,#29B6F6);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:12px; flex-shrink:0; margin-top:1px;
+}
+.ai-prod-feat__text { font-size:14px; color:var(--c-text); line-height:1.6; }
+.ai-prod-feat__text strong { color:var(--c-primary); }
+
+/* ── PRODUCT VER CUSTOM SELECT ── */
+.ai-prod-select-row {
+  display:flex; gap:24px; margin-bottom:32px; flex-wrap:wrap;
+}
+.ai-prod-select-item {
+  flex:1; min-width:240px;
+}
+.ai-prod-select-item__label {
+  font-size:13px; font-weight:700; color:var(--c-text-sub);
+  margin-bottom:8px; display:flex; align-items:center; gap:6px;
+}
+.ai-prod-select-item__label em {
+  font-style:normal;
+  background:linear-gradient(135deg,#2E7D32,#1565C0);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.ai-prod-select {
+  width:100%;
+  padding:12px 40px 12px 16px;
+  font-size:14px; font-weight:600; color:var(--c-text);
+  background:var(--c-surface);
+  border:1.5px solid var(--c-border);
+  border-radius:var(--radius-sm);
+  font-family:var(--font);
+  cursor:pointer;
+  transition:all var(--transition);
+  appearance:none;
+  -webkit-appearance:none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231565C0' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+}
+.ai-prod-select:hover { border-color:rgba(76,175,80,.4); }
+.ai-prod-select:focus { outline:none; border-color:#4CAF50; box-shadow:0 0 0 3px rgba(76,175,80,.12); }
+
 /* ── FEATURES GRID ── */
 .ai-features { background:var(--c-surface); }
 .ai-features__grid {
@@ -306,6 +424,8 @@
   .ai-compare{grid-template-columns:1fr;}
   .ai-compare__vs{padding-top:0;padding-bottom:16px;}
   .ai-compare__vs-badge{width:44px;height:44px;font-size:13px;}
+  .ai-prod-grid{grid-template-columns:1fr;}
+  .ai-prod-select-row{flex-direction:column;gap:14px;}
 }
 @media(max-width:600px){
   .ai-features__grid{grid-template-columns:1fr;}
@@ -401,6 +521,215 @@
         </div>
         <div class="ai-hero__float">🟢 服务在线 · 即时响应</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT VERSIONS -->
+<section class="ai-products">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">产品选择</div>
+      <h2 class="section__title">AI伴游机 · 两版随心选</h2>
+      <p class="section__desc">至臻版功能全面，纯臻版轻量高效，根据您的需求选择最适合的版本。</p>
+    </div>
+
+    <!-- Version Dropdowns -->
+    <div class="ai-prod-select-row">
+      <div class="ai-prod-select-item">
+        <div class="ai-prod-select-item__label">✨ <em>AI伴游机（至臻版）</em></div>
+        <select class="ai-prod-select" onchange="switchProdVer('premium',this.value)">
+          <option value="full">全功能旗舰套餐</option>
+          <option value="city">城市文旅套餐</option>
+          <option value="scenic">景区定制套餐</option>
+        </select>
+      </div>
+      <div class="ai-prod-select-item">
+        <div class="ai-prod-select-item__label">🌿 <em>AI伴游机（纯臻版）</em></div>
+        <select class="ai-prod-select" onchange="switchProdVer('pure',this.value)">
+          <option value="basic">基础伴游套餐</option>
+          <option value="student">研学教育套餐</option>
+          <option value="lite">轻量自由行套餐</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Premium Version Detail -->
+    <div class="ai-prod-panel active" id="prod-panel-premium-full">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual">
+          <div class="ai-prod-visual__icon">📱</div>
+          <div class="ai-prod-visual__label">AI伴游机（至臻版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--premium">✨ 全功能旗舰</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">高性能硬件 + 全部AI能力 + 专属运维支持</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>6大AI能力全覆盖</strong> — 智能导览、多语翻译、路线规划、智能问答、团队协同、安全保障一应俱全</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>5G双模通信</strong> — 支持SA/NSA组网，超低延迟实时响应，峰值速率达Gbps级别</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>专属管理后台</strong> — 景区/旅行社管理面板，实时数据监控与分析报表</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>7x24小时运维保障</strong> — 专属技术团队，全年无休响应</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-prod-panel" id="prod-panel-premium-city">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual">
+          <div class="ai-prod-visual__icon">🏙️</div>
+          <div class="ai-prod-visual__label">AI伴游机（至臻版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--premium">✨ 城市文旅</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">为城市文旅局量身打造，覆盖地标导览与公共出行</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>城市地标全覆盖</strong> — 内置城市POI数据库，地标建筑一键导览</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>公共交通联动</strong> — 实时公交/地铁数据接入，智能换乘推荐</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>多语种城市名片</strong> — 12语种自动切换，提升国际游客体验</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>文旅大数据看板</strong> — 游客画像、热力图、满意度分析</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-prod-panel" id="prod-panel-premium-scenic">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual">
+          <div class="ai-prod-visual__icon">🏔️</div>
+          <div class="ai-prod-visual__label">AI伴游机（至臻版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--premium">✨ 景区定制</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">面向5A/4A级景区，深度定制的智慧导览解决方案</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>景区深度定制</strong> — 专属知识库训练，还原景区文化内涵</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>电子围栏+客流预警</strong> — 实时监测客流密度，智能分流引导</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>AR实景标注</strong> — 历史遗迹叠加复原效果，沉浸式文化体验</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>景区一体化管理</strong> — 票务、导览、安防、应急统一平台</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pure Version Detail -->
+    <div class="ai-prod-panel" id="prod-panel-pure-basic">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual" style="background:linear-gradient(135deg,#F1F8E9,#E8F5E9);">
+          <div class="ai-prod-visual__icon">📱</div>
+          <div class="ai-prod-visual__label">AI伴游机（纯臻版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--pure">🌿 基础伴游</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">轻量高效，核心功能全覆盖，适合中小规模部署</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>核心4大AI能力</strong> — 智能导览、多语翻译、路线规划、智能问答</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>4G/5G自适应</strong> — 兼容现有4G网络，平滑过渡到5G</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>标准管理后台</strong> — 基础设备管理与数据统计功能</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>5x8小时标准支持</strong> — 工作日技术响应服务</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-prod-panel" id="prod-panel-pure-student">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual" style="background:linear-gradient(135deg,#F1F8E9,#E8F5E9);">
+          <div class="ai-prod-visual__icon">🎒</div>
+          <div class="ai-prod-visual__label">AI伴游机（纯臻版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--pure">🌿 研学教育</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">为学校研学和营地教育场景设计的互动学习版本</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>知识问答互动</strong> — 趣味答题闯关模式，寓教于乐</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>团队任务打卡</strong> — 分组任务 + 实时排名，激发学习动力</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>教师管理面板</strong> — 学生位置追踪、任务进度、成绩统计</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>内容安全过滤</strong> — 青少年过滤模式，绿色健康内容</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-prod-panel" id="prod-panel-pure-lite">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual" style="background:linear-gradient(135deg,#F1F8E9,#E8F5E9);">
+          <div class="ai-prod-visual__icon">🧳</div>
+          <div class="ai-prod-visual__label">AI伴游机（纯臻版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--pure">🌿 轻量自由行</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">小巧便携，即开即用，专为个人旅行者打造</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>即开即用</strong> — 无需复杂配置，开机自动联网激活</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>超长续航</strong> — 一次充电续航12小时，覆盖全天游览</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>个人账单灵活</strong> — 按天/按次付费，无长期合约</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>App远程管理</strong> — 手机APP绑定设备，行程同步</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="ai-prod-tabs" style="display:none;" id="prod-tabs">
+      <button class="ai-prod-tab active" onclick="switchProdTab('premium',this)">✨ AI伴游机（至臻版）</button>
+      <button class="ai-prod-tab" onclick="switchProdTab('pure',this)">🌿 AI伴游机（纯臻版）</button>
     </div>
   </div>
 </section>
@@ -601,7 +930,14 @@
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
 
-// 技术支持下拉菜单 - 点击触发
+// 产品版本下拉选择
+function switchProdVer(ver,plan){
+  document.querySelectorAll('.ai-prod-panel').forEach(p=>p.classList.remove('active'));
+  var panel = document.getElementById('prod-panel-'+ver+'-'+plan);
+  if(panel) panel.classList.add('active');
+}
+
+// 技术支持下拉菜单
 document.querySelectorAll('.nav__links > li').forEach(li=>{
   const trigger = li.querySelector('span');
   if(!trigger) return;
