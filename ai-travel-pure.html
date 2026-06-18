@@ -6,187 +6,51 @@
 <title>AI伴游机（纯臻版）· 汇特讯</title>
 <link rel="stylesheet" href="shared.css"/>
 <style>
-/* ── HERO ── */
-.ai-hero {
-  padding: calc(var(--nav-h) + 72px) 0 80px;
-  background: linear-gradient(160deg, #E8F5E9 0%, #F1F8E9 50%, #E0F2F1 100%);
-  position: relative; overflow: hidden;
-}
-.ai-hero::before {
-  content:''; position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 500px 400px at 80% 30%, rgba(76,175,80,.10) 0%, transparent 60%),
-    radial-gradient(ellipse 400px 300px at 20% 70%, rgba(0,150,136,.06) 0%, transparent 55%),
-    radial-gradient(ellipse 300px 250px at 60% 80%, rgba(139,195,74,.05) 0%, transparent 55%);
-  pointer-events:none;
-}
-.ai-hero__inner {
-  display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
-  position:relative; z-index:1;
-}
-.ai-hero__eyebrow {
-  display:inline-flex; align-items:center; gap:7px;
-  background:rgba(76,175,80,.12); color:#2E7D32;
-  font-size:12px; font-weight:700;
-  padding:5px 14px; border-radius:99px;
-  border:1px solid rgba(76,175,80,.2); margin-bottom:20px;
-}
-.ai-hero__dot { width:7px; height:7px; border-radius:50%; background:#4CAF50; animation:blink 2s infinite; }
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
-.ai-hero__title {
-  font-size:clamp(28px,4vw,48px); font-weight:800; line-height:1.2;
-  color:var(--c-text); margin-bottom:18px;
-}
-.ai-hero__title em {
-  font-style:normal;
-  background:linear-gradient(135deg, #2E7D32, #00897B);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-}
-.ai-hero__desc { font-size:16px; color:var(--c-text-sub); line-height:1.85; margin-bottom:36px; max-width:460px; }
-.ai-hero__visual { position:relative; }
-.ai-hero__card {
-  background:var(--c-surface); border-radius:var(--radius-lg);
-  border:1px solid var(--c-border); box-shadow:var(--shadow-lg); padding:20px;
-}
-.ai-hero__card-map {
-  background:linear-gradient(135deg, #E8F5E9, #F1F8E9);
-  border-radius:var(--radius-sm); padding:28px 20px; text-align:center;
-  position:relative; overflow:hidden; margin-bottom:16px;
-}
-.ai-hero__pin {
+.ai-page { padding: calc(var(--nav-h) + 48px) 0 60px; min-height:80vh; }
+.ai-page__back {
   display:inline-flex; align-items:center; gap:6px;
-  background:var(--c-surface); border-radius:99px;
-  padding:8px 14px; box-shadow:var(--shadow-sm); font-size:13px; font-weight:600;
-  position:relative; z-index:1;
+  font-size:13px; color:var(--c-text-sub); text-decoration:none;
+  margin-bottom:28px; transition:var(--transition);
 }
-.ai-hero__card-bar { display:flex; gap:8px; }
-.ai-hero__card-bar span {
-  flex:1; height:8px; border-radius:99px; background:var(--c-border);
-}
-.ai-hero__card-bar span:first-child { background:linear-gradient(90deg, #4CAF50, #009688); }
-
-/* ── PAGE CONTENT ── */
-.page-section { padding:80px 0; }
-.page-section--alt { background:var(--c-bg); }
-
-/* ── PRODUCT OVERVIEW ── */
-.overview__grid {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
-}
-.overview__card {
-  background:var(--c-surface); border-radius:var(--radius-md);
-  border:1px solid var(--c-border); padding:32px 24px;
-  box-shadow:var(--shadow-xs); transition:var(--transition);
-  text-align:center;
-}
-.overview__card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); }
-.overview__card-icon { font-size:42px; margin-bottom:16px; }
-.overview__card h3 { font-size:18px; font-weight:700; color:var(--c-text); margin-bottom:10px; }
-.overview__card p { font-size:14px; color:var(--c-text-sub); line-height:1.7; }
-
-/* ── PLAN PANELS ── */
-.plan-panel {
-  background:var(--c-surface); border-radius:var(--radius-lg);
-  border:1px solid var(--c-border); overflow:hidden;
-  margin-bottom:32px; box-shadow:var(--shadow-sm);
-}
-.plan-panel__header {
-  padding:24px 32px; display:flex; align-items:center; gap:16px;
-  border-bottom:1px solid var(--c-border);
-  background:linear-gradient(135deg, rgba(76,175,80,.04), rgba(0,150,136,.04));
-}
-.plan-panel__icon { font-size:36px; }
-.plan-panel__info h3 { font-size:20px; font-weight:700; color:var(--c-text); margin-bottom:4px; }
-.plan-panel__info .plan-panel__tag {
-  display:inline-block; font-size:11px; font-weight:700;
-  padding:3px 10px; border-radius:99px;
+.ai-page__back:hover { color:var(--c-primary); }
+.ai-page__head { text-align:center; margin-bottom:44px; }
+.ai-page__badge {
+  display:inline-flex; align-items:center; gap:6px;
   background:linear-gradient(135deg,#4CAF50,#009688); color:#fff;
+  font-size:12px; font-weight:700; padding:6px 16px; border-radius:99px; margin-bottom:16px;
 }
-.plan-panel__info p { font-size:13px; color:var(--c-text-sub); margin-top:6px; }
-.plan-panel__body { padding:32px; display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-.plan-panel__body h4 { font-size:15px; font-weight:700; color:var(--c-text); margin-bottom:16px; display:flex; align-items:center; gap:6px; }
-.plan-panel__body h4::before { content:''; display:inline-block; width:4px; height:18px; background:linear-gradient(180deg,#4CAF50,#009688); border-radius:99px; }
-.plan-feat-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
-.plan-feat-list li {
-  display:flex; align-items:flex-start; gap:10px;
-  font-size:14px; color:var(--c-text-sub); line-height:1.65;
+.ai-page__title {
+  font-size:clamp(24px,3vw,36px); font-weight:800;
+  background:linear-gradient(135deg,#2E7D32,#00897B);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  margin-bottom:8px;
 }
-.plan-feat-list li::before {
-  content:'✓'; color:#4CAF50; font-weight:700; flex-shrink:0; margin-top:1px;
+.ai-page__sub { font-size:14px; color:var(--c-text-sub); }
+.doc-zone {
+  background:var(--c-surface); border-radius:var(--radius-lg);
+  border:2px dashed var(--c-border); padding:48px 32px;
+  text-align:center; min-height:320px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px;
 }
-.plan-spec-table {
-  width:100%; border-collapse:collapse; font-size:13px;
-}
-.plan-spec-table td {
-  padding:10px 0; border-bottom:1px solid var(--c-border);
-  color:var(--c-text-sub); vertical-align:top;
-}
-.plan-spec-table td:first-child { font-weight:600; color:var(--c-text); width:40%; }
-.plan-spec-table tr:last-child td { border-bottom:none; }
-
-/* ── DOC SECTION ── */
-.doc-section { padding:60px 0; background:linear-gradient(135deg,#E8F5E9,#F1F8E9); }
-.doc-section h2 { font-size:24px; font-weight:800; color:var(--c-text); text-align:center; margin-bottom:12px; }
-.doc-section .doc-desc { text-align:center; font-size:14px; color:var(--c-text-sub); margin-bottom:40px; max-width:560px; margin-inline:auto; }
-.doc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-.doc-card {
-  background:var(--c-surface); border-radius:var(--radius-md);
-  border:1px solid var(--c-border); padding:28px 24px;
-  box-shadow:var(--shadow-xs); transition:var(--transition);
-  text-decoration:none; display:block; color:inherit;
-}
-.doc-card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); border-color:#4CAF50; }
-.doc-card__icon { font-size:28px; margin-bottom:12px; }
-.doc-card h4 { font-size:16px; font-weight:700; color:var(--c-text); margin-bottom:8px; }
-.doc-card p { font-size:13px; color:var(--c-text-sub); line-height:1.6; }
-.doc-card__badge {
-  display:inline-block; margin-top:12px; font-size:11px; font-weight:600;
-  color:#2E7D32; background:rgba(76,175,80,.1); padding:4px 10px; border-radius:99px;
-}
-
-/* ── CTA ── */
-.ai-cta { padding:80px 0; text-align:center; background:linear-gradient(160deg, #2E7D32 0%, #00695C 100%); color:#fff; }
-.ai-cta__title { font-size:clamp(24px,3vw,40px); font-weight:800; margin-bottom:14px; }
-.ai-cta__desc { font-size:16px; opacity:.85; max-width:560px; margin:0 auto 32px; line-height:1.7; }
-.ai-cta__btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-.btn--outline-cta {
-  display:inline-flex; align-items:center; gap:8px;
-  padding:12px 28px; border-radius:99px; font-size:15px; font-weight:600;
-  border:2px solid rgba(255,255,255,.4); color:#fff;
-  text-decoration:none; transition:var(--transition);
-}
-.btn--outline-cta:hover { background:rgba(255,255,255,.1); border-color:#fff; }
-
-@media(max-width:900px){
-  .ai-hero__inner{grid-template-columns:1fr;}
-  .ai-hero__visual{max-width:420px;margin:0 auto;}
-  .overview__grid{grid-template-columns:1fr;}
-  .plan-panel__body{grid-template-columns:1fr;}
-  .doc-grid{grid-template-columns:1fr;}
-}
+.doc-zone__icon { font-size:56px; opacity:.6; }
+.doc-zone__text { font-size:15px; color:var(--c-text-pale); line-height:1.8; max-width:480px; }
+.doc-zone__hint { font-size:13px; color:var(--c-text-pale); }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav" id="mainNav">
   <div class="container nav__inner">
     <a href="index.html" class="nav__logo">
       <div class="nav__logo-mark">汇</div>
-      <div>
-        <div class="nav__logo-name">汇特讯</div>
-        <div class="nav__logo-tag">5G数智化融合通信平台</div>
-      </div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
     </a>
     <ul class="nav__links">
       <li><a href="products.html">产品方案</a></li>
       <li><a href="5g-cluster.html">5G集群</a></li>
       <li><a href="ai-travel.html" class="active" style="color:#2E7D32!important;background:rgba(76,175,80,.08)!important;font-weight:700;">AI伴游</a></li>
-      <li>
-        <span>
-          技术支持
-          <svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-        </span>
+      <li><span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
         <div class="nav__dropdown">
           <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
           <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
@@ -199,280 +63,49 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="ai-hero">
+<section class="ai-page">
   <div class="container">
-    <div class="ai-hero__inner">
-      <div class="ai-hero__text">
-        <div class="ai-hero__eyebrow"><span class="ai-hero__dot"></span> 轻量级 · 纯臻版</div>
-        <h1 class="ai-hero__title">AI伴游机 <em>纯臻版</em></h1>
-        <p class="ai-hero__desc">轻量高效、即开即用的AI导览设备。核心功能全覆盖，适合中小规模部署，让智慧文旅触手可及，让每一位旅行者都能享受科技带来的便利。</p>
-        <div class="ai-hero__cta-btns" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="contact.html" class="btn btn--primary btn--lg">立即咨询</a>
-          <a href="#plans" class="btn btn--outline btn--lg">查看套餐</a>
-        </div>
-      </div>
-      <div class="ai-hero__visual">
-        <div class="ai-hero__card">
-          <div class="ai-hero__card-map">
-            <span class="ai-hero__pin">🌿 轻量智慧文旅方案</span>
-          </div>
-          <div class="ai-hero__card-bar"><span></span><span></span><span></span></div>
-        </div>
-      </div>
+    <a href="ai-travel.html" class="ai-page__back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      返回AI伴游
+    </a>
+    <div class="ai-page__head">
+      <span class="ai-page__badge">🌿 AI伴游机（纯臻版）</span>
+      <h1 class="ai-page__title">纯臻版 · 产品文档</h1>
+      <p class="ai-page__sub">此区域用于放置纯臻版产品相关文档、说明与资源</p>
+    </div>
+    <div class="doc-zone">
+      <div class="doc-zone__icon">📄</div>
+      <p class="doc-zone__text">此处为文档放置区域。<br>可添加产品手册、快速入门指南、研学课程对接指南、App使用手册、离线地图包等。</p>
+      <p class="doc-zone__hint">编辑 <code>ai-travel-pure.html</code> 替换此处内容即可</p>
     </div>
   </div>
 </section>
 
-<!-- OVERVIEW -->
-<section class="page-section">
-  <div class="container">
-    <div class="section__head section__head--center" style="margin-bottom:48px;">
-      <div class="section__eyebrow">产品概览</div>
-      <h2 class="section__title">纯臻版 · 三大核心优势</h2>
-    </div>
-    <div class="overview__grid">
-      <div class="overview__card">
-        <div class="overview__card-icon">🍃</div>
-        <h3>轻量高效</h3>
-        <p>核心4大AI能力全覆盖，去除冗余功能，精简而不减配。更低的硬件成本，更高的部署效率。</p>
-      </div>
-      <div class="overview__card">
-        <div class="overview__card-icon">🔋</div>
-        <h3>即开即用</h3>
-        <p>无需复杂配置，开机自动联网激活。超长续航能力，一次充电覆盖全天游览需求。</p>
-      </div>
-      <div class="overview__card">
-        <div class="overview__card-icon">💰</div>
-        <h3>灵活实惠</h3>
-        <p>按天/按次灵活付费，无长期合约束缚。标准管理后台满足日常运营需求，5x8小时标准技术支持。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PLANS -->
-<section class="page-section page-section--alt" id="plans">
-  <div class="container">
-    <div class="section__head section__head--center" style="margin-bottom:48px;">
-      <div class="section__eyebrow">套餐选择</div>
-      <h2 class="section__title">纯臻版 · 三大套餐</h2>
-      <p class="section__desc">从基础伴游到研学教育，灵活适配不同场景和预算</p>
-    </div>
-
-    <!-- Plan 1: Basic -->
-    <div class="plan-panel">
-      <div class="plan-panel__header">
-        <div class="plan-panel__icon">📱</div>
-        <div class="plan-panel__info">
-          <h3>基础伴游套餐</h3>
-          <span class="plan-panel__tag">🌿 入门之选</span>
-          <p>轻量高效，核心功能全覆盖，适合中小规模部署 — 性价比最高的智慧导览方案</p>
-        </div>
-      </div>
-      <div class="plan-panel__body">
-        <div>
-          <h4>功能特性</h4>
-          <ul class="plan-feat-list">
-            <li><strong>核心4大AI能力：</strong>智能导览、多语翻译、路线规划、智能问答</li>
-            <li><strong>4G/5G自适应：</strong>兼容现有4G网络，平滑过渡到5G</li>
-            <li><strong>标准管理后台：</strong>基础设备管理与数据统计功能</li>
-            <li><strong>5x8小时标准支持：</strong>工作日技术响应服务</li>
-            <li><strong>8语种翻译：</strong>覆盖中英日韩法德西俄</li>
-            <li><strong>自动定位导览：</strong>GPS自动触发，走近即讲解</li>
-          </ul>
-        </div>
-        <div>
-          <h4>技术规格</h4>
-          <table class="plan-spec-table">
-            <tr><td>网络制式</td><td>4G LTE 全网通 + 5G就绪</td></tr>
-            <tr><td>定位精度</td><td>GPS单模，精度 &lt; 3m</td></tr>
-            <tr><td>续航能力</td><td>3800mAh，连续使用8小时</td></tr>
-            <tr><td>屏幕规格</td><td>5.5" LCD，720x1440</td></tr>
-            <tr><td>防护等级</td><td>IP65 防溅水</td></tr>
-            <tr><td>适用场景</td><td>中小型景区、博物馆、文旅小镇</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Plan 2: Student -->
-    <div class="plan-panel">
-      <div class="plan-panel__header">
-        <div class="plan-panel__icon">🎒</div>
-        <div class="plan-panel__info">
-          <h3>研学教育套餐</h3>
-          <span class="plan-panel__tag">🎒 教育之选</span>
-          <p>为学校研学和营地教育场景设计的互动学习版本，让知识在行走中生长</p>
-        </div>
-      </div>
-      <div class="plan-panel__body">
-        <div>
-          <h4>功能特性</h4>
-          <ul class="plan-feat-list">
-            <li><strong>知识问答互动：</strong>趣味答题闯关模式，寓教于乐</li>
-            <li><strong>团队任务打卡：</strong>分组任务 + 实时排名，激发学习动力</li>
-            <li><strong>教师管理面板：</strong>学生位置追踪、任务进度、成绩统计</li>
-            <li><strong>内容安全过滤：</strong>青少年过滤模式，绿色健康内容</li>
-            <li><strong>课程定制：</strong>支持研学课程包导入，匹配教学大纲</li>
-            <li><strong>研学报告：</strong>自动生成学生学习报告与知识掌握度分析</li>
-          </ul>
-        </div>
-        <div>
-          <h4>技术规格</h4>
-          <table class="plan-spec-table">
-            <tr><td>网络制式</td><td>4G LTE 全网通</td></tr>
-            <tr><td>安全过滤</td><td>AI内容安全引擎 + 青少年模式</td></tr>
-            <tr><td>管理平台</td><td>教师面板 + 学生管理 + 成绩分析</td></tr>
-            <tr><td>互动模式</td><td>单人闯关 / 团队竞赛 / 教师主导</td></tr>
-            <tr><td>续航能力</td><td>3800mAh，连续使用8小时</td></tr>
-            <tr><td>适用场景</td><td>研学基地、科技馆、自然营地、博物馆</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Plan 3: Lite -->
-    <div class="plan-panel">
-      <div class="plan-panel__header">
-        <div class="plan-panel__icon">🧳</div>
-        <div class="plan-panel__info">
-          <h3>轻量自由行套餐</h3>
-          <span class="plan-panel__tag">🧳 自由之选</span>
-          <p>小巧便携，即开即用，专为个人旅行者和自由行小团打造</p>
-        </div>
-      </div>
-      <div class="plan-panel__body">
-        <div>
-          <h4>功能特性</h4>
-          <ul class="plan-feat-list">
-            <li><strong>即开即用：</strong>无需复杂配置，开机自动联网激活</li>
-            <li><strong>超长续航：</strong>一次充电续航12小时，覆盖全天游览</li>
-            <li><strong>个人账单灵活：</strong>按天/按次付费，无长期合约</li>
-            <li><strong>App远程管理：</strong>手机APP绑定设备，行程同步</li>
-            <li><strong>离线地图：</strong>支持离线地图包下载，无网络也能导航</li>
-            <li><strong>多语种切换：</strong>6语种（中英日韩法西），自由切换</li>
-          </ul>
-        </div>
-        <div>
-          <h4>技术规格</h4>
-          <table class="plan-spec-table">
-            <tr><td>网络制式</td><td>4G LTE 全网通</td></tr>
-            <tr><td>定位方案</td><td>GPS单模 + 离线地图</td></tr>
-            <tr><td>续航能力</td><td>4500mAh，连续使用12小时</td></tr>
-            <tr><td>屏幕规格</td><td>5.0" LCD，便携轻巧</td></tr>
-            <tr><td>计费方式</td><td>按天 / 按次灵活付费</td></tr>
-            <tr><td>适用场景</td><td>自由行旅客、小团旅游、个人探索</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DOCUMENTATION -->
-<section class="doc-section" id="docs">
-  <div class="container">
-    <h2>📄 产品文档 & 资源下载</h2>
-    <p class="doc-desc">以下为纯臻版全系列产品相关文档与资源，点击即可在线查看或下载。如需更多技术支持，请联系我们的技术团队。</p>
-    <div class="doc-grid">
-      <a href="#" class="doc-card">
-        <div class="doc-card__icon">📘</div>
-        <h4>产品手册</h4>
-        <p>纯臻版基础伴游套餐完整产品说明，包含硬件参数、功能列表和使用场景介绍。</p>
-        <span class="doc-card__badge">📥 在线查看</span>
-      </a>
-      <a href="#" class="doc-card">
-        <div class="doc-card__icon">📗</div>
-        <h4>快速入门指南</h4>
-        <p>开箱即用指引，从设备激活到首次导览的全流程图文教程。</p>
-        <span class="doc-card__badge">📥 在线查看</span>
-      </a>
-      <a href="#" class="doc-card">
-        <div class="doc-card__icon">📕</div>
-        <h4>研学课程对接指南</h4>
-        <p>研学教育套餐课程包导入、任务设计和成绩评定的完整操作指南。</p>
-        <span class="doc-card__badge">📥 在线查看</span>
-      </a>
-      <a href="#" class="doc-card">
-        <div class="doc-card__icon">📙</div>
-        <h4>App使用手册</h4>
-        <p>纯臻版手机App绑定、行程同步和远程管理功能的详细操作说明。</p>
-        <span class="doc-card__badge">📥 在线查看</span>
-      </a>
-      <a href="#" class="doc-card">
-        <div class="doc-card__icon">📓</div>
-        <h4>离线地图包</h4>
-        <p>全国主要景区的离线地图数据包下载，支持按区域选择下载。</p>
-        <span class="doc-card__badge">📥 下载资源</span>
-      </a>
-      <a href="#" class="doc-card">
-        <div class="doc-card__icon">📋</div>
-        <h4>部署方案模板</h4>
-        <p>针对中小景区和研学基地的轻量化部署方案与最佳实践。</p>
-        <span class="doc-card__badge">📥 在线查看</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="ai-cta">
-  <div class="container">
-    <h2 class="ai-cta__title">选择纯臻版，轻装上阵，智慧随行</h2>
-    <p class="ai-cta__desc">无论您是中小景区、研学基地还是个人旅行者，纯臻版都能以轻量高效的方式为您带来智慧文旅新体验。</p>
-    <div class="ai-cta__btns">
-      <a href="contact.html" class="btn btn--primary btn--lg">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        立即咨询
-      </a>
-      <a href="ai-travel.html" class="btn--outline-cta">← 返回AI伴游</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer__inner">
       <div class="footer__logo">
         <div class="footer__logo-mark">汇</div>
-        <div>
-          <div class="footer__logo-name">汇特讯</div>
-          <div class="footer__logo-tag">七山创智（北京）科技有限公司</div>
-        </div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
       </div>
       <div class="footer__links">
-        <a href="products.html">产品方案</a>
-        <a href="5g-cluster.html">5G集群</a>
-        <a href="ai-travel.html">AI伴游</a>
-        <a href="support.html">技术支持</a>
-        <a href="docs.html">使用文档</a>
-        <a href="demo.html">功能演示</a>
-        <a href="contact.html">联系我们</a>
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a><a href="ai-travel.html">AI伴游</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a><a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
       </div>
     </div>
-    <div class="footer__bottom">
-      <span>© 2024 七山官网 版权所有</span>
-      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
-    </div>
+    <div class="footer__bottom"><span>© 2024 七山官网 版权所有</span><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a></div>
   </div>
 </footer>
 
 <script>
-const nav=document.getElementById('mainNav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
-
+document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10);
+window.addEventListener('scroll',function(){document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10)});
 document.querySelectorAll('.nav__links > li').forEach(li=>{
-  const trigger = li.querySelector('span');
-  if(!trigger) return;
-  trigger.addEventListener('click', e=>{
-    e.stopPropagation();
-    document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});
-    li.classList.toggle('dropdown-open');
-  });
+  const t=li.querySelector('span');if(!t)return;
+  t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open')});li.classList.toggle('dropdown-open')})
 });
-document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
+document.addEventListener('click',()=>document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open')));
 </script>
 </body>
 </html>
