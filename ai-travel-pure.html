@@ -36,6 +36,24 @@
 .doc-zone__icon { font-size:56px; opacity:.6; }
 .doc-zone__text { font-size:15px; color:var(--c-text-pale); line-height:1.8; max-width:480px; }
 .doc-zone__hint { font-size:13px; color:var(--c-text-pale); }
+.doc-zone__buttons {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px;
+}
+.doc-zone__btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  transition: var(--transition); background: var(--c-surface);
+  border: 1.5px solid var(--c-border); color: var(--c-text);
+}
+.doc-zone__btn:hover {
+  border-color: #2E7D32; color: #2E7D32; box-shadow: var(--shadow-xs);
+}
+.doc-zone__btn--primary {
+  background: linear-gradient(135deg, #2E7D32, #009688);
+  color: #fff; border-color: transparent;
+}
+.doc-zone__btn--primary:hover { opacity: .9; color: #fff; }
 </style>
 </head>
 <body>
@@ -75,9 +93,18 @@
       <p class="ai-page__sub">此区域用于放置纯臻版产品相关文档、说明与资源</p>
     </div>
     <div class="doc-zone">
-      <div class="doc-zone__icon">📄</div>
-      <p class="doc-zone__text">此处为文档放置区域。<br>可添加产品手册、快速入门指南、研学课程对接指南、App使用手册、离线地图包等。</p>
-      <p class="doc-zone__hint">编辑 <code>ai-travel-pure.html</code> 替换此处内容即可</p>
+      <div class="doc-zone__icon">📗</div>
+      <p class="doc-zone__text">纯臻版 快速使用指南<br>涵盖小程序组队、一键讲解、AI问答、对讲等全部功能操作说明</p>
+      <div class="doc-zone__buttons">
+        <a href="ai-travel-pure-guide-zh.html" class="doc-zone__btn doc-zone__btn--primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          中文版
+        </a>
+        <a href="ai-travel-pure-guide-en.html" class="doc-zone__btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          English
+        </a>
+      </div>
     </div>
   </div>
 </section>

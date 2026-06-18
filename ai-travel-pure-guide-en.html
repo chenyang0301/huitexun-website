@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>HtxAi Tour Companion (Pure) Quick Guide · Huitxun</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── Page Layout ── */
+.guide-page {
+  padding: calc(var(--nav-h) + 48px) 0 80px;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #E8F5E9 0%, #E0F2F1 35%, #E3F2FD 100%);
+}
+.guide-page__back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--c-text-sub); text-decoration: none;
+  margin-bottom: 36px; transition: var(--transition);
+}
+.guide-page__back:hover { color: var(--c-primary); }
+
+.guide-page__header {
+  text-align: center; margin-bottom: 52px;
+}
+.guide-page__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #2E7D32, #009688); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;
+}
+.guide-page__title {
+  font-size: clamp(24px, 3.5vw, 40px); font-weight: 800;
+  background: linear-gradient(135deg, #1B5E20, #00695C);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px;
+}
+.guide-page__sub {
+  font-size: 14px; color: var(--c-text-sub);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.guide-page__lang {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 99px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: #2E7D32; text-decoration: none;
+  transition: var(--transition);
+}
+.guide-page__lang:hover { border-color: #009688; background: rgba(0,150,136,.06); }
+
+/* ── Slide Cards ── */
+.guide-slide {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.guide-slide:hover { box-shadow: var(--shadow-lg); }
+.guide-slide__num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, #2E7D32, #009688);
+  color: #fff; font-size: 16px; font-weight: 800;
+  margin: 28px 0 0 28px;
+}
+
+/* Slide 1: Product Overview */
+.guide-slide--overview .guide-slide__body {
+  display: grid; grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px; padding: 32px 40px 44px; align-items: center;
+}
+.guide-slide__device {
+  text-align: center; position: relative;
+}
+.guide-slide__device img {
+  max-width: 100%; height: auto; max-height: 400px;
+  margin: 0 auto;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.12));
+}
+.guide-slide__keys {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.guide-slide__key {
+  background: linear-gradient(135deg, #E8F5E9, #E0F2F1);
+  border: 1px solid rgba(46,125,50,.15);
+  border-radius: var(--radius-md); padding: 16px 18px;
+  text-align: center; transition: var(--transition);
+}
+.guide-slide__key:hover {
+  transform: translateY(-2px);
+  border-color: rgba(46,125,50,.35);
+  box-shadow: 0 4px 12px rgba(46,125,50,.1);
+}
+.guide-slide__key-icon { font-size: 28px; margin-bottom: 6px; }
+.guide-slide__key-title { font-size: 14px; font-weight: 700; color: #1B5E20; margin-bottom: 4px; }
+.guide-slide__key-desc { font-size: 12px; color: var(--c-text-sub); line-height: 1.5; }
+
+.guide-slide__qr {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.guide-slide__qr img {
+  width: 140px; height: 140px; border-radius: var(--radius-md);
+  border: 2px solid var(--c-border);
+}
+.guide-slide__qr-text {
+  font-size: 13px; font-weight: 600; color: #2E7D32; text-align: center;
+  max-width: 200px; line-height: 1.6;
+}
+
+/* Slide 2: Operations */
+.guide-slide--ops .guide-slide__body {
+  padding: 32px 40px 44px;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.guide-slide__op {
+  background: var(--grad-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg); padding: 28px 24px;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.guide-slide__op::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: linear-gradient(180deg, #2E7D32, #009688);
+  border-radius: 0 4px 4px 0;
+}
+.guide-slide__op:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow-sm);
+  border-color: rgba(46,125,50,.25);
+}
+.guide-slide__op-icon { font-size: 32px; margin-bottom: 14px; }
+.guide-slide__op-title {
+  font-size: 18px; font-weight: 800; color: #1B5E20; margin-bottom: 12px;
+}
+.guide-slide__op-steps {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+}
+.guide-slide__op-step {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--c-text-sub); line-height: 1.6;
+}
+.guide-slide__op-step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(46,125,50,.12); color: #2E7D32;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.guide-slide__op-step strong {
+  color: var(--c-text); font-weight: 600;
+}
+
+/* Slide 3: Phone Positioning */
+.guide-slide--phone .guide-slide__body {
+  padding: 32px 40px 44px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  align-items: start;
+}
+.guide-slide__phone-header {
+  font-size: 20px; font-weight: 800; color: #2E7D32; margin-bottom: 16px;
+}
+.guide-slide__phone-desc {
+  font-size: 14px; color: var(--c-text-sub); line-height: 1.8; margin-bottom: 20px;
+}
+.guide-slide__phone-notice {
+  background: linear-gradient(135deg, #E8F5E9, #E0F2F1);
+  border: 1px solid rgba(46,125,50,.2);
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  font-size: 13px; color: #2E7D32; font-weight: 600; line-height: 1.7;
+}
+.guide-slide__phone-imgs {
+  display: flex; justify-content: center;
+}
+.guide-slide__phone-img img {
+  width: 100%; max-width: 520px; border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm); border: 1px solid var(--c-border);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .guide-slide--overview .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide__qr img { width: 120px; height: 120px; }
+}
+@media (max-width: 700px) {
+  .guide-slide--ops .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide--phone .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide__keys { grid-template-columns: 1fr 1fr; }
+  .guide-slide__body { padding: 24px 20px 32px !important; }
+  .guide-slide__num { margin: 20px 0 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li><a href="ai-travel.html" class="active" style="color:#2E7D32!important;background:#2E7D3210!important;font-weight:700;">AI伴游</a></li>
+      <li><span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<section class="guide-page">
+  <div class="container">
+    <a href="ai-travel.html" class="guide-page__back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to AI Tour
+    </a>
+
+    <div class="guide-page__header">
+      <span class="guide-page__badge">🌿 Pure Edition · Quick Guide</span>
+      <h1 class="guide-page__title">HtxAi Tour Companion (Pure)<br>Quick Guide</h1>
+      <div class="guide-page__sub">
+        <span>Get started in 3 steps</span>
+        <span style="color:var(--c-border);">|</span>
+        <a href="ai-travel-pure-guide-zh.html" class="guide-page__lang">🌐 查看中文版</a>
+      </div>
+    </div>
+
+    <!-- Slide 1: Product Overview -->
+    <div class="guide-slide guide-slide--overview">
+      <div class="guide-slide__num">01</div>
+      <div class="guide-slide__body">
+        <div class="guide-slide__device">
+          <img src="img/pure/en-device.png" alt="HtxAi Tour Companion Pure"/>
+        </div>
+        <div>
+          <div class="guide-slide__keys">
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🔊</div>
+              <div class="guide-slide__key-title">Vol+ Key</div>
+              <div class="guide-slide__key-desc">Increase volume</div>
+            </div>
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🎤</div>
+              <div class="guide-slide__key-title">PTT Key</div>
+              <div class="guide-slide__key-desc">One-click commentary / PTT</div>
+            </div>
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🔘</div>
+              <div class="guide-slide__key-title">Power Key</div>
+              <div class="guide-slide__key-desc">Power on/off / Stop commentary & AI</div>
+            </div>
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🎙️</div>
+              <div class="guide-slide__key-title">Vol- Key</div>
+              <div class="guide-slide__key-desc">Decrease volume / AI Q&A voice input</div>
+            </div>
+            <div class="guide-slide__key" style="grid-column:1/-1;">
+              <div class="guide-slide__key-icon">🎧</div>
+              <div class="guide-slide__key-title">Headset PTT Key</div>
+              <div class="guide-slide__key-desc">PTT button when using headset</div>
+            </div>
+          </div>
+          <div style="margin-top:16px; text-align:center;">
+            <div class="guide-slide__qr">
+              <img src="img/pure/en-qr.jpg" alt="Scan WeChat QR Code"/>
+              <span class="guide-slide__qr-text">Scan WeChat QR Code to add<br>"HtxAi Tour Companion" Mini Program</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Button Operations -->
+    <div class="guide-slide guide-slide--ops">
+      <div class="guide-slide__num">02</div>
+      <div class="guide-slide__body">
+        <!-- Group Up -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">👥</div>
+          <div class="guide-slide__op-title">Group Up</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>Open "HtxAi Tour Companion" Mini Program</strong>, go to the <strong>"Group"</strong> page</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span>Scan the <strong>"Device QR Code"</strong> to team up</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- One-click Commentary -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎙️</div>
+          <div class="guide-slide__op-title">One-click Commentary</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>Single-click PTT Key</strong> for commentary on nearby attractions</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>Single-click Power Key</strong> to stop commentary</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- AI Q&A -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🤖</div>
+          <div class="guide-slide__op-title">AI Q&A</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>Hold Vol- Key</strong> for voice query, <strong>release</strong> to get reply</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>Single-click Power Key</strong> to stop voice reply</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- PTT -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎤</div>
+          <div class="guide-slide__op-title">PTT</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>Hold PTT Key</strong> to speak to team members</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>Release PTT Key</strong> to listen to them</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Phone-assisted Positioning -->
+    <div class="guide-slide guide-slide--phone">
+      <div class="guide-slide__num">03</div>
+      <div class="guide-slide__body">
+        <div>
+          <div class="guide-slide__phone-header">Improve Experience</div>
+          <div class="guide-slide__phone-desc">
+            Tap <strong>Device Details</strong> in WeChat Mini Program, enable <strong>Phone-assisted Positioning</strong> for higher positioning accuracy and extended battery life.
+          </div>
+          <div class="guide-slide__phone-notice">
+            ⚠️ Notice: Keep the paired device and phone with you, and stay logged in to WeChat while using
+          </div>
+        </div>
+        <div class="guide-slide__phone-imgs">
+          <div class="guide-slide__phone-img">
+            <img src="img/pure/en-wx1.png" alt="Phone-assisted Positioning Steps"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a><a href="ai-travel.html">AI伴游</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a><a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 七山官网 版权所有</span><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10);
+window.addEventListener('scroll',function(){document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10)});
+document.querySelectorAll('.nav__links > li').forEach(li=>{
+  const t=li.querySelector('span');if(!t)return;
+  t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open')});li.classList.toggle('dropdown-open')})
+});
+document.addEventListener('click',()=>document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open')));
+</script>
+</body>
+</html>
