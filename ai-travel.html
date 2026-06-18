@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AI伴游 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── HERO ── */
+.ai-hero {
+  padding: calc(var(--nav-h) + 72px) 0 80px;
+  background: linear-gradient(160deg, #E8F5E9 0%, #E3F2FD 40%, #F3E5F5 100%);
+  position: relative; overflow: hidden;
+}
+.ai-hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 500px 400px at 80% 30%, rgba(76,175,80,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 400px 300px at 20% 70%, rgba(21,101,192,.08) 0%, transparent 55%),
+    radial-gradient(ellipse 300px 250px at 60% 80%, rgba(156,39,176,.06) 0%, transparent 55%);
+  pointer-events:none;
+}
+.ai-hero::after {
+  content:'';
+  position:absolute; right:-120px; top:-60px;
+  width:520px; height:520px;
+  background-image:
+    radial-gradient(circle, rgba(76,175,80,.04) 1px, transparent 1px);
+  background-size:48px 48px;
+  border-radius:50%; transform:rotate(-15deg);
+  pointer-events:none;
+}
+.ai-hero__inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:56px; align-items:center;
+  position:relative; z-index:1;
+}
+.ai-hero__eyebrow {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(76,175,80,.12); color:#2E7D32;
+  font-size:12px; font-weight:700;
+  padding:5px 14px; border-radius:99px;
+  border:1px solid rgba(76,175,80,.2);
+  margin-bottom:20px;
+}
+.ai-hero__dot {
+  width:7px; height:7px; border-radius:50%;
+  background:#4CAF50;
+  animation:blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+.ai-hero__title {
+  font-size:clamp(28px,4vw,48px);
+  font-weight:800; line-height:1.2;
+  color:var(--c-text); margin-bottom:18px;
+}
+.ai-hero__title em {
+  font-style:normal;
+  background:linear-gradient(135deg, #2E7D32, #1565C0);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.ai-hero__desc {
+  font-size:16px; color:var(--c-text-sub);
+  line-height:1.85; margin-bottom:36px;
+  max-width:460px;
+}
+
+/* hero visual */
+.ai-hero__visual { position:relative; }
+.ai-hero__card {
+  background:var(--c-surface);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--c-border);
+  box-shadow:var(--shadow-lg);
+  padding:20px;
+}
+.ai-hero__card-map {
+  background:linear-gradient(135deg, #E8F5E9, #E3F2FD);
+  border-radius:var(--radius-sm);
+  padding:28px 20px;
+  text-align:center;
+  position:relative; overflow:hidden;
+  margin-bottom:16px;
+}
+.ai-hero__card-map::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(76,175,80,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(76,175,80,.08) 1px, transparent 1px);
+  background-size:36px 36px;
+  pointer-events:none;
+}
+.ai-hero__pin {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--c-surface);
+  border-radius:99px;
+  padding:6px 14px;
+  font-size:13px; font-weight:600; color:var(--c-text);
+  box-shadow:var(--shadow-sm);
+  position:relative; z-index:1;
+}
+.ai-hero__pin-dot {
+  width:10px; height:10px; border-radius:50%;
+  background:#4CAF50;
+  animation:blink 2s infinite;
+}
+.ai-hero__info-row {
+  display:flex; gap:10px;
+}
+.ai-hero__info-item {
+  flex:1;
+  background:var(--grad-card);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  text-align:center;
+}
+.ai-hero__info-num {
+  font-size:22px; font-weight:800;
+  background:linear-gradient(135deg,#2E7D32,#1565C0);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+}
+.ai-hero__info-lbl { font-size:11px; color:var(--c-text-pale); margin-top:3px; }
+.ai-hero__float {
+  position:absolute; bottom:-14px; right:-14px;
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-sm);
+  padding:10px 16px;
+  box-shadow:var(--shadow-md);
+  display:flex; align-items:center; gap:7px;
+  font-size:12.5px; font-weight:600; color:#2E7D32;
+}
+
+/* ── FEATURES GRID ── */
+.ai-features { background:var(--c-surface); }
+.ai-features__grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.ai-feat-card {
+  background:var(--grad-card);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  padding:32px 26px;
+  text-align:center;
+  transition:all var(--transition);
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+}
+.ai-feat-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(135deg,#4CAF50,#29B6F6);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform var(--transition);
+}
+.ai-feat-card:hover {
+  transform:translateY(-5px);
+  box-shadow:var(--shadow-md);
+  border-color:rgba(76,175,80,.25);
+}
+.ai-feat-card:hover::before { transform:scaleX(1); }
+.ai-feat-card__icon {
+  width:64px; height:64px; border-radius:18px;
+  background:linear-gradient(135deg, rgba(76,175,80,.12), rgba(41,182,246,.12));
+  display:flex; align-items:center; justify-content:center;
+  font-size:30px;
+}
+.ai-feat-card__title { font-size:18px; font-weight:800; color:var(--c-text); }
+.ai-feat-card__desc { font-size:13.5px; color:var(--c-text-sub); line-height:1.8; }
+
+/* ── SCENARIOS ── */
+.ai-scenarios { background:linear-gradient(135deg,#E8F5E9,#E3F2FD); }
+.ai-scenarios__grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+}
+.ai-scene-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-lg);
+  padding:32px 28px;
+  display:flex; gap:18px;
+  transition:all var(--transition);
+}
+.ai-scene-card:hover {
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-md);
+  border-color:rgba(76,175,80,.2);
+}
+.ai-scene-card__icon {
+  width:52px; height:52px; border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,rgba(76,175,80,.12),rgba(41,182,246,.12));
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px; flex-shrink:0;
+}
+.ai-scene-card__title { font-size:17px; font-weight:700; color:var(--c-text); margin-bottom:6px; }
+.ai-scene-card__desc { font-size:13.5px; color:var(--c-text-sub); line-height:1.75; }
+
+/* ── ADVANTAGE COMPARE ── */
+.ai-advantages { background:var(--c-surface); }
+.ai-compare {
+  display:grid;
+  grid-template-columns:1fr 60px 1fr;
+  gap:0; align-items:start;
+}
+.ai-compare__col {
+  padding:28px;
+  border-radius:var(--radius-lg);
+}
+.ai-compare__col--old {
+  background:linear-gradient(135deg,#FAFAFA,#F5F5F5);
+  border:1px solid #E0E0E0;
+}
+.ai-compare__col--new {
+  background:linear-gradient(135deg,#E8F5E9,#E3F2FD);
+  border:1px solid rgba(76,175,80,.2);
+}
+.ai-compare__title {
+  font-size:20px; font-weight:800;
+  margin-bottom:20px; padding-bottom:12px;
+}
+.ai-compare__col--old .ai-compare__title { color:#9E9E9E; border-bottom:2px solid #E0E0E0; }
+.ai-compare__col--new .ai-compare__title {
+  background:linear-gradient(135deg,#2E7D32,#1565C0);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  border-bottom:2px solid rgba(76,175,80,.3);
+}
+.ai-compare__item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:10px 0;
+  font-size:14px; line-height:1.6;
+}
+.ai-compare__col--old .ai-compare__item { color:#9E9E9E; }
+.ai-compare__col--new .ai-compare__item { color:var(--c-text); }
+.ai-compare__check { flex-shrink:0; margin-top:3px; }
+.ai-compare__vs {
+  display:flex; align-items:center; justify-content:center;
+  padding-top:60px;
+}
+.ai-compare__vs-badge {
+  width:56px; height:56px;
+  background:var(--grad-btn);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:15px; font-weight:900;
+  box-shadow:var(--shadow-md);
+  letter-spacing:1px;
+}
+
+/* ── CTA SECTION ── */
+.ai-cta {
+  background:linear-gradient(160deg,#0D3B7A 0%,#1565C0 50%,#2E7D32 100%);
+  padding:64px 0;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.ai-cta::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 400px 300px at 20% 50%, rgba(76,175,80,.15) 0%, transparent 60%),
+    radial-gradient(ellipse 300px 250px at 80% 30%, rgba(41,182,246,.1) 0%, transparent 55%);
+  pointer-events:none;
+}
+.ai-cta__title {
+  font-size:clamp(24px,3.5vw,36px);
+  font-weight:800; color:#fff;
+  margin-bottom:12px;
+  position:relative; z-index:1;
+}
+.ai-cta__desc {
+  font-size:15px; color:rgba(255,255,255,.7);
+  max-width:500px; margin:0 auto 32px;
+  line-height:1.8;
+  position:relative; z-index:1;
+}
+.ai-cta__btns {
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  position:relative; z-index:1;
+}
+.ai-cta__btns .btn--outline {
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  border:1.5px solid rgba(255,255,255,.3);
+}
+.ai-cta__btns .btn--outline:hover { background:rgba(255,255,255,.18); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .ai-hero__inner{grid-template-columns:1fr;}
+  .ai-hero__visual{max-width:400px;margin:0 auto;}
+  .ai-features__grid{grid-template-columns:1fr 1fr;}
+  .ai-scenarios__grid{grid-template-columns:1fr;}
+  .ai-compare{grid-template-columns:1fr;}
+  .ai-compare__vs{padding-top:0;padding-bottom:16px;}
+  .ai-compare__vs-badge{width:44px;height:44px;font-size:13px;}
+}
+@media(max-width:600px){
+  .ai-features__grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div>
+        <div class="nav__logo-name">汇特讯</div>
+        <div class="nav__logo-tag">5G数智化融合通信平台</div>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li><a href="ai-travel.html" class="active" style="color:var(--c-primary)!important;background:rgba(76,175,80,.08)!important;font-weight:700;">AI伴游</a></li>
+      <li>
+        <span>
+          技术支持
+          <svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="ai-hero">
+  <div class="container ai-hero__inner">
+    <div>
+      <div class="ai-hero__eyebrow">
+        <span class="ai-hero__dot"></span>AI · 5G · 智慧文旅
+      </div>
+      <h1 class="ai-hero__title">
+        <em>AI 伴游</em><br>智慧出行新体验
+      </h1>
+      <p class="ai-hero__desc">
+        汇特讯 AI 伴游深度融合 5G 通信与人工智能技术，为文旅景区、城市导览、团体出行等场景提供智能导览、实时翻译、路线规划与安全保障的一站式智慧伴游服务。
+      </p>
+      <div class="hero__btns">
+        <a href="contact.html" class="btn btn--primary btn--lg">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          预约演示
+        </a>
+        <a href="#features" class="btn btn--outline btn--lg">探索功能</a>
+      </div>
+    </div>
+    <div class="ai-hero__visual">
+      <div style="position:relative;">
+        <div class="ai-hero__card">
+          <div class="ai-hero__card-map">
+            <div class="ai-hero__pin">
+              <span class="ai-hero__pin-dot"></span>故宫博物院 · 太和殿
+            </div>
+            <div style="display:flex;justify-content:center;gap:40px;margin-top:16px;">
+              <div style="text-align:center;">
+                <div style="font-size:11px;color:var(--c-text-pale);">距您</div>
+                <div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#2E7D32,#1565C0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">120m</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:11px;color:var(--c-text-pale);">游览人数</div>
+                <div style="font-size:20px;font-weight:800;background:linear-gradient(135deg,#2E7D32,#1565C0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">2.3k</div>
+              </div>
+            </div>
+          </div>
+          <div class="ai-hero__info-row">
+            <div class="ai-hero__info-item">
+              <div class="ai-hero__info-num">12</div>
+              <div class="ai-hero__info-lbl">语种实时翻译</div>
+            </div>
+            <div class="ai-hero__info-item">
+              <div class="ai-hero__info-num">5G</div>
+              <div class="ai-hero__info-lbl">超低延迟响应</div>
+            </div>
+            <div class="ai-hero__info-item">
+              <div class="ai-hero__info-num">24h</div>
+              <div class="ai-hero__info-lbl">全天候在线</div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-hero__float">🟢 服务在线 · 即时响应</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="ai-features" id="features">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">核心能力</div>
+      <h2 class="section__title">六大 AI 智能能力，重塑出行体验</h2>
+      <p class="section__desc">融合5G高带宽低延迟与AI大模型，为每一位旅行者打造专属智能伴游服务。</p>
+    </div>
+    <div class="ai-features__grid">
+      <div class="ai-feat-card">
+        <div class="ai-feat-card__icon">🧭</div>
+        <div class="ai-feat-card__title">AI 智能导览</div>
+        <p class="ai-feat-card__desc">基于位置的自动语音讲解，到达景点自动触发，深度讲述历史人文故事，媲美真人导游。</p>
+      </div>
+      <div class="ai-feat-card">
+        <div class="ai-feat-card__icon">🌐</div>
+        <div class="ai-feat-card__title">实时多语翻译</div>
+        <p class="ai-feat-card__desc">支持12种语言实时双向翻译，语音对话毫秒级响应，打破语言壁垒，畅行无国界。</p>
+      </div>
+      <div class="ai-feat-card">
+        <div class="ai-feat-card__icon">🗺️</div>
+        <div class="ai-feat-card__title">智能路线规划</div>
+        <p class="ai-feat-card__desc">AI分析实时客流、天气与个人偏好，动态生成最优游览路线，避开拥堵，高效畅游。</p>
+      </div>
+      <div class="ai-feat-card">
+        <div class="ai-feat-card__icon">👁️</div>
+        <div class="ai-feat-card__title">AR 实景导航</div>
+        <p class="ai-feat-card__desc">摄像头对准建筑即可识别地标，叠加历史原貌与信息标签，虚实融合的沉浸式导航体验。</p>
+      </div>
+      <div class="ai-feat-card">
+        <div class="ai-feat-card__icon">👥</div>
+        <div class="ai-feat-card__title">团队协同伴游</div>
+        <p class="ai-feat-card__desc">基于5G集群通信，支持旅行团成员实时位置共享、群组对讲与一键集结，杜绝走散。</p>
+      </div>
+      <div class="ai-feat-card">
+        <div class="ai-feat-card__icon">🆘</div>
+        <div class="ai-feat-card__title">智能安全保障</div>
+        <p class="ai-feat-card__desc">一键SOS紧急联络、电子围栏预警、异常行为检测，AI主动守护每一位游客的安全。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="ai-scenarios">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">应用场景</div>
+      <h2 class="section__title">多场景覆盖，智慧文旅无处不在</h2>
+      <p class="section__desc">从名胜古迹到现代都市，从个人自由行到团队研学，AI伴游适配各类出行场景。</p>
+    </div>
+    <div class="ai-scenarios__grid">
+      <div class="ai-scene-card">
+        <div class="ai-scene-card__icon">🏛️</div>
+        <div>
+          <div class="ai-scene-card__title">文博景区智能导览</div>
+          <p class="ai-scene-card__desc">博物馆、历史遗址等场景中，AI自动识别展品并推送多媒体讲解，支持多语种切换，提升游客文化体验。景区管理方可实时监控客流密度，智能分流。</p>
+        </div>
+      </div>
+      <div class="ai-scene-card">
+        <div class="ai-scene-card__icon">🏙️</div>
+        <div>
+          <div class="ai-scene-card__title">城市智慧观光</div>
+          <p class="ai-scene-card__desc">覆盖城市地标、商业街区与特色路线，AI推荐个性化打卡点，结合公共交通实时数据，提供从A到B的最佳出行方案。</p>
+        </div>
+      </div>
+      <div class="ai-scene-card">
+        <div class="ai-scene-card__icon">🎒</div>
+        <div>
+          <div class="ai-scene-card__title">研学旅行·团建出行</div>
+          <p class="ai-scene-card__desc">面向学校研学、企业团建等团体场景，提供领队管理面板、成员位置追踪、任务打卡与知识问答互动，寓教于乐。</p>
+        </div>
+      </div>
+      <div class="ai-scene-card">
+        <div class="ai-scene-card__icon">🌍</div>
+        <div>
+          <div class="ai-scene-card__title">国际入境游服务</div>
+          <p class="ai-scene-card__desc">为海外游客提供母语导览、实时翻译与本地化服务推荐，解决语言不通、信息不对称的痛点，助力入境旅游复苏。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="ai-advantages">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">为什么选择AI伴游</div>
+      <h2 class="section__title">传统导览 vs AI伴游</h2>
+      <p class="section__desc">从"听"到"交互"，从"跟随"到"智能"，AI伴游重新定义出行体验。</p>
+    </div>
+    <div class="ai-compare">
+      <div class="ai-compare__col ai-compare__col--old">
+        <div class="ai-compare__title">传统导览方式</div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check">✕</span>
+          <span>固定路线，无法根据实时情况调整</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check">✕</span>
+          <span>依赖人工导游，旺季供不应求</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check">✕</span>
+          <span>语言单一，无法服务国际游客</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check">✕</span>
+          <span>团队出行易走散，管理困难</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check">✕</span>
+          <span>紧急情况缺乏快速响应机制</span>
+        </div>
+      </div>
+      <div class="ai-compare__vs">
+        <div class="ai-compare__vs-badge">VS</div>
+      </div>
+      <div class="ai-compare__col ai-compare__col--new">
+        <div class="ai-compare__title">汇特讯 AI伴游</div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check" style="color:#4CAF50;">✓</span>
+          <span>AI实时分析客流天气，动态调整路线</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check" style="color:#4CAF50;">✓</span>
+          <span>7x24小时在线，无限并发，永不疲劳</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check" style="color:#4CAF50;">✓</span>
+          <span>12语种实时翻译，服务全球游客</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check" style="color:#4CAF50;">✓</span>
+          <span>5G集群定位+群组对讲，团队零走散</span>
+        </div>
+        <div class="ai-compare__item">
+          <span class="ai-compare__check" style="color:#4CAF50;">✓</span>
+          <span>一键SOS + 电子围栏，主动安全守护</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ai-cta">
+  <div class="container">
+    <h2 class="ai-cta__title">开启智慧文旅新时代</h2>
+    <p class="ai-cta__desc">汇特讯 AI 伴游 — 以 5G + AI 之力，让每一次出行都安全、高效、充满惊喜。</p>
+    <div class="ai-cta__btns">
+      <a href="contact.html" class="btn btn--primary btn--lg">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        立即咨询
+      </a>
+      <a href="demo.html" class="btn btn--outline btn--lg">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        观看演示
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div>
+          <div class="footer__logo-name">汇特讯</div>
+          <div class="footer__logo-tag">七山创智（北京）科技有限公司</div>
+        </div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a>
+        <a href="5g-cluster.html">5G集群</a>
+        <a href="ai-travel.html">AI伴游</a>
+        <a href="support.html">技术支持</a>
+        <a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a>
+        <a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+
+// 技术支持下拉菜单 - 点击触发
+document.querySelectorAll('.nav__links > li').forEach(li=>{
+  const trigger = li.querySelector('span');
+  if(!trigger) return;
+  trigger.addEventListener('click', e=>{
+    e.stopPropagation();
+    document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});
+    li.classList.toggle('dropdown-open');
+  });
+});
+document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
+</script>
+</body>
+</html>
