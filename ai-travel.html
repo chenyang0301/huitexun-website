@@ -734,6 +734,115 @@
   </div>
 </section>
 
+<!-- QUICK START GUIDES -->
+<style>
+.ai-guides { background:var(--c-surface); }
+.ai-guides__grid {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:24px;
+}
+.ai-guide-card {
+  background:var(--grad-card); border:1px solid var(--c-border);
+  border-radius:var(--radius-lg); overflow:hidden;
+  transition:all var(--transition); display:flex; flex-direction:column;
+}
+.ai-guide-card:hover {
+  transform:translateY(-4px); box-shadow:var(--shadow-lg);
+}
+.ai-guide-card__top {
+  padding:32px 28px 20px; display:flex; align-items:flex-start; gap:16px;
+  flex:1;
+}
+.ai-guide-card__icon {
+  width:56px; height:56px; border-radius:var(--radius-sm);
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px; flex-shrink:0;
+}
+.ai-guide-card__icon--premium {
+  background:linear-gradient(135deg,rgba(255,152,0,.15),rgba(244,67,54,.1));
+}
+.ai-guide-card__icon--pure {
+  background:linear-gradient(135deg,rgba(76,175,80,.15),rgba(0,150,136,.1));
+}
+.ai-guide-card__title {
+  font-size:17px; font-weight:800; color:var(--c-text); margin-bottom:4px;
+}
+.ai-guide-card__desc {
+  font-size:13px; color:var(--c-text-sub); line-height:1.6; margin-bottom:6px;
+}
+.ai-guide-card__meta {
+  display:flex; gap:12px; font-size:11px; color:var(--c-text-pale);
+}
+.ai-guide-card__meta span { display:flex; align-items:center; gap:4px; }
+.ai-guide-card__action {
+  display:flex; border-top:1px solid var(--c-border);
+}
+.ai-guide-card__btn {
+  flex:1; padding:14px 0; text-align:center;
+  font-size:13px; font-weight:700; text-decoration:none;
+  transition:all var(--transition);
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.ai-guide-card__btn--premium {
+  color:#E65100; background:linear-gradient(135deg,rgba(255,152,0,.04),rgba(244,67,54,.02));
+}
+.ai-guide-card__btn--premium:hover { background:linear-gradient(135deg,#FF9800,#F44336); color:#fff; }
+.ai-guide-card__btn--pure {
+  color:#2E7D32; background:linear-gradient(135deg,rgba(76,175,80,.04),rgba(0,150,136,.02));
+}
+.ai-guide-card__btn--pure:hover { background:linear-gradient(135deg,#4CAF50,#009688); color:#fff; }
+@media(max-width:640px){
+  .ai-guides__grid{grid-template-columns:1fr;}
+}
+</style>
+
+<section class="ai-guides">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <div class="section__eyebrow">快速使用指南</div>
+      <h2 class="section__title">在线文档 · 快速上手</h2>
+      <p class="section__desc">点击下方卡片，在线浏览完整的快速使用指南，含中文与英文版本。</p>
+    </div>
+    <div class="ai-guides__grid">
+      <div class="ai-guide-card">
+        <div class="ai-guide-card__top">
+          <div class="ai-guide-card__icon ai-guide-card__icon--premium">📘</div>
+          <div>
+            <div class="ai-guide-card__title">至臻版 快速使用指南</div>
+            <p class="ai-guide-card__desc">涵盖组队、一键讲解、AI问答、对讲等全部功能操作说明，含中/英文双语版本。</p>
+            <div class="ai-guide-card__meta">
+              <span>📄 6页</span><span>🌐 中/EN</span>
+            </div>
+          </div>
+        </div>
+        <div class="ai-guide-card__action">
+          <a href="ai-travel-premium-guide.html" class="ai-guide-card__btn ai-guide-card__btn--premium">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            在线观看
+          </a>
+        </div>
+      </div>
+      <div class="ai-guide-card">
+        <div class="ai-guide-card__top">
+          <div class="ai-guide-card__icon ai-guide-card__icon--pure">📗</div>
+          <div>
+            <div class="ai-guide-card__title">纯臻版 快速使用指南</div>
+            <p class="ai-guide-card__desc">涵盖小程序组队、一键讲解、AI问答、对讲等全部功能操作说明，含中/英文双语版本。</p>
+            <div class="ai-guide-card__meta">
+              <span>📄 6页</span><span>🌐 中/EN</span>
+            </div>
+          </div>
+        </div>
+        <div class="ai-guide-card__action">
+          <a href="ai-travel-pure-guide.html" class="ai-guide-card__btn ai-guide-card__btn--pure">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            在线观看
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <section class="ai-features" id="features">
   <div class="container">

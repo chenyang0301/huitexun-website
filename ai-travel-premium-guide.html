@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>至臻版 快速使用指南 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+:root {
+  --guide-primary: #E65100;
+  --guide-secondary: #C62828;
+  --guide-bg: #f8f9fb;
+}
+.guide-page { padding: calc(var(--nav-h) + 32px) 0 40px; min-height:100vh; background:var(--guide-bg); }
+.guide-page__back {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:13px; color:var(--c-text-sub); text-decoration:none;
+  margin-bottom:20px; transition:var(--transition);
+}
+.guide-page__back:hover { color:var(--guide-primary); }
+.guide-top {
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  margin-bottom:24px; flex-wrap:wrap;
+}
+.guide-top__badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:linear-gradient(135deg,#E65100,#C62828);
+  color:#fff; font-size:12px; font-weight:700;
+  padding:6px 16px; border-radius:99px;
+}
+.guide-top__counter { font-size:13px; color:var(--c-text-sub); font-weight:600; }
+.guide-viewer {
+  position:relative; background:#fff; border-radius:var(--radius-lg);
+  box-shadow:0 4px 24px rgba(0,0,0,.06); overflow:hidden;
+  margin-bottom:20px;
+}
+.guide-viewer__slide {
+  display:none; padding:48px 40px; min-height:520px;
+  animation:fadeSlide .35s ease;
+}
+.guide-viewer__slide--active { display:block; }
+@keyframes fadeSlide {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.guide-cover {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; text-align:center; min-height:480px;
+  background:linear-gradient(160deg,#E6510008,#C6282810);
+}
+.guide-cover__title {
+  font-size:clamp(24px,3vw,36px); font-weight:800; line-height:1.3;
+  background:linear-gradient(135deg,#E65100,#C62828);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  margin-bottom:8px;
+}
+.guide-cover__sub { font-size:15px; color:var(--c-text-sub); margin-top:4px; }
+.guide-cover__img { max-width:320px; margin-top:24px; border-radius:12px; }
+.guide-content { max-width:720px; margin:0 auto; }
+.guide-content__section { margin-bottom:28px; }
+.guide-content__heading {
+  font-weight:800; margin-bottom:10px; padding-bottom:6px;
+  border-bottom:3px solid #E65100; display:inline-block;
+}
+.guide-content__item {
+  position:relative; padding:8px 0 8px 20px; line-height:1.7;
+  color:var(--c-text);
+}
+.guide-content__item::before {
+  content:""; position:absolute; left:0; top:16px;
+  width:6px; height:6px; border-radius:50%;
+  background:#E65100;
+}
+.guide-content__note {
+  margin-top:20px; padding:14px 18px; border-radius:10px;
+  background:#E651000D; border-left:3px solid #E65100;
+  font-size:14px; line-height:1.7; color:#555;
+}
+.guide-nav {
+  display:flex; align-items:center; justify-content:center; gap:12px;
+}
+.guide-nav__btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:50%;
+  border:1.5px solid var(--c-border); background:#fff;
+  cursor:pointer; transition:var(--transition);
+  color:var(--c-text);
+}
+.guide-nav__btn:hover { border-color:#E65100; color:#E65100; background:#E6510008; }
+.guide-nav__btn:disabled { opacity:.35; cursor:not-allowed; }
+.guide-nav__dots { display:flex; gap:6px; }
+.guide-nav__dot {
+  width:8px; height:8px; border-radius:50%; background:var(--c-border);
+  transition:var(--transition); cursor:pointer;
+}
+.guide-nav__dot--active { background:#E65100; transform:scale(1.3); }
+.guide-nav__lang-toggle {
+  margin-left:auto; font-size:12px; padding:6px 12px; border-radius:99px;
+  border:1px solid var(--c-border); background:#fff; cursor:pointer;
+  color:var(--c-text-sub); transition:var(--transition);
+}
+.guide-nav__lang-toggle:hover { border-color:#E65100; color:#E65100; }
+@media (max-width:640px) {
+  .guide-viewer__slide { padding:28px 20px; min-height:400px; }
+  .guide-nav__btn { width:36px; height:36px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li><a href="ai-travel.html" class="active" style="color:#E65100!important;background:#E6510010!important;font-weight:700;">AI伴游</a></li>
+      <li><span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<section class="guide-page">
+  <div class="container">
+    <a href="ai-travel.html" class="guide-page__back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      返回AI伴游
+    </a>
+    <div class="guide-top">
+      <span class="guide-top__badge">✨ AI伴游机（至臻版）</span>
+      <span class="guide-top__counter" id="slideCounter">1 / 6</span>
+    </div>
+    <div class="guide-viewer" id="slideViewer"></div>
+    <div class="guide-nav" id="slideNav">
+      <button class="guide-nav__btn" id="btnPrev" title="上一页">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="guide-nav__dots" id="slideDots"></div>
+      <button class="guide-nav__btn" id="btnNext" title="下一页">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button class="guide-nav__lang-toggle" id="btnLang">中/EN</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a><a href="ai-travel.html">AI伴游</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a><a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 七山官网 版权所有</span><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a></div>
+  </div>
+</footer>
+
+<script>
+var slidesData = [[{"x": 3.3, "y": 0.7, "w": 6.9, "h": 2.3, "paras": [{"runs": [{"t": "讯脉", "s": 44, "b": true, "c": "FF0000"}, {"t": "AI", "s": 44, "b": true, "c": "FF0000"}, {"t": "伴游机 （至臻版） 快速使用指南", "s": 44, "b": true, "c": "FF0000"}]}]}], [{"x": 1.0, "y": 1.0, "w": 11.7, "h": 11.6, "paras": [{"runs": [{"t": "组队", "s": 36, "b": true}]}, {"runs": [{"t": " ", "s": 28}, {"t": "长按", "s": 28}, {"t": "“", "s": 28}, {"t": "组队键", "s": 28}, {"t": "”", "s": 28}, {"t": "发起组队；单击", "s": 28}, {"t": "“", "s": 28}, {"t": "组队键", "s": 28}, {"t": "”", "s": 28}, {"t": "停止组队", "s": 28}]}, {"runs": [{"t": " ", "s": 28}, {"t": "双击", "s": 28}, {"t": "“", "s": 28}, {"t": "组队键", "s": 28}, {"t": "”", "s": 28}, {"t": "搜索群组；单击", "s": 28}, {"t": "“", "s": 28}, {"t": "组队键", "s": 28}, {"t": "”", "s": 28}, {"t": "加入群组", "s": 28}]}, {"runs": [{"t": "一键讲解", "s": 36, "b": true}]}, {"runs": [{"t": " ", "s": 28}, {"t": "单击“对讲键”发起一键讲解当前所在位置附近的景点", "s": 28}]}, {"runs": [{"t": " ", "s": 28}, {"t": "单击", "s": 28}, {"t": "“AI", "s": 28}, {"t": "问答键", "s": 28}, {"t": "”", "s": 28}, {"t": "停止讲解", "s": 28}]}, {"runs": [{"t": "AI", "s": 36, "b": true}, {"t": "问答", "s": 36, "b": true}]}, {"runs": [{"t": " ", "s": 28}, {"t": "按住“AI问答键”语音提问，松开“AI问答键”等待语音回答", "s": 28}]}, {"runs": [{"t": " ", "s": 28}, {"t": "单击“AI问答键”停止当前语音回答", "s": 28}]}, {"runs": [{"t": "对讲", "s": 36, "b": true}]}, {"runs": [{"t": " ", "s": 28}, {"t": "按住“对讲键”发起对讲，向其他队员讲话；松开“对讲键”收听其他队员讲话", "s": 28}]}]}], [{"x": 0.7, "y": 0.6, "w": 11.8, "h": 5.1, "paras": [{"runs": [{"t": "提升体验：", "s": 36, "b": true, "c": "FF0000"}]}]}, {"x": 1.4, "y": 1.8, "w": 10.9, "h": 3.3, "paras": [{"runs": [{"t": " ", "s": 28}, {"t": "在微信小程序中点击设备详情", "s": 28}]}, {"runs": [{"t": " ", "s": 28}, {"t": "打开设备的“手机辅助定位”开关，提高定位精度，延长设备续航时间", "s": 28}]}, {"runs": [{"t": "【注意绑定设备和手机必须同一个人携带，并且使用期间不要退出微信】", "s": 28, "b": true, "c": "FF0000"}]}]}], [{"x": 0.7, "y": 0.6, "w": 12.0, "h": 2.5, "paras": [{"runs": [{"t": "HtxAi Tour Companion", "s": 44, "b": true, "c": "FF0000"}, {"t": "（", "s": 44, "b": true, "c": "FF0000"}, {"t": "Ultimate", "s": 44, "b": true, "c": "FF0000"}, {"t": "）", "s": 44, "b": true, "c": "FF0000"}, {"t": "Quick  Guide", "s": 44, "b": true, "c": "FF0000"}]}]}], [{"x": 0.8, "y": 1.0, "w": 11.9, "h": 11.6, "paras": [{"runs": [{"t": "Group up", "s": 27, "b": true}]}, {"runs": [{"t": " Long press Group Key to start grouping, short press to stop", "s": 27}]}, {"runs": [{"t": " Double-click Group Key to search groups, single-click to join", "s": 27}]}, {"runs": [{"t": "One-click Commentary", "s": 27, "b": true}]}, {"runs": [{"t": " Single-click PTT Key for commentary on nearby attractions", "s": 27}]}, {"runs": [{"t": " Single-click AI Q&A Key to stop commentary", "s": 27}]}, {"runs": [{"t": "AI Q&A", "s": 27, "b": true}]}, {"runs": [{"t": " Hold AI Q&A Key for voice query, release to get reply", "s": 27}]}, {"runs": [{"t": " Single-click AI Q&A Key to stop voice reply", "s": 27}]}, {"runs": [{"t": "PTT", "s": 27, "b": true}]}, {"runs": [{"t": " Hold  PTT Key to speak to team members; release it to listen ", "s": 27}, {"t": "to them", "s": 27}]}]}], [{"x": 0.7, "y": 0.6, "w": 11.8, "h": 5.1, "paras": [{"runs": [{"t": "Improve experience", "s": 36, "b": true, "c": "FF0000"}, {"t": "：", "s": 36, "b": true, "c": "FF0000"}]}]}, {"x": 1.2, "y": 1.8, "w": 10.9, "h": 3.3, "paras": [{"runs": [{"t": " Tap Device Details in WeChat Mini Program", "s": 28}]}, {"runs": [{"t": " Enable Phone-assisted Positioning for higher positioning accuracy and longer battery life", "s": 28}]}, {"runs": [{"t": "【", "s": 28, "b": true, "c": "FF0000"}, {"t": "Notice: Keep the paired device and phone with you, and stay logged in to WeChat while using", "s": 28, "b": true, "c": "FF0000"}, {"t": "】", "s": 28, "b": true, "c": "FF0000"}]}]}]];
+var imgPrefix = "premium";
+var currentSlide = 0;
+var langMode = "zh";
+
+function renderRun(r, baseSize) {
+  var sz = r.s || baseSize;
+  var style = "font-size:" + sz + "px;";
+  if (r.b) style += "font-weight:700;";
+  if (r.c) style += "color:#" + r.c + ";";
+  return '<span style="' + style + '">' + r.t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span>';
+}
+
+function renderSlide(slideData, idx) {
+  var shapes = slideData;
+  var clsCover = (idx === 0) ? " guide-cover" : "";
+  var html = '<div class="guide-viewer__slide' + (idx===0?' guide-viewer__slide--active':'') + clsCover + '">';
+
+  if (idx === 0) {
+    for (var si = 0; si < shapes.length; si++) {
+      var s = shapes[si];
+      if (s.img) {
+        html += '<img class="guide-cover__img" src="docs/img/' + imgPrefix + '_slide' + (idx+1) + '_0.' + s.img + '" alt="cover" onerror="this.style.display='none'">';
+      }
+      if (s.paras) {
+        if (s.paras.length > 1) {
+          for (var pi = 0; pi < s.paras.length; pi++) {
+            var para = s.paras[pi];
+            var txt = para.runs.map(function(r){return r.t;}).join("").trim();
+            if (!txt) continue;
+            if (pi === 0) {
+              html += '<div class="guide-cover__title">' + para.runs.map(function(r){return renderRun(r, 36);}).join("") + '</div>';
+            } else {
+              html += '<div class="guide-cover__sub">' + para.runs.map(function(r){return renderRun(r, 18);}).join("") + '</div>';
+            }
+          }
+        } else {
+          html += '<div class="guide-cover__title">' + s.paras[0].runs.map(function(r){return renderRun(r, 36);}).join("") + '</div>';
+        }
+      }
+    }
+  } else {
+    html += '<div class="guide-content">';
+    for (var si2 = 0; si2 < shapes.length; si2++) {
+      var s2 = shapes[si2];
+      if (!s2.paras) continue;
+      for (var pi2 = 0; pi2 < s2.paras.length; pi2++) {
+        var para2 = s2.paras[pi2];
+        var txt2 = para2.runs.map(function(r){return r.t;}).join("").trim();
+        if (!txt2) continue;
+        var firstRun = para2.runs[0];
+        var isBold = firstRun.b;
+        var isRed = firstRun.c === "FF0000";
+        var fontSize = firstRun.s || 18;
+        
+        if (isBold && fontSize >= 27 && !isRed) {
+          html += '<div class="guide-content__section">';
+          html += '<div class="guide-content__heading" style="font-size:' + fontSize + 'px">';
+          html += para2.runs.map(function(r){return renderRun(r, fontSize);}).join("");
+          html += '</div>';
+        } else if (isBold && isRed) {
+          html += '<div class="guide-content__note">';
+          html += para2.runs.map(function(r){return renderRun(r, fontSize);}).join("");
+          html += '</div>';
+        } else {
+          html += '<div class="guide-content__item" style="font-size:' + fontSize + 'px">';
+          html += para2.runs.map(function(r){return renderRun(r, fontSize);}).join("");
+          html += '</div>';
+        }
+      }
+    }
+    html += '</div>';
+  }
+  
+  html += '</div>';
+  return html;
+}
+
+function renderAll() {
+  var viewer = document.getElementById("slideViewer");
+  viewer.innerHTML = "";
+  for (var i = 0; i < slidesData.length; i++) {
+    viewer.innerHTML += renderSlide(slidesData[i], i);
+  }
+  updateNav();
+}
+
+function updateNav() {
+  document.getElementById("slideCounter").textContent = (currentSlide + 1) + " / " + slidesData.length;
+  document.getElementById("btnPrev").disabled = currentSlide === 0;
+  document.getElementById("btnNext").disabled = currentSlide === slidesData.length - 1;
+  
+  var dots = document.getElementById("slideDots");
+  dots.innerHTML = "";
+  for (var i = 0; i < slidesData.length; i++) {
+    dots.innerHTML += '<span class="guide-nav__dot' + (i === currentSlide ? ' guide-nav__dot--active' : '') + '" data-idx="' + i + '"></span>';
+  }
+  
+  var allSlides = document.querySelectorAll(".guide-viewer__slide");
+  for (var j = 0; j < allSlides.length; j++) {
+    if (j === currentSlide) {
+      allSlides[j].classList.add("guide-viewer__slide--active");
+    } else {
+      allSlides[j].classList.remove("guide-viewer__slide--active");
+    }
+  }
+}
+
+function goTo(idx) {
+  if (idx < 0 || idx >= slidesData.length) return;
+  currentSlide = idx;
+  updateNav();
+}
+
+function switchLang() {
+  if (langMode === "zh") {
+    langMode = "en";
+    goTo(3);
+  } else {
+    langMode = "zh";
+    goTo(0);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  renderAll();
+  
+  document.getElementById("btnPrev").addEventListener("click", function() { goTo(currentSlide - 1); });
+  document.getElementById("btnNext").addEventListener("click", function() { goTo(currentSlide + 1); });
+  document.getElementById("btnLang").addEventListener("click", switchLang);
+  
+  document.getElementById("slideDots").addEventListener("click", function(e) {
+    if (e.target.classList.contains("guide-nav__dot")) {
+      goTo(parseInt(e.target.dataset.idx));
+    }
+  });
+  
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "ArrowLeft") goTo(currentSlide - 1);
+    if (e.key === "ArrowRight") goTo(currentSlide + 1);
+  });
+});
+
+document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10);
+window.addEventListener('scroll',function(){document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10)});
+document.querySelectorAll('.nav__links > li').forEach(function(li){
+  var t=li.querySelector('span');if(!t)return;
+  t.addEventListener('click',function(e){e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(function(el){if(el!==li)el.classList.remove('dropdown-open')});li.classList.toggle('dropdown-open')})
+});
+document.addEventListener('click',function(){document.querySelectorAll('.nav__links > li.dropdown-open').forEach(function(el){el.classList.remove('dropdown-open')})});
+</script>
+</body>
+</html>
