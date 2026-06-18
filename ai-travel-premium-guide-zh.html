@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>讯脉AI伴游机（至臻版）快速使用指南 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── Page Layout ── */
+.guide-page {
+  padding: calc(var(--nav-h) + 48px) 0 80px;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #E8F5E9 0%, #E3F2FD 35%, #F3E5F5 100%);
+}
+.guide-page__back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--c-text-sub); text-decoration: none;
+  margin-bottom: 36px; transition: var(--transition);
+}
+.guide-page__back:hover { color: var(--c-primary); }
+
+.guide-page__header {
+  text-align: center; margin-bottom: 52px;
+}
+.guide-page__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #FF9800, #F44336); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;
+}
+.guide-page__title {
+  font-size: clamp(24px, 3.5vw, 40px); font-weight: 800;
+  background: linear-gradient(135deg, #E65100, #C62828);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px;
+}
+.guide-page__sub {
+  font-size: 14px; color: var(--c-text-sub);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.guide-page__lang {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 99px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: #E65100; text-decoration: none;
+  transition: var(--transition);
+}
+.guide-page__lang:hover { border-color: #FF9800; background: rgba(255,152,0,.06); }
+
+/* ── Slide Cards ── */
+.guide-slide {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.guide-slide:hover { box-shadow: var(--shadow-lg); }
+.guide-slide__num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, #FF9800, #F44336);
+  color: #fff; font-size: 16px; font-weight: 800;
+  margin: 28px 0 0 28px;
+}
+
+/* Slide 1: Product Overview */
+.guide-slide--overview .guide-slide__body {
+  display: grid; grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px; padding: 32px 40px 44px; align-items: center;
+}
+.guide-slide__device {
+  text-align: center; position: relative;
+}
+.guide-slide__device img {
+  max-width: 100%; height: auto; max-height: 400px;
+  margin: 0 auto;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.12));
+}
+.guide-slide__keys {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.guide-slide__key {
+  background: linear-gradient(135deg, #FFF8E1, #FFF3E0);
+  border: 1px solid rgba(255,152,0,.15);
+  border-radius: var(--radius-md); padding: 16px 18px;
+  text-align: center; transition: var(--transition);
+}
+.guide-slide__key:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,152,0,.35);
+  box-shadow: 0 4px 12px rgba(255,152,0,.1);
+}
+.guide-slide__key-icon { font-size: 28px; margin-bottom: 6px; }
+.guide-slide__key-title { font-size: 14px; font-weight: 700; color: #E65100; margin-bottom: 4px; }
+.guide-slide__key-desc { font-size: 12px; color: var(--c-text-sub); line-height: 1.5; }
+
+.guide-slide__qr {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.guide-slide__qr img {
+  width: 140px; height: 140px; border-radius: var(--radius-md);
+  border: 2px solid var(--c-border);
+}
+.guide-slide__qr-text {
+  font-size: 13px; font-weight: 600; color: #E65100; text-align: center;
+  max-width: 200px; line-height: 1.6;
+}
+
+/* Slide 2: Operations */
+.guide-slide--ops .guide-slide__body {
+  padding: 32px 40px 44px;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.guide-slide__op {
+  background: var(--grad-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg); padding: 28px 24px;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.guide-slide__op::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: linear-gradient(180deg, #FF9800, #F44336);
+  border-radius: 0 4px 4px 0;
+}
+.guide-slide__op:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow-sm);
+  border-color: rgba(255,152,0,.25);
+}
+.guide-slide__op-icon { font-size: 32px; margin-bottom: 14px; }
+.guide-slide__op-title {
+  font-size: 18px; font-weight: 800; color: #E65100; margin-bottom: 12px;
+}
+.guide-slide__op-steps {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+}
+.guide-slide__op-step {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--c-text-sub); line-height: 1.6;
+}
+.guide-slide__op-step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(255,152,0,.12); color: #E65100;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.guide-slide__op-step strong {
+  color: var(--c-text); font-weight: 600;
+}
+
+/* Slide 3: Phone Positioning */
+.guide-slide--phone .guide-slide__body {
+  padding: 32px 40px 44px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  align-items: start;
+}
+.guide-slide__phone-header {
+  font-size: 20px; font-weight: 800; color: #E65100; margin-bottom: 16px;
+}
+.guide-slide__phone-desc {
+  font-size: 14px; color: var(--c-text-sub); line-height: 1.8; margin-bottom: 20px;
+}
+.guide-slide__phone-notice {
+  background: linear-gradient(135deg, #FFF8E1, #FFF3E0);
+  border: 1px solid rgba(255,152,0,.2);
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  font-size: 13px; color: #E65100; font-weight: 600; line-height: 1.7;
+}
+.guide-slide__phone-imgs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.guide-slide__phone-img {
+  text-align: center;
+}
+.guide-slide__phone-img img {
+  width: 100%; max-width: 200px; border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm); border: 1px solid var(--c-border);
+  margin: 0 auto;
+}
+.guide-slide__phone-img-caption {
+  font-size: 12px; color: var(--c-text-pale); margin-top: 8px;
+  line-height: 1.5; text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .guide-slide--overview .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide__qr img { width: 120px; height: 120px; }
+}
+@media (max-width: 700px) {
+  .guide-slide--ops .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide--phone .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide__keys { grid-template-columns: 1fr 1fr; }
+  .guide-slide__body { padding: 24px 20px 32px !important; }
+  .guide-slide__num { margin: 20px 0 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-mark">汇</div>
+      <div><div class="nav__logo-name">汇特讯</div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li><a href="ai-travel.html" class="active" style="color:#E65100!important;background:rgba(255,152,0,.08)!important;font-weight:700;">AI伴游</a></li>
+      <li><span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<section class="guide-page">
+  <div class="container">
+    <a href="ai-travel.html" class="guide-page__back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      返回AI伴游
+    </a>
+
+    <div class="guide-page__header">
+      <span class="guide-page__badge">✨ 至臻版 · 快速使用指南</span>
+      <h1 class="guide-page__title">讯脉AI伴游机（至臻版）<br>快速使用指南</h1>
+      <div class="guide-page__sub">
+        <span>3 步快速上手</span>
+        <span style="color:var(--c-border);">|</span>
+        <a href="ai-travel-premium-guide-en.html" class="guide-page__lang">🌐 查看英文版</a>
+      </div>
+    </div>
+
+    <!-- Slide 1: Product Overview -->
+    <div class="guide-slide guide-slide--overview">
+      <div class="guide-slide__num">01</div>
+      <div class="guide-slide__body">
+        <div class="guide-slide__device">
+          <img src="img/premium/zh-device.png" alt="讯脉AI伴游机 至臻版"/>
+        </div>
+        <div>
+          <div class="guide-slide__keys">
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🔊</div>
+              <div class="guide-slide__key-title">音量键</div>
+              <div class="guide-slide__key-desc">调节设备音量</div>
+            </div>
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🎤</div>
+              <div class="guide-slide__key-title">对讲键</div>
+              <div class="guide-slide__key-desc">一键讲解 / 队内对讲</div>
+            </div>
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">👥</div>
+              <div class="guide-slide__key-title">组队键</div>
+              <div class="guide-slide__key-desc">发起 / 搜索 / 加入群组</div>
+            </div>
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🔘</div>
+              <div class="guide-slide__key-title">电源键</div>
+              <div class="guide-slide__key-desc">开关机控制</div>
+            </div>
+            <div class="guide-slide__key" style="grid-column:1/-1;">
+              <div class="guide-slide__key-icon">🤖</div>
+              <div class="guide-slide__key-title">AI问答键</div>
+              <div class="guide-slide__key-desc">按住语音提问，AI智能回答</div>
+            </div>
+          </div>
+          <div style="margin-top:16px; text-align:center;">
+            <div class="guide-slide__qr">
+              <img src="img/premium/zh-qr.jpg" alt="微信扫码添加小程序"/>
+              <span class="guide-slide__qr-text">微信扫码添加<br>"讯脉AI伴游"小程序</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Button Operations -->
+    <div class="guide-slide guide-slide--ops">
+      <div class="guide-slide__num">02</div>
+      <div class="guide-slide__body">
+        <!-- 组队 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">👥</div>
+          <div class="guide-slide__op-title">组队</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>长按"组队键"</strong>发起组队；<strong>单击</strong>"组队键"停止组队</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>双击"组队键"</strong>搜索群组；<strong>单击</strong>"组队键"加入群组</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 一键讲解 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎙️</div>
+          <div class="guide-slide__op-title">一键讲解</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>单击"对讲键"</strong>发起一键讲解当前所在位置附近的景点</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>单击"AI问答键"</strong>停止讲解</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- AI问答 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🤖</div>
+          <div class="guide-slide__op-title">AI问答</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>按住"AI问答键"</strong>语音提问，<strong>松开</strong>"AI问答键"等待语音回答</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>单击"AI问答键"</strong>停止当前语音回答</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 对讲 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎤</div>
+          <div class="guide-slide__op-title">对讲</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>按住"对讲键"</strong>发起对讲，向其他队员讲话</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>松开"对讲键"</strong>收听其他队员讲话</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Phone-assisted Positioning -->
+    <div class="guide-slide guide-slide--phone">
+      <div class="guide-slide__num">03</div>
+      <div class="guide-slide__body">
+        <div>
+          <div class="guide-slide__phone-header">提升体验</div>
+          <div class="guide-slide__phone-desc">
+            在微信小程序中点击<strong>设备详情</strong>，打开设备的<strong>"手机辅助定位"</strong>开关，提高定位精度，延长设备续航时间。
+          </div>
+          <div class="guide-slide__phone-notice">
+            ⚠️ 注意：绑定设备和手机必须同一个人携带，并且使用期间不要退出微信
+          </div>
+        </div>
+        <div class="guide-slide__phone-imgs">
+          <div class="guide-slide__phone-img">
+            <img src="img/premium/zh-wx1.png" alt="点击设备详情"/>
+            <div class="guide-slide__phone-img-caption">点击设备详情</div>
+          </div>
+          <div class="guide-slide__phone-img">
+            <img src="img/premium/zh-wx2.png" alt="打开手机辅助定位开关"/>
+            <div class="guide-slide__phone-img-caption">打开手机辅助定位开关</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a><a href="ai-travel.html">AI伴游</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a><a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 七山官网 版权所有</span><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10);
+window.addEventListener('scroll',function(){document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10)});
+document.querySelectorAll('.nav__links > li').forEach(li=>{
+  const t=li.querySelector('span');if(!t)return;
+  t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open')});li.classList.toggle('dropdown-open')})
+});
+document.addEventListener('click',()=>document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open')));
+</script>
+</body>
+</html>

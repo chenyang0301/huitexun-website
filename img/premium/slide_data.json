@@ -1,0 +1,152 @@
+[
+  {
+    "slide_num": 1,
+    "shapes": [
+      {
+        "name": "组合 12",
+        "shape_type": "GROUP (6)",
+        "left": 7113577,
+        "top": 7787640,
+        "width": 3974158,
+        "height": 3369508
+      },
+      {
+        "name": "文本框 62",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 2985135,
+        "top": 620395,
+        "width": 6332220,
+        "height": 2122805,
+        "text": "讯脉AI伴游机 （至臻版） 快速使用指南"
+      },
+      {
+        "name": "组合 20",
+        "shape_type": "GROUP (6)",
+        "left": 1293965,
+        "top": 2927350,
+        "width": 9680105,
+        "height": 5708650
+      }
+    ]
+  },
+  {
+    "slide_num": 2,
+    "shapes": [
+      {
+        "name": "文本框 1",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 934720,
+        "top": 879475,
+        "width": 10661015,
+        "height": 10600690,
+        "text": "组队\n 长按“组队键”发起组队；单击“组队键”停止组队\n 双击“组队键”搜索群组；单击“组队键”加入群组\n\n一键讲解\n 单击“对讲键”发起一键讲解当前所在位置附近的景点\n 单击“AI问答键”停止讲解\n\nAI问答\n 按住“AI问答键”语音提问，松开“AI问答键”等待语音回答\n 单击“AI问答键”停止当前语音回答\n\n对讲\n 按住“对讲键”发起对讲，向其他队员讲话；松开“对讲键”收听其他队员讲话"
+      }
+    ]
+  },
+  {
+    "slide_num": 3,
+    "shapes": [
+      {
+        "name": "文本框 1",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 684530,
+        "top": 592455,
+        "width": 10823575,
+        "height": 4657090,
+        "text": "提升体验："
+      },
+      {
+        "name": "文本框 23",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 1315085,
+        "top": 1615440,
+        "width": 9979025,
+        "height": 2982595,
+        "text": "在微信小程序中点击设备详情\n 打开设备的“手机辅助定位”开关，提高定位精度，延长设备续航时间\n【注意绑定设备和手机必须同一个人携带，并且使用期间不要退出微信】"
+      },
+      {
+        "name": "组合 29",
+        "shape_type": "GROUP (6)",
+        "left": 2118995,
+        "top": 5459730,
+        "width": 7766685,
+        "height": 6177280
+      }
+    ]
+  },
+  {
+    "slide_num": 4,
+    "shapes": [
+      {
+        "name": "组合 12",
+        "shape_type": "GROUP (6)",
+        "left": 6928049,
+        "top": 7787640,
+        "width": 4529968,
+        "height": 3785373
+      },
+      {
+        "name": "文本框 62",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 612140,
+        "top": 523240,
+        "width": 11002010,
+        "height": 2262505,
+        "text": "HtxAi Tour Companion（Ultimate）Quick  Guide"
+      },
+      {
+        "name": "组合 20",
+        "shape_type": "GROUP (6)",
+        "left": 1044881,
+        "top": 2927350,
+        "width": 9929189,
+        "height": 5708650
+      }
+    ]
+  },
+  {
+    "slide_num": 5,
+    "shapes": [
+      {
+        "name": "文本框 1",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 699770,
+        "top": 879475,
+        "width": 10895965,
+        "height": 10600690,
+        "text": "Group up\n Long press Group Key to start grouping, short press to stop\n Double-click Group Key to search groups, single-click to join\n\nOne-click Commentary\n Single-click PTT Key for commentary on nearby attractions\n Single-click AI Q&A Key to stop commentary\n\nAI Q&A\n Hold AI Q&A Key for voice query, release to get reply\n Single-click AI Q&A Key to stop voice reply\n\nPTT\n Hold  PTT Key to speak to team members; release it to listen to them"
+      }
+    ]
+  },
+  {
+    "slide_num": 6,
+    "shapes": [
+      {
+        "name": "文本框 1",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 684530,
+        "top": 592455,
+        "width": 10823575,
+        "height": 4657090,
+        "text": "Improve experience："
+      },
+      {
+        "name": "文本框 23",
+        "shape_type": "TEXT_BOX (17)",
+        "left": 1083945,
+        "top": 1615440,
+        "width": 9979025,
+        "height": 2982595,
+        "text": "Tap Device Details in WeChat Mini Program\n Enable Phone-assisted Positioning for higher positioning accuracy and longer battery life\n【Notice: Keep the paired device and phone with you, and stay logged in to WeChat while using】"
+      },
+      {
+        "name": "组合 29",
+        "shape_type": "GROUP (6)",
+        "left": 2118995,
+        "top": 5459730,
+        "width": 8227304,
+        "height": 6177280
+      }
+    ]
+  }
+]
