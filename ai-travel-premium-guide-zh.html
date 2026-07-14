@@ -163,6 +163,23 @@
 .guide-slide__phone-desc {
   font-size: 14px; color: var(--c-text-sub); line-height: 1.8; margin-bottom: 20px;
 }
+.guide-slide__phone-steps {
+  list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 20px;
+}
+.guide-slide__phone-steps li {
+  font-size: 14px; color: var(--c-text-sub); line-height: 1.7;
+  padding-left: 32px; position: relative;
+}
+.guide-slide__phone-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(255,152,0,.12); color: #E65100;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
 .guide-slide__phone-notice {
   background: linear-gradient(135deg, #FFF8E1, #FFF3E0);
   border: 1px solid rgba(255,152,0,.2);
@@ -238,34 +255,34 @@
       <div class="guide-slide__num">01</div>
       <div class="guide-slide__body">
         <div class="guide-slide__device">
-          <img src="img/premium/zh-device-new.png" alt="讯脉AI伴游机 至臻版"/>
+          <img src="img/premium/zh-device-v2.png" alt="讯脉AI伴游机 至臻版"/>
         </div>
         <div>
           <div class="guide-slide__keys">
+            <div class="guide-slide__key">
+              <div class="guide-slide__key-icon">🤖</div>
+              <div class="guide-slide__key-title">AI键</div>
+              <div class="guide-slide__key-desc">短按：一键讲解<br>按住：语音提问<br>松开：AI回答</div>
+            </div>
             <div class="guide-slide__key">
               <div class="guide-slide__key-icon">🔊</div>
               <div class="guide-slide__key-title">音量键</div>
               <div class="guide-slide__key-desc">调节设备音量</div>
             </div>
             <div class="guide-slide__key">
-              <div class="guide-slide__key-icon">🎤</div>
-              <div class="guide-slide__key-title">对讲键</div>
-              <div class="guide-slide__key-desc">一键讲解 / 队内对讲</div>
+              <div class="guide-slide__key-icon">🌐</div>
+              <div class="guide-slide__key-title">翻译键</div>
+              <div class="guide-slide__key-desc">长按2秒：翻译开关<br>短按：停止讲解</div>
             </div>
             <div class="guide-slide__key">
-              <div class="guide-slide__key-icon">👥</div>
-              <div class="guide-slide__key-title">组队键</div>
-              <div class="guide-slide__key-desc">发起 / 搜索 / 加入群组</div>
+              <div class="guide-slide__key-icon">🎤</div>
+              <div class="guide-slide__key-title">对讲键</div>
+              <div class="guide-slide__key-desc">按住：发起对讲 / 松开：收听对讲</div>
             </div>
             <div class="guide-slide__key">
               <div class="guide-slide__key-icon">🔘</div>
               <div class="guide-slide__key-title">电源键</div>
               <div class="guide-slide__key-desc">开关机控制</div>
-            </div>
-            <div class="guide-slide__key" style="grid-column:1/-1;">
-              <div class="guide-slide__key-icon">🤖</div>
-              <div class="guide-slide__key-title">AI问答键</div>
-              <div class="guide-slide__key-desc">按住语音提问，AI智能回答</div>
             </div>
           </div>
           <div style="margin-top:16px; text-align:center;">
@@ -282,22 +299,6 @@
     <div class="guide-slide guide-slide--ops">
       <div class="guide-slide__num">02</div>
       <div class="guide-slide__body">
-        <!-- 组队 -->
-        <div class="guide-slide__op">
-          <div class="guide-slide__op-icon">👥</div>
-          <div class="guide-slide__op-title">组队</div>
-          <ul class="guide-slide__op-steps">
-            <li class="guide-slide__op-step">
-              <span class="guide-slide__op-step-num">1</span>
-              <span><strong>长按"组队键"</strong>发起组队；<strong>单击</strong>"组队键"停止组队</span>
-            </li>
-            <li class="guide-slide__op-step">
-              <span class="guide-slide__op-step-num">2</span>
-              <span><strong>双击"组队键"</strong>搜索群组；<strong>单击</strong>"组队键"加入群组</span>
-            </li>
-          </ul>
-        </div>
-
         <!-- 一键讲解 -->
         <div class="guide-slide__op">
           <div class="guide-slide__op-icon">🎙️</div>
@@ -305,11 +306,7 @@
           <ul class="guide-slide__op-steps">
             <li class="guide-slide__op-step">
               <span class="guide-slide__op-step-num">1</span>
-              <span><strong>单击"对讲键"</strong>发起一键讲解当前所在位置附近的景点</span>
-            </li>
-            <li class="guide-slide__op-step">
-              <span class="guide-slide__op-step-num">2</span>
-              <span><strong>单击"AI问答键"</strong>停止讲解</span>
+              <span><strong>单击"AI键"</strong>发起一键讲解当前所在位置附近的景点，讲解过程中可向<strong>"翻译键"</strong>停止讲解</span>
             </li>
           </ul>
         </div>
@@ -321,27 +318,43 @@
           <ul class="guide-slide__op-steps">
             <li class="guide-slide__op-step">
               <span class="guide-slide__op-step-num">1</span>
-              <span><strong>按住"AI问答键"</strong>语音提问，<strong>松开</strong>"AI问答键"等待语音回答</span>
-            </li>
-            <li class="guide-slide__op-step">
-              <span class="guide-slide__op-step-num">2</span>
-              <span><strong>单击"AI问答键"</strong>停止当前语音回答</span>
+              <span><strong>按住"AI键"</strong>语音提问，<strong>松开"AI键"</strong>等待AI回答，语音播放过程中可向<strong>"翻译键"</strong>停止AI回答</span>
             </li>
           </ul>
         </div>
 
-        <!-- 对讲 -->
+        <!-- 语音翻译 -->
         <div class="guide-slide__op">
-          <div class="guide-slide__op-icon">🎤</div>
-          <div class="guide-slide__op-title">对讲</div>
+          <div class="guide-slide__op-icon">🌐</div>
+          <div class="guide-slide__op-title">语音翻译</div>
           <ul class="guide-slide__op-steps">
             <li class="guide-slide__op-step">
               <span class="guide-slide__op-step-num">1</span>
-              <span><strong>按住"对讲键"</strong>发起对讲，向其他队员讲话</span>
+              <span><strong>长按2秒"翻译键"</strong>，开启后合翻译功能。通过小语种设置高质量翻译语种/声调等；再次<strong>长按2秒"翻译键"</strong>停止语音翻译功能</span>
             </li>
+          </ul>
+        </div>
+
+        <!-- 组队 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">👥</div>
+          <div class="guide-slide__op-title">组队</div>
+          <ul class="guide-slide__op-steps">
             <li class="guide-slide__op-step">
-              <span class="guide-slide__op-step-num">2</span>
-              <span><strong>松开"对讲键"</strong>收听其他队员讲话</span>
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>打开微信小程序</strong>，进入<strong>"群组"</strong>页面，可通过扫描机身背后的二维码添加对讲组成员</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 群组对讲 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎤</div>
+          <div class="guide-slide__op-title">群组对讲</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>按住"对讲键"</strong>发起对讲，向其他队员说话；<strong>松开"对讲键"</strong>收听其他队员说话</span>
             </li>
           </ul>
         </div>
@@ -354,11 +367,15 @@
       <div class="guide-slide__body">
         <div>
           <div class="guide-slide__phone-header">提升体验</div>
-          <div class="guide-slide__phone-desc">
-            在微信小程序中点击<strong>设备详情</strong>，打开设备的<strong>"手机辅助定位"</strong>开关，提高定位精度，延长设备续航时间。
-          </div>
+          <ol class="guide-slide__phone-steps">
+            <li>在微信<strong>"小程序列表"</strong>里找到<strong>"二维码会话设备"</strong></li>
+            <li>点击设备进入<strong>"详情页面"</strong></li>
+            <li>打开设备里的<strong>"手机辅助定位"开关</strong></li>
+            <li>确查定位后，延长设备续航时间</li>
+            <li>点击<strong>"背景音色"</strong>是预心机的音频声音颜色</li>
+          </ol>
           <div class="guide-slide__phone-notice">
-            ⚠️ 注意：绑定设备和手机必须同一个人携带，并且使用期间不要退出微信
+            ⚠️ 注意事项：绑定微信设备和手机必须为同一个人携带，并且使用期间不要退出微信
           </div>
         </div>
         <div class="guide-slide__phone-imgs">
