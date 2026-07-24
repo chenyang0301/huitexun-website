@@ -57,12 +57,20 @@
   transition: var(--transition);
 }
 .guide-slide:hover { box-shadow: var(--shadow-lg); }
+.guide-slide__head {
+  display: flex; align-items: center; gap: 14px;
+  padding: 28px 0 0 28px;
+}
 .guide-slide__num {
   display: inline-flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; border-radius: 50%;
   background: linear-gradient(135deg, #2E7D32, #009688);
   color: #fff; font-size: 16px; font-weight: 800;
-  margin: 28px 0 0 28px;
+  flex-shrink: 0;
+}
+.guide-slide__subtitle {
+  font-size: 19px; font-weight: 800; color: #1B5E20;
+  letter-spacing: .3px;
 }
 
 /* Slide 1: Product Overview */
@@ -187,7 +195,7 @@
   .guide-slide--phone .guide-slide__body { grid-template-columns: 1fr; }
   .guide-slide__keys { grid-template-columns: 1fr 1fr; }
   .guide-slide__body { padding: 24px 20px 32px !important; }
-  .guide-slide__num { margin: 20px 0 0 20px; }
+  .guide-slide__head { padding: 20px 0 0 20px; }
 }
 </style>
 </head>
@@ -235,7 +243,10 @@
 
     <!-- Slide 1: Product Overview -->
     <div class="guide-slide guide-slide--overview">
-      <div class="guide-slide__num">01</div>
+      <div class="guide-slide__head">
+        <div class="guide-slide__num">01</div>
+        <div class="guide-slide__subtitle">Device Buttons</div>
+      </div>
       <div class="guide-slide__body">
         <div class="guide-slide__device">
           <img src="img/pure/en-device-new.png" alt="HtxAi Tour Companion Pure"/>
@@ -280,7 +291,10 @@
 
     <!-- Slide 2: Button Operations -->
     <div class="guide-slide guide-slide--ops">
-      <div class="guide-slide__num">02</div>
+      <div class="guide-slide__head">
+        <div class="guide-slide__num">02</div>
+        <div class="guide-slide__subtitle">Features</div>
+      </div>
       <div class="guide-slide__body">
         <!-- One-click Commentary -->
         <div class="guide-slide__op">
@@ -383,7 +397,10 @@
 
     <!-- Slide 3: Phone-assisted Positioning -->
     <div class="guide-slide guide-slide--phone">
-      <div class="guide-slide__num">03</div>
+      <div class="guide-slide__head">
+        <div class="guide-slide__num">03</div>
+        <div class="guide-slide__subtitle">Mini Program</div>
+      </div>
       <div class="guide-slide__body">
         <div>
           <div class="guide-slide__phone-header">Improve Experience</div>
