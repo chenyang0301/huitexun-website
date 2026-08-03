@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>物联网卡查询 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.iot-page {
+  padding: calc(var(--nav-h) + 48px) 0 80px;
+  min-height: 100vh;
+  background: var(--grad-hero);
+}
+.iot-page__header {
+  text-align: center; margin-bottom: 48px;
+}
+.iot-page__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #1565C0, #1E88E5); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;
+}
+.iot-page__title {
+  font-size: clamp(24px, 3.5vw, 36px); font-weight: 800;
+  background: linear-gradient(135deg, #0D47A1, #1565C0);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px;
+}
+.iot-page__sub {
+  font-size: 14px; color: var(--c-text-sub);
+}
+
+/* ── Query Card ── */
+.iot-query {
+  max-width: 480px; margin: 0 auto 28px;
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  padding: 32px 28px;
+}
+.iot-query__label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--c-text-sub); margin-bottom: 8px;
+}
+.iot-query__input {
+  width: 100%; box-sizing: border-box;
+  background: var(--c-bg); border: 1.5px solid var(--c-border);
+  border-radius: var(--radius-sm); padding: 13px 16px;
+  font-size: 15px; color: var(--c-text);
+  font-family: var(--font); letter-spacing: .04em;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+.iot-query__input:focus {
+  border-color: var(--c-primary-lt);
+  box-shadow: 0 0 0 3px rgba(30,136,229,.15);
+}
+.iot-query__input::placeholder { color: var(--c-text-pale); letter-spacing: normal; }
+.iot-query__btn {
+  width: 100%; margin-top: 18px;
+  background: var(--grad-btn); color: #fff; border: none;
+  border-radius: var(--radius-sm); padding: 13px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: var(--font);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.iot-query__btn:hover { opacity: .92; transform: translateY(-1px); }
+.iot-query__btn:active { transform: translateY(0); }
+.iot-query__btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+/* ── Result Card ── */
+.iot-result {
+  max-width: 480px; margin: 0 auto;
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: none;
+}
+.iot-result--visible { display: block; animation: fadeUp .35s ease-out; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.iot-result__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px 0;
+}
+.iot-result__iccid {
+  font-size: 15px; font-weight: 700; color: var(--c-text);
+  font-family: 'SF Mono','Consolas',monospace; letter-spacing: .06em;
+}
+.iot-result__status {
+  font-size: 12px; font-weight: 700; padding: 4px 12px;
+  border-radius: 99px; white-space: nowrap;
+}
+.iot-result__status--ok    { background: rgba(38,166,154,.12); color: #00897B; }
+.iot-result__status--warn  { background: rgba(255,167,38,.12); color: #F57C00; }
+.iot-result__status--exp   { background: rgba(239,83,80,.12); color: #D32F2F; }
+
+.iot-result__body { padding: 20px 24px 24px; }
+.iot-result__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.iot-result__field {}
+.iot-result__field-label {
+  font-size: 12px; color: var(--c-text-pale); margin-bottom: 4px;
+}
+.iot-result__field-value {
+  font-size: 17px; font-weight: 700; color: var(--c-text);
+}
+
+/* ── Message ── */
+.iot-msg {
+  max-width: 480px; margin: 0 auto;
+  text-align: center; padding: 20px;
+  font-size: 14px; color: var(--c-text-sub);
+  display: none;
+}
+.iot-msg--visible { display: block; }
+.iot-msg--error { color: var(--c-danger); }
+
+/* ── Loading spinner ── */
+.iot-spinner {
+  display: inline-block; width: 20px; height: 20px;
+  border: 2.5px solid var(--c-border); border-top-color: var(--c-primary-lt);
+  border-radius: 50%; animation: spin .65s linear infinite; vertical-align: -4px; margin-right: 8px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  .iot-query { margin-left: 16px; margin-right: 16px; padding: 24px 20px; }
+  .iot-result { margin-left: 16px; margin-right: 16px; }
+  .iot-msg { margin-left: 16px; margin-right: 16px; }
+  .iot-result__grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container" style="display:flex;align-items:center;height:var(--nav-h);">
+    <a href="/" style="font-size:17px;font-weight:800;color:var(--c-primary);">汇特讯</a>
+    <span style="margin:auto;"></span>
+    <a href="/" style="font-size:13px;color:var(--c-text-sub);">返回首页</a>
+  </div>
+</nav>
+
+<div class="iot-page">
+  <div class="container">
+    <div class="iot-page__header">
+      <div class="iot-page__badge">IoT Card Query</div>
+      <h1 class="iot-page__title">物联网卡管理</h1>
+      <p class="iot-page__sub">仅提供查询服务 · 输入 ICCID 卡号即可查询续费与到期时间</p>
+    </div>
+
+    <!-- 查询区 -->
+    <div class="iot-query">
+      <label class="iot-query__label" for="iccid-input">ICCID 卡号</label>
+      <input id="iccid-input" class="iot-query__input"
+             type="text" inputmode="numeric" pattern="[0-9]{19,20}"
+             placeholder="请输入 19 或 20 位 ICCID 卡号"
+             maxlength="21" autocomplete="off"/>
+      <button id="query-btn" class="iot-query__btn" type="button">查询</button>
+    </div>
+
+    <!-- 结果区 -->
+    <div id="result-card" class="iot-result">
+      <div class="iot-result__head">
+        <span id="res-iccid" class="iot-result__iccid"></span>
+        <span id="res-status" class="iot-result__status"></span>
+      </div>
+      <div class="iot-result__body">
+        <div class="iot-result__grid">
+          <div class="iot-result__field">
+            <div class="iot-result__field-label">续费时间</div>
+            <div id="res-renewal" class="iot-result__field-value"></div>
+          </div>
+          <div class="iot-result__field">
+            <div class="iot-result__field-label">到期时间</div>
+            <div id="res-expiry" class="iot-result__field-value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提示信息 -->
+    <div id="msg-box" class="iot-msg"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = s => document.getElementById(s);
+  const iccidInput = $('iccid-input');
+  const queryBtn  = $('query-btn');
+  const resultCard= $('result-card');
+  const resIccid  = $('res-iccid');
+  const resStatus = $('res-status');
+  const resRenewal= $('res-renewal');
+  const resExpiry = $('res-expiry');
+  const msgBox    = $('msg-box');
+
+  function hideAll() {
+    resultCard.classList.remove('iot-result--visible');
+    msgBox.classList.remove('iot-msg--visible','iot-msg--error');
+  }
+
+  function showMsg(text, isError) {
+    hideAll();
+    msgBox.textContent = text;
+    msgBox.className = 'iot-msg iot-msg--visible' + (isError ? ' iot-msg--error' : '');
+  }
+
+  function showResult(card) {
+    hideAll();
+    // format ICCID with spaces
+    let fmt = card.iccid.replace(/(.{4})/g,'$1 ').trim();
+    resIccid.textContent = fmt;
+
+    // status
+    const exp = new Date(card.expiry_date + 'T00:00:00');
+    const now = new Date(); now.setHours(0,0,0,0);
+    const daysLeft = Math.ceil((exp - now) / 86400000);
+
+    let statusText, statusClass;
+    if (daysLeft < 0)       { statusText='已过期'; statusClass='iot-result__status--exp'; }
+    else if (daysLeft <= 30){ statusText='即将到期'; statusClass='iot-result__status--warn'; }
+    else                    { statusText='正常';   statusClass='iot-result__status--ok'; }
+
+    resStatus.textContent = statusText;
+    resStatus.className = 'iot-result__status ' + statusClass;
+
+    resRenewal.textContent = card.renewal_date;
+    resExpiry.textContent = card.expiry_date;
+
+    resultCard.classList.add('iot-result--visible');
+  }
+
+  queryBtn.addEventListener('click', async () => {
+    let iccid = iccidInput.value.trim().replace(/\s/g,'');
+
+    if (!iccid) return showMsg('请输入 ICCID 卡号', true);
+    if (!/^\d{19,20}$/.test(iccid)) return showMsg('ICCID 应为 19 或 20 位数字', true);
+
+    // loading
+    queryBtn.disabled = true;
+    queryBtn.innerHTML = '<span class="iot-spinner"></span>查询中...';
+    hideAll();
+
+    try {
+      const resp = await fetch('iot-cards.json?t='+Date.now());
+      if (!resp.ok) throw new Error('HTTP '+resp.status);
+      const cards = await resp.json();
+      const found = cards.find(c => c.iccid === iccid || c.iccid.replace(/\s/g,'') === iccid);
+
+      if (found) showResult(found);
+      else showMsg('未找到该 ICCID 对应的卡片信息，请核对后重试', true);
+    } catch(e) {
+      showMsg('查询失败：'+e.message+'，请稍后重试', true);
+    } finally {
+      queryBtn.disabled = false;
+      queryBtn.innerHTML = '查询';
+    }
+  });
+
+  // enter key triggers search
+  iccidInput.addEventListener('keydown', e => { if (e.key==='Enter') queryBtn.click(); });
+})();
+</script>
+</body>
+</html>
