@@ -96,6 +96,7 @@
 .iot-result__status--ok    { background: rgba(38,166,154,.12); color: #00897B; }
 .iot-result__status--warn  { background: rgba(255,167,38,.12); color: #F57C00; }
 .iot-result__status--exp   { background: rgba(239,83,80,.12); color: #D32F2F; }
+.iot-result__status--na    { background: rgba(120,144,156,.12); color: #607D8B; }
 
 .iot-result__body { padding: 20px 24px 24px; }
 .iot-result__grid {
@@ -159,8 +160,8 @@
     <div class="iot-query">
       <label class="iot-query__label" for="iccid-input">ICCID 卡号</label>
       <input id="iccid-input" class="iot-query__input"
-             type="text" inputmode="numeric" pattern="[0-9]{19,20}"
-             placeholder="请输入 19 或 20 位 ICCID 卡号"
+             type="text" inputmode="text" pattern="[0-9A-Za-z]{19,20}"
+             placeholder="请输入 19 或 20 位 ICCID 卡号（可含字母）"
              maxlength="21" autocomplete="off"/>
       <button id="query-btn" class="iot-query__btn" type="button">查询</button>
     </div>
@@ -219,30 +220,42 @@
     let fmt = card.iccid.replace(/(.{4})/g,'$1 ').trim();
     resIccid.textContent = fmt;
 
-    // status
-    const exp = new Date(card.expiry_date + 'T00:00:00');
+    // status — only meaningful when expiry is known
     const now = new Date(); now.setHours(0,0,0,0);
-    const daysLeft = Math.ceil((exp - now) / 86400000);
-
     let statusText, statusClass;
-    if (daysLeft < 0)       { statusText='已过期'; statusClass='iot-result__status--exp'; }
-    else if (daysLeft <= 30){ statusText='即将到期'; statusClass='iot-result__status--warn'; }
-    else                    { statusText='正常';   statusClass='iot-result__status--ok'; }
+    if (!card.expiry_date) {
+      statusText = '未知'; statusClass = 'iot-result__status--na';
+    } else {
+      const exp = new Date(card.expiry_date + 'T00:00:00');
+      const daysLeft = Math.ceil((exp - now) / 86400000);
+      if (daysLeft < 0)        { statusText='已过期';   statusClass='iot-result__status--exp'; }
+      else if (daysLeft <= 30) { statusText='即将到期'; statusClass='iot-result__status--warn'; }
+      else                     { statusText='正常';     statusClass='iot-result__status--ok'; }
+    }
 
     resStatus.textContent = statusText;
     resStatus.className = 'iot-result__status ' + statusClass;
 
-    resRenewal.textContent = card.renewal_date;
-    resExpiry.textContent = card.expiry_date;
+    resRenewal.textContent = card.renewal_date || '未获取';
+    resExpiry.textContent  = card.expiry_date  || '未获取';
 
     resultCard.classList.add('iot-result--visible');
+  }
+
+  let cardsCache = null;
+  async function loadCards() {
+    if (cardsCache) return cardsCache;
+    const resp = await fetch('iot-cards.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    cardsCache = await resp.json();
+    return cardsCache;
   }
 
   queryBtn.addEventListener('click', async () => {
     let iccid = iccidInput.value.trim().replace(/\s/g,'');
 
     if (!iccid) return showMsg('请输入 ICCID 卡号', true);
-    if (!/^\d{19,20}$/.test(iccid)) return showMsg('ICCID 应为 19 或 20 位数字', true);
+    if (!/^[0-9A-Za-z]{19,20}$/.test(iccid)) return showMsg('ICCID 应为 19 或 20 位卡号（可含字母）', true);
 
     // loading
     queryBtn.disabled = true;
@@ -250,10 +263,8 @@
     hideAll();
 
     try {
-      const resp = await fetch('iot-cards.json?t='+Date.now());
-      if (!resp.ok) throw new Error('HTTP '+resp.status);
-      const cards = await resp.json();
-      const found = cards.find(c => c.iccid === iccid || c.iccid.replace(/\s/g,'') === iccid);
+      const cards = await loadCards();
+      const found = cards.find(c => c.iccid === iccid);
 
       if (found) showResult(found);
       else showMsg('未找到该 ICCID 对应的卡片信息，请核对后重试', true);
