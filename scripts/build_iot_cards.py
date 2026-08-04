@@ -22,14 +22,24 @@ SITE = os.path.abspath(os.path.join(HERE, ".."))
 
 # (xlsx file, sheet name, iccid_col, expiry_col, renewal_col, has_header)
 SOURCES = [
-    ("doc1.xlsx", "总表",            0, 5, 6, True),
+    ("doc1.xlsx", "总表",             0, 5, 6, True),
+    ("doc1.xlsx", "2024.3.8停机列表", 0, 5, 6, True),
     ("doc1.xlsx", "Sheet1",          0, 7, 8, True),
     ("doc1.xlsx", "1年期",           0, 5, 6, True),
     ("doc1.xlsx", "2年",             0, 5, 6, False),
     ("doc1.xlsx", "3年期",           0, 5, 6, True),
+    ("doc1.xlsx", "对应信息",         1, 8, None, True),   # 到期用 订单到期时间(8)，卡到期时间(7)常空
     ("doc2.xlsx", "4G联通",          1, 6, 5, True),
-    ("doc3.xlsx", "电信卡-3年列表",   1, 6, 5, True),
-    ("doc3.xlsx", "电信卡-大流量列表", 1, 6, 5, True),
+    ("doc2.xlsx", "4G移动",          1, None, None, True),
+    ("doc2.xlsx", "4G电信",          1, None, None, True),
+    ("doc2.xlsx", "5G联通",          1, None, None, True),
+    ("doc2.xlsx", "5G移动",          1, None, None, True),
+    ("doc2.xlsx", "5G电信",          1, None, None, True),
+    ("doc2.xlsx", "好数-测试卡",       1, None, None, True),
+    ("doc3.xlsx", "电信卡-3年列表",    1, 6, 5, True),
+    ("doc3.xlsx", "电信卡-大流量列表",  1, 6, 5, True),
+    ("doc3.xlsx", "联通卡列表",        1, None, None, True),
+    ("doc3.xlsx", "移动卡列表",        1, None, None, True),
 ]
 
 EPOCH = datetime.date(1900, 1, 1)
@@ -120,8 +130,9 @@ def main():
             iccid = str(raw).strip().upper()
             if not re.match(r"^[0-9A-Za-z]{10,}$", iccid):
                 continue
-            exp = norm_date(row[ec]) if ec < len(row) else ""
-            ren = norm_date(row[rc]) if rc < len(row) else ""
+            # ec / rc may be None in SOURCES, meaning that sheet has no such column
+            exp = norm_date(row[ec]) if ec is not None and ec < len(row) else ""
+            ren = norm_date(row[rc]) if rc is not None and rc < len(row) else ""
             stats["rows"] += 1
             n += 1
             if iccid not in records:
