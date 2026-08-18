@@ -243,13 +243,96 @@
   }
 
   let cardsCache = null;
+  let cardsPromise = null;
+
+  // --- IndexedDB: persist the parsed card list across page loads ---
+  const DB_NAME = 'iot-cards-db';
+  const DB_STORE = 'cards';
+
+  function dbOpen() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = () => {
+        if (!req.result.objectStoreNames.contains(DB_STORE)) {
+          req.result.createObjectStore(DB_STORE);
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  function dbGet(db, key) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(DB_STORE, 'readonly');
+      const r = tx.objectStore(DB_STORE).get(key);
+      r.onsuccess = () => resolve(r.result);
+      r.onerror = () => reject(r.error);
+    });
+  }
+
+  function dbSet(db, key, val) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(DB_STORE, 'readwrite');
+      tx.objectStore(DB_STORE).put(val, key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+
+  // Decompress a gzip ArrayBuffer -> string.
+  async function gunzip(buf) {
+    const ds = new DecompressionStream('gzip');
+    const stream = new Blob([buf]).stream().pipeThrough(ds);
+    return await new Response(stream).text();
+  }
+
+  // Current data version, cached for the session so we don't re-HEAD it often.
+  let versionCache = null;
+  async function fetchVersion() {
+    if (versionCache) return versionCache;
+    const r = await fetch('iot-cards.version?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('版本检查失败 HTTP ' + r.status);
+    versionCache = (await r.text()).trim();
+    return versionCache;
+  }
+
+  // Load the card list: IndexedDB cache first, fall back to gzip download.
   async function loadCards() {
     if (cardsCache) return cardsCache;
-    const resp = await fetch('iot-cards.json?t=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    cardsCache = await resp.json();
-    return cardsCache;
+    if (cardsPromise) return cardsPromise;
+    cardsPromise = (async () => {
+      try {
+        const db = await dbOpen();
+        const [version, cached] = await Promise.all([
+          fetchVersion(),
+          dbGet(db, 'version').catch(() => null),
+        ]);
+        if (cached && cached.version === version && Array.isArray(cached.cards)) {
+          cardsCache = cached.cards;   // instant, no network
+          return cardsCache;
+        }
+        // download gzip (much smaller than plain JSON)
+        const resp = await fetch('iot-cards.json.gz?t=' + Date.now());
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const buf = await resp.arrayBuffer();
+        const cards = JSON.parse(await gunzip(buf));
+        cardsCache = cards;
+        dbSet(db, 'version', { version, cards }).catch(() => {});
+        return cards;
+      } catch (e) {
+        // IndexedDB/DecompressionStream unavailable -> fall back to plain JSON
+        const resp = await fetch('iot-cards.json?t=' + Date.now());
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        cardsCache = await resp.json();
+        return cardsCache;
+      }
+    })();
+    return cardsPromise;
   }
+
+  // Background preload: warm the cache as soon as the page opens.
+  loadCards().catch(() => {});
 
   queryBtn.addEventListener('click', async () => {
     let iccid = iccidInput.value.trim().replace(/\s/g,'');
