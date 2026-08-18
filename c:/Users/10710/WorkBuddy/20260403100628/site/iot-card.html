@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>物联网卡查询 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+.iot-page {
+  padding: calc(var(--nav-h) + 48px) 0 80px;
+  min-height: 100vh;
+  background: var(--grad-hero);
+}
+.iot-page__header {
+  text-align: center; margin-bottom: 48px;
+}
+.iot-page__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #1565C0, #1E88E5); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;
+}
+.iot-page__title {
+  font-size: clamp(24px, 3.5vw, 36px); font-weight: 800;
+  background: linear-gradient(135deg, #0D47A1, #1565C0);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px;
+}
+.iot-page__sub {
+  font-size: 14px; color: var(--c-text-sub);
+}
+
+/* ── Query Card ── */
+.iot-query {
+  max-width: 480px; margin: 0 auto 28px;
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  padding: 32px 28px;
+}
+.iot-query__label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--c-text-sub); margin-bottom: 8px;
+}
+.iot-query__input {
+  width: 100%; box-sizing: border-box;
+  background: var(--c-bg); border: 1.5px solid var(--c-border);
+  border-radius: var(--radius-sm); padding: 13px 16px;
+  font-size: 15px; color: var(--c-text);
+  font-family: var(--font); letter-spacing: .04em;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+.iot-query__input:focus {
+  border-color: var(--c-primary-lt);
+  box-shadow: 0 0 0 3px rgba(30,136,229,.15);
+}
+.iot-query__input::placeholder { color: var(--c-text-pale); letter-spacing: normal; }
+.iot-query__btn {
+  width: 100%; margin-top: 18px;
+  background: var(--grad-btn); color: #fff; border: none;
+  border-radius: var(--radius-sm); padding: 13px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: var(--font);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.iot-query__btn:hover { opacity: .92; transform: translateY(-1px); }
+.iot-query__btn:active { transform: translateY(0); }
+.iot-query__btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+/* ── Result Card ── */
+.iot-result {
+  max-width: 480px; margin: 0 auto;
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: none;
+}
+.iot-result--visible { display: block; animation: fadeUp .35s ease-out; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.iot-result__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px 0;
+}
+.iot-result__iccid {
+  font-size: 15px; font-weight: 700; color: var(--c-text);
+  font-family: 'SF Mono','Consolas',monospace; letter-spacing: .06em;
+}
+.iot-result__status {
+  font-size: 12px; font-weight: 700; padding: 4px 12px;
+  border-radius: 99px; white-space: nowrap;
+}
+.iot-result__status--ok    { background: rgba(38,166,154,.12); color: #00897B; }
+.iot-result__status--warn  { background: rgba(255,167,38,.12); color: #F57C00; }
+.iot-result__status--exp   { background: rgba(239,83,80,.12); color: #D32F2F; }
+.iot-result__status--na    { background: rgba(120,144,156,.12); color: #607D8B; }
+
+.iot-result__body { padding: 20px 24px 24px; }
+.iot-result__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.iot-result__field {}
+.iot-result__field-label {
+  font-size: 12px; color: var(--c-text-pale); margin-bottom: 4px;
+}
+.iot-result__field-value {
+  font-size: 17px; font-weight: 700; color: var(--c-text);
+}
+
+/* ── Message ── */
+.iot-msg {
+  max-width: 480px; margin: 0 auto;
+  text-align: center; padding: 20px;
+  font-size: 14px; color: var(--c-text-sub);
+  display: none;
+}
+.iot-msg--visible { display: block; }
+.iot-msg--error { color: var(--c-danger); }
+
+/* ── Loading spinner ── */
+.iot-spinner {
+  display: inline-block; width: 20px; height: 20px;
+  border: 2.5px solid var(--c-border); border-top-color: var(--c-primary-lt);
+  border-radius: 50%; animation: spin .65s linear infinite; vertical-align: -4px; margin-right: 8px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Batch textarea ── */
+.iot-query__input--ta {
+  resize: vertical;
+  min-height: 56px; max-height: 240px;
+  line-height: 1.6;
+  font-family: 'SF Mono','Consolas',monospace;
+  letter-spacing: .04em;
+}
+
+/* ── Batch Result ── */
+.iot-batch {
+  max-width: 880px; margin: 0 auto;
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: none;
+}
+.iot-batch--visible { display: block; animation: fadeUp .35s ease-out; }
+.iot-batch__head {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  padding: 18px 24px 14px;
+  border-bottom: 1px solid var(--c-border);
+}
+.iot-batch__summary { font-size: 14px; color: var(--c-text); }
+.iot-batch__summary b { color: var(--c-primary); font-weight: 700; margin: 0 2px; }
+.iot-batch__actions { display: flex; gap: 8px; }
+.iot-batch__act {
+  background: var(--c-bg); border: 1px solid var(--c-border);
+  color: var(--c-text); padding: 7px 14px;
+  border-radius: var(--radius-sm); font-size: 13px;
+  cursor: pointer; font-family: var(--font);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+.iot-batch__act:hover { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+.iot-batch__act--copied { background: #00897B; color: #fff; border-color: #00897B; }
+.iot-batch__table-wrap { overflow-x: auto; max-height: 70vh; }
+.iot-batch__table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.iot-batch__table th,
+.iot-batch__table td {
+  padding: 11px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+  white-space: nowrap;
+}
+.iot-batch__table th {
+  font-weight: 700; color: var(--c-text-sub);
+  background: var(--c-bg);
+  font-size: 12px;
+  position: sticky; top: 0;
+}
+.iot-batch__table tbody tr:hover { background: var(--c-bg); }
+.iot-batch__table tbody tr.iot-batch__row--missing { background: rgba(239,83,80,.04); }
+.iot-batch__table tbody tr.iot-batch__row--bad     { color: var(--c-text-pale); font-style: italic; }
+.iot-batch__iccid {
+  font-family: 'SF Mono','Consolas',monospace;
+  letter-spacing: .04em;
+}
+.iot-batch__status {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; padding: 3px 10px;
+  border-radius: 99px;
+}
+.iot-batch__status--ok    { background: rgba(38,166,154,.12); color: #00897B; }
+.iot-batch__status--warn  { background: rgba(255,167,38,.12); color: #F57C00; }
+.iot-batch__status--exp   { background: rgba(239,83,80,.12); color: #D32F2F; }
+.iot-batch__status--na    { background: rgba(120,144,156,.12); color: #607D8B; }
+.iot-batch__status--miss  { background: rgba(120,144,156,.12); color: #607D8B; }
+.iot-batch__status--bad   { background: rgba(255,167,38,.12); color: #F57C00; }
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  .iot-query { margin-left: 16px; margin-right: 16px; padding: 24px 20px; }
+  .iot-result { margin-left: 16px; margin-right: 16px; }
+  .iot-msg { margin-left: 16px; margin-right: 16px; }
+  .iot-result__grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container" style="display:flex;align-items:center;height:var(--nav-h);">
+    <a href="index.html" style="font-size:17px;font-weight:800;color:var(--c-primary);">汇特讯</a>
+    <span style="margin:auto;"></span>
+    <a href="index.html" style="font-size:13px;color:var(--c-text-sub);">返回首页</a>
+  </div>
+</nav>
+
+<div class="iot-page">
+  <div class="container">
+    <div class="iot-page__header">
+      <div class="iot-page__badge">IoT Card Query</div>
+      <h1 class="iot-page__title">物联网卡管理</h1>
+      <p class="iot-page__sub">仅提供查询服务 · 输入 ICCID 卡号即可查询续费与到期时间</p>
+    </div>
+
+    <!-- 查询区 -->
+    <div class="iot-query">
+      <label class="iot-query__label" for="iccid-input">ICCID 卡号（支持批量粘贴）</label>
+      <textarea id="iccid-input" class="iot-query__input iot-query__input--ta"
+                placeholder="单张：直接输入；批量：粘贴多行（换行/逗号/空格/分号分隔，最多 500 张）"
+                rows="2" maxlength="20000" autocomplete="off" spellcheck="false"></textarea>
+      <button id="query-btn" class="iot-query__btn" type="button">查询</button>
+    </div>
+
+    <!-- 结果区 -->
+    <div id="result-card" class="iot-result">
+      <div class="iot-result__head">
+        <span id="res-iccid" class="iot-result__iccid"></span>
+        <span id="res-status" class="iot-result__status"></span>
+      </div>
+      <div class="iot-result__body">
+        <div class="iot-result__grid">
+          <div class="iot-result__field">
+            <div class="iot-result__field-label">续费时间</div>
+            <div id="res-renewal" class="iot-result__field-value"></div>
+          </div>
+          <div class="iot-result__field">
+            <div class="iot-result__field-label">到期时间</div>
+            <div id="res-expiry" class="iot-result__field-value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提示信息 -->
+    <div id="msg-box" class="iot-msg"></div>
+
+    <!-- 批量结果区 -->
+    <div id="batch-result" class="iot-batch">
+      <div class="iot-batch__head">
+        <div id="batch-summary" class="iot-batch__summary"></div>
+        <div class="iot-batch__actions">
+          <button id="batch-copy" class="iot-batch__act" type="button">复制结果</button>
+          <button id="batch-csv"  class="iot-batch__act" type="button">下载 CSV</button>
+        </div>
+      </div>
+      <div class="iot-batch__table-wrap">
+        <table class="iot-batch__table">
+          <thead><tr><th>ICCID</th><th>续费时间</th><th>到期时间</th><th>状态</th></tr></thead>
+          <tbody id="batch-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = s => document.getElementById(s);
+  const iccidInput = $('iccid-input');
+  const queryBtn  = $('query-btn');
+  const resultCard= $('result-card');
+  const resIccid  = $('res-iccid');
+  const resStatus = $('res-status');
+  const resRenewal= $('res-renewal');
+  const resExpiry = $('res-expiry');
+  const msgBox    = $('msg-box');
+  const batchResult= $('batch-result');
+  const batchSummary = $('batch-summary');
+  const batchTbody = $('batch-tbody');
+
+  const MAX_BATCH = 500;
+  let batchRows = [];   // 缓存当前批量结果，供复制/导出
+
+  function hideAll() {
+    resultCard.classList.remove('iot-result--visible');
+    msgBox.classList.remove('iot-msg--visible','iot-msg--error');
+    batchResult.classList.remove('iot-batch--visible');
+  }
+
+  function showMsg(text, isError) {
+    hideAll();
+    msgBox.textContent = text;
+    msgBox.className = 'iot-msg iot-msg--visible' + (isError ? ' iot-msg--error' : '');
+  }
+
+  // Shared status logic (rule C: no expiry + no renewal => 已到期)
+  function computeStatus(card) {
+    const now = new Date(); now.setHours(0,0,0,0);
+    if (!card.expiry_date && !card.renewal_date)
+      return { text: '已到期', cls: 'iot-batch__status--exp' };
+    if (!card.expiry_date)
+      return { text: '未知', cls: 'iot-batch__status--na' };
+    const exp = new Date(card.expiry_date + 'T00:00:00');
+    const daysLeft = Math.ceil((exp - now) / 86400000);
+    if (daysLeft < 0)     return { text: '已过期',   cls: 'iot-batch__status--exp' };
+    if (daysLeft <= 30)  return { text: '即将到期', cls: 'iot-batch__status--warn' };
+    return { text: '正常', cls: 'iot-batch__status--ok' };
+  }
+
+  function showResult(card) {
+    hideAll();
+    let fmt = card.iccid.replace(/(.{4})/g,'$1 ').trim();
+    resIccid.textContent = fmt;
+    const st = computeStatus(card);
+    // 单卡样式用 iot-result__status--* 类（与批量同名但样式略不同）
+    const clsMap = {
+      'iot-batch__status--exp'  : 'iot-result__status--exp',
+      'iot-batch__status--na'   : 'iot-result__status--na',
+      'iot-batch__status--ok'   : 'iot-result__status--ok',
+      'iot-batch__status--warn' : 'iot-result__status--warn',
+    };
+    resStatus.textContent = st.text;
+    resStatus.className = 'iot-result__status ' + (clsMap[st.cls] || 'iot-result__status--na');
+    resRenewal.textContent = card.renewal_date || '未获取';
+    resExpiry.textContent  = card.expiry_date  || '未获取';
+    resultCard.classList.add('iot-result--visible');
+  }
+
+  // Parse raw input into [valid iccids], [invalid tokens]
+  function parseInput(raw) {
+    const tokens = raw.split(/[\s,;，；\t]+/).filter(Boolean);
+    const valid = [], invalid = [];
+    const seen = new Set();
+    for (const t of tokens) {
+      const cleaned = t.replace(/\s/g,'');
+      if (!cleaned) continue;
+      if (/^[0-9A-Za-z]{19,20}$/.test(cleaned)) {
+        const up = cleaned.toUpperCase();
+        if (!seen.has(up)) { seen.add(up); valid.push(up); }
+      } else {
+        invalid.push(cleaned);
+      }
+    }
+    return { valid, invalid };
+  }
+
+  async function showBatch(iccids, invalid) {
+    hideAll();
+    const cards = await loadCards();
+    const map = new Map(cards.map(c => [c.iccid, c]));
+    const rows = [];
+    let found = 0;
+    for (const ic of iccids) {
+      const c = map.get(ic);
+      if (c) {
+        const st = computeStatus(c);
+        rows.push({ iccid: ic, renewal: c.renewal_date, expiry: c.expiry_date,
+                    status: st.text, statusCls: st.cls, kind: 'ok' });
+        found++;
+      } else {
+        rows.push({ iccid: ic, renewal:'', expiry:'',
+                    status: '未找到', statusCls: 'iot-batch__status--miss', kind: 'missing' });
+      }
+    }
+    for (const t of invalid) {
+      if (!t) continue;
+      rows.push({ iccid: t, renewal:'', expiry:'',
+                  status: '格式错误', statusCls: 'iot-batch__status--bad', kind: 'bad' });
+    }
+    // summary
+    const parts = [`共 <b>${iccids.length}</b> 张有效卡号`, `已找到 <b>${found}</b>`, `未找到 <b>${iccids.length - found}</b>`];
+    if (invalid.length) parts.push(`格式错误 <b>${invalid.length}</b>`);
+    batchSummary.innerHTML = parts.join(' · ');
+    // render rows
+    batchTbody.innerHTML = '';
+    for (const r of rows) {
+      const tr = document.createElement('tr');
+      if (r.kind === 'missing') tr.className = 'iot-batch__row--missing';
+      else if (r.kind === 'bad') tr.className = 'iot-batch__row--bad';
+      const fmtIccid = r.iccid.replace(/(.{4})/g,'$1 ').trim();
+      const renewalTxt = r.renewal || '—';
+      const expiryTxt  = r.expiry  || '—';
+      tr.innerHTML =
+        '<td class="iot-batch__iccid">' + fmtIccid + '</td>' +
+        '<td>' + renewalTxt + '</td>' +
+        '<td>' + expiryTxt  + '</td>' +
+        '<td><span class="iot-batch__status ' + r.statusCls + '">' + r.status + '</span></td>';
+      batchTbody.appendChild(tr);
+    }
+    batchRows = rows;
+    batchResult.classList.add('iot-batch--visible');
+  }
+
+  // --- TSV / CSV builders (for copy + download) ---
+  function buildTSV() {
+    const lines = ['ICCID\t续费时间\t到期时间\t状态'];
+    for (const r of batchRows) lines.push([r.iccid, r.renewal, r.expiry, r.status].join('\t'));
+    return lines.join('\n');
+  }
+  function buildCSV() {
+    const esc = v => /[",\n]/.test(v) ? '"' + String(v).replace(/"/g,'""') + '"' : v;
+    const lines = ['ICCID,续费时间,到期时间,状态'];
+    for (const r of batchRows) {
+      lines.push([r.iccid, r.renewal, r.expiry, r.status].map(esc).join(','));
+    }
+    return lines.join('\r\n');
+  }
+
+  // --- IndexedDB / gzip / loadCards (unchanged) ---
+  const DB_NAME = 'iot-cards-db';
+  const DB_STORE = 'cards';
+
+  function dbOpen() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = () => {
+        if (!req.result.objectStoreNames.contains(DB_STORE)) {
+          req.result.createObjectStore(DB_STORE);
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  function dbGet(db, key) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(DB_STORE, 'readonly');
+      const r = tx.objectStore(DB_STORE).get(key);
+      r.onsuccess = () => resolve(r.result);
+      r.onerror = () => reject(r.error);
+    });
+  }
+  function dbSet(db, key, val) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(DB_STORE, 'readwrite');
+      tx.objectStore(DB_STORE).put(val, key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+  async function gunzip(buf) {
+    const ds = new DecompressionStream('gzip');
+    const stream = new Blob([buf]).stream().pipeThrough(ds);
+    return await new Response(stream).text();
+  }
+
+  let cardsCache = null;
+  let cardsPromise = null;
+  let versionCache = null;
+
+  async function fetchVersion() {
+    if (versionCache) return versionCache;
+    const r = await fetch('iot-cards.version?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('版本检查失败 HTTP ' + r.status);
+    versionCache = (await r.text()).trim();
+    return versionCache;
+  }
+
+  async function loadCards() {
+    if (cardsCache) return cardsCache;
+    if (cardsPromise) return cardsPromise;
+    cardsPromise = (async () => {
+      try {
+        const db = await dbOpen();
+        const [version, cached] = await Promise.all([
+          fetchVersion(),
+          dbGet(db, 'version').catch(() => null),
+        ]);
+        if (cached && cached.version === version && Array.isArray(cached.cards)) {
+          cardsCache = cached.cards;
+          return cardsCache;
+        }
+        const resp = await fetch('iot-cards.json.gz?t=' + Date.now());
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const buf = await resp.arrayBuffer();
+        const cards = JSON.parse(await gunzip(buf));
+        cardsCache = cards;
+        dbSet(db, 'version', { version, cards }).catch(() => {});
+        return cards;
+      } catch (e) {
+        const resp = await fetch('iot-cards.json?t=' + Date.now());
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        cardsCache = await resp.json();
+        return cardsCache;
+      }
+    })();
+    return cardsPromise;
+  }
+
+  // background preload
+  loadCards().catch(() => {});
+
+  // --- Main query: auto-detect single vs batch ---
+  queryBtn.addEventListener('click', async () => {
+    const raw = iccidInput.value;
+    if (!raw || !raw.trim()) return showMsg('请输入 ICCID 卡号', true);
+
+    const { valid, invalid } = parseInput(raw);
+    if (!valid.length && !invalid.length)
+      return showMsg('请输入 ICCID 卡号', true);
+    if (valid.length > MAX_BATCH)
+      return showMsg(`批量查询最多 ${MAX_BATCH} 张，请分批粘贴`, true);
+
+    queryBtn.disabled = true;
+    queryBtn.innerHTML = '<span class="iot-spinner"></span>查询中...';
+
+    try {
+      // single card path: keep original UX (cleaner single-card UI)
+      if (valid.length === 1 && invalid.length === 0) {
+        const cards = await loadCards();
+        const found = cards.find(c => c.iccid === valid[0]);
+        if (found) showResult(found);
+        else showMsg('未找到该 ICCID 对应的卡片信息，请核对后重试', true);
+      } else {
+        await showBatch(valid, invalid);
+      }
+    } catch (e) {
+      showMsg('查询失败：' + e.message + '，请稍后重试', true);
+    } finally {
+      queryBtn.disabled = false;
+      queryBtn.innerHTML = '查询';
+    }
+  });
+
+  // textarea Enter semantics:
+  //  - plain Enter    → submit
+  //  - Shift/Ctrl/Cmd + Enter → newline
+  iccidInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      queryBtn.click();
+    }
+  });
+
+  // --- Batch action buttons ---
+  $('batch-copy').addEventListener('click', async () => {
+    if (!batchRows.length) return;
+    const btn = $('batch-copy');
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(buildTSV());
+      } else {
+        // fallback: temporary textarea
+        const ta = document.createElement('textarea');
+        ta.value = buildTSV();
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.textContent = '✓ 已复制';
+      btn.classList.add('iot-batch__act--copied');
+      setTimeout(() => {
+        btn.textContent = '复制结果';
+        btn.classList.remove('iot-batch__act--copied');
+      }, 1500);
+    } catch (err) {
+      showMsg('复制失败：' + err.message, true);
+    }
+  });
+
+  $('batch-csv').addEventListener('click', () => {
+    if (!batchRows.length) return;
+    const blob = new Blob(['﻿' + buildCSV()], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'iot-batch-' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+})();
+</script>
+</body>
+</html>

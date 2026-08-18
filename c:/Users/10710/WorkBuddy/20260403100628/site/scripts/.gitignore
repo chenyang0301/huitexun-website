@@ -1,0 +1,3 @@
+# Exported Tencent Docs binaries (regenerated locally by td_export.py)
+*.xlsx
+*_ns.xlsx
