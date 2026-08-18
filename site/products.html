@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>产品方案 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── PRODUCT CARDS ── */
+.products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.prod-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:all var(--transition);
+}
+.prod-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:rgba(21,101,192,.22); }
+.prod-card__top {
+  padding:24px 22px 18px;
+  background:var(--grad-card);
+  border-bottom:1px solid var(--c-border);
+}
+.prod-card__icon {
+  width:48px;height:48px;border-radius:var(--radius-sm);
+  background:rgba(21,101,192,.12);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  margin-bottom:14px;
+}
+.prod-card__name { font-size:17px;font-weight:800;color:var(--c-text);margin-bottom:6px; }
+.prod-card__tags { display:flex;gap:6px;flex-wrap:wrap; }
+.prod-card__body { padding:18px 22px; }
+.prod-card__desc { font-size:13.5px;color:var(--c-text-sub);line-height:1.75; }
+
+/* ── CASES ── */
+.cases { background:var(--c-bg); }
+.cases-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.case-card {
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:all var(--transition);
+}
+.case-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+.case-card__cover {
+  height:180px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:48px;
+  position:relative;
+  overflow:hidden;
+  background:#f8fafc;
+}
+.case-card__cover-img { width:100%; height:100%; object-fit:contain; }
+.case-card__body { padding:20px 22px; }
+.case-card__industry {
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:700;
+  padding:3px 10px; border-radius:99px;
+  margin-bottom:10px;
+}
+.case-card__title { font-size:17px;font-weight:800;color:var(--c-text);margin-bottom:8px; }
+.case-card__desc { font-size:13.5px;color:var(--c-text-sub);line-height:1.75;margin-bottom:14px; }
+.case-card__result {
+  display:flex;gap:16px;
+  border-top:1px solid var(--c-border);
+  padding-top:14px;margin-top:14px;
+}
+.case-result-item { text-align:center; }
+.case-result-item__num { font-size:20px;font-weight:800;background:var(--grad-btn);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.case-result-item__lbl { font-size:11px;color:var(--c-text-pale); }
+
+@media(max-width:900px){.products-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.products-grid,.cases-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="img/brand/logo.png" alt="汇特讯" class="nav__logo-img"/>
+      <div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html" class="active">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li><a href="ai-travel.html">AI伴游</a></li>
+      <li>
+        <span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="iot-card.html">物联网卡</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header__eyebrow">📦 产品方案</div>
+    <h1 class="page-header__title">全场景<em>融合通信</em>产品体系</h1>
+    <p class="page-header__desc">汇特讯提供从多媒体调度到AI视觉、从高精定位到全端接入的完整产品矩阵，助力各行业数字化转型。</p>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section>
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">产品矩阵</div>
+      <h2 class="section__title">六大核心产品线</h2>
+      <p class="section__desc">覆盖通信调度、AI感知、定位服务和接入管理，构成完整的融合通信技术体系。</p>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📡</div>
+          <div class="prod-card__name">多媒体指挥调度</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">音视频</span><span class="tag tag--cyan">GIS可视化</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">融合 SIP 软交换与互联网流媒体技术，支持音视频融合指挥、GIS 可视化调度及融媒体直播，实现跨网统一管控。适用于大规模多部门协同指挥场景。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">🤖</div>
+          <div class="prod-card__name">视觉AI识别平台</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">云边协同</span><span class="tag tag--green">AI算法</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">自主 AI 视觉识别算法模型管理平台，支持个性化低成本模型定制，实现边缘侧与云端协同推理。千人千面的智能感知解决方案。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📍</div>
+          <div class="prod-card__name">高精定位服务</div>
+          <div class="prod-card__tags"><span class="tag tag--cyan">GPS/RTK</span><span class="tag tag--warn">室内定位</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">覆盖 GPS/RTK 室外高精定位与 UWB/BT 室内定位，兼容百度、高德及自建地图，满足矿山、工厂、楼宇等复杂场景全域定位需求。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📱</div>
+          <div class="prod-card__name">全客户端接入</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">iOS/Android</span><span class="tag tag--green">Web端</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">支持 iOS/Android APP、Windows APP、Web端、PC客户端、微信小程序及 5G 专用嵌入式终端，统一接入、统一管控、统一指挥。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">☁️</div>
+          <div class="prod-card__name">SaaS 弹性服务</div>
+          <div class="prod-card__tags"><span class="tag tag--cyan">云原生</span><span class="tag tag--blue">快速部署</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">产业互联网 SaaS 模式，快速部署、弹性扩容，降低企业 IT 建设成本，支持私有化部署，专注核心业务运营，开箱即用。</p>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card__top">
+          <div class="prod-card__icon">📶</div>
+          <div class="prod-card__name">5G 宽带集群</div>
+          <div class="prod-card__tags"><span class="tag tag--blue">5G专网</span><span class="tag tag--green">低延迟</span></div>
+        </div>
+        <div class="prod-card__body">
+          <p class="prod-card__desc">基于 5G 专网的宽带集群通信系统，提供超大容量、超低时延、高可靠的专业指挥调度能力，覆盖执法、应急、交通等关键行业。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases">
+  <div class="container">
+    <div class="section__head">
+      <div class="section__eyebrow">合作案例</div>
+      <h2 class="section__title">六大典型案例，真实落地见证价值</h2>
+      <p class="section__desc">从冬奥保障到城市治理，汇特讯在多个行业实现规模化部署，以下为六大典型合作案例。</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-card__cover"><img src="img/cases/case-winter.png" alt="北京冬奥会" class="case-card__cover-img"/></div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--blue">🚨 应急指挥</div>
+          <div class="case-card__title">北京冬奥会 · 指挥调度平台</div>
+          <p class="case-card__desc">覆盖 13 个比赛场馆、18 个配套场所，为 1.5 万名赛事组织与运输保障人员及 500 名医疗急救人员提供专项指挥调度，实现集群对讲、视频会商、人员/车辆定位与移动视频回传一体化。</p>
+          <div class="case-card__result"><div class="case-result-item"><div class="case-result-item__num">1.5万</div><div class="case-result-item__lbl">保障人员</div></div><div class="case-result-item"><div class="case-result-item__num">13</div><div class="case-result-item__lbl">比赛场馆</div></div><div class="case-result-item"><div class="case-result-item__num">500+</div><div class="case-result-item__lbl">医疗急救</div></div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover"><img src="img/cases/case-home.png" alt="AI智慧家装" class="case-card__cover-img"/></div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--warn">🏗️ 安全生产</div>
+          <div class="case-card__title">AI 智慧家装 · 工地管理平台</div>
+          <p class="case-card__desc">面向 10000+ 同时施工的家庭装修工地，通过 AI 摄像机实现远程监理、人员考勤、智慧监管与业主服务，施工计划、工地文明与工人考勤全程数字化。</p>
+          <div class="case-card__result"><div class="case-result-item"><div class="case-result-item__num">10000+</div><div class="case-result-item__lbl">家装工地</div></div><div class="case-result-item"><div class="case-result-item__num">AI</div><div class="case-result-item__lbl">远程监理</div></div><div class="case-result-item"><div class="case-result-item__num">5 大</div><div class="case-result-item__lbl">业务模块</div></div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover"><img src="img/cases/case-construction.png" alt="室外施工" class="case-card__cover-img"/></div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--green">🛡️ 安全监管</div>
+          <div class="case-card__title">室外施工 · 安全生产远程审核</div>
+          <p class="case-card__desc">落实新版《安全生产法》，为集团工程部建设安全施工远程审核与监管系统，实现远程审核、审核模版、施工过程监管与记录查询全流程数字化。</p>
+          <div class="case-card__result"><div class="case-result-item"><div class="case-result-item__num">全流程</div><div class="case-result-item__lbl">远程审核</div></div><div class="case-result-item"><div class="case-result-item__num">100%</div><div class="case-result-item__lbl">记录存档</div></div><div class="case-result-item"><div class="case-result-item__num">AI</div><div class="case-result-item__lbl">自动告警</div></div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover"><img src="img/cases/case-5g.png" alt="5G集群" class="case-card__cover-img"/></div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--cyan">📶 5G集群</div>
+          <div class="case-card__title">5G 集群调度通信系统</div>
+          <p class="case-card__desc">基于 5G 核心网 UPF 下沉与 MEC 技术，替代传统 800M/TETRA 数字集群，实现集群对讲、音视频多媒体调度、GIS 可视化调度与 AR 增强现实应用。</p>
+          <div class="case-card__result"><div class="case-result-item"><div class="case-result-item__num">5G</div><div class="case-result-item__lbl">核心网</div></div><div class="case-result-item"><div class="case-result-item__num">4 大</div><div class="case-result-item__lbl">业务能力</div></div><div class="case-result-item"><div class="case-result-item__num">1Gbps+</div><div class="case-result-item__lbl">峰值速率</div></div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover"><img src="img/cases/case-elderly.png" alt="社会养老" class="case-card__cover-img"/></div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--blue">👴 智慧养老</div>
+          <div class="case-card__title">社会养老 · 即时调度系统</div>
+          <p class="case-card__desc">为居家老人提供一键呼叫、例行广播提醒与个性化关怀，调度社区服务站与志愿者上门服务，并通过智能手表实时监测心率、血压、血氧，向家属推送健康信息。</p>
+          <div class="case-card__result"><div class="case-result-item"><div class="case-result-item__num">一键</div><div class="case-result-item__lbl">呼叫求助</div></div><div class="case-result-item"><div class="case-result-item__num">7×24</div><div class="case-result-item__lbl">值班调度</div></div><div class="case-result-item"><div class="case-result-item__num">实时</div><div class="case-result-item__lbl">健康监测</div></div></div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__cover"><img src="img/cases/case-city.png" alt="智慧城市" class="case-card__cover-img"/></div>
+        <div class="case-card__body">
+          <div class="case-card__industry tag tag--cyan">🏙️ 城市治理</div>
+          <div class="case-card__title">智慧城市 · 网格化基层治理</div>
+          <p class="case-card__desc">为区政府网格化基层治理提供移动信息化工具，支撑 7000 名网格员视频会议与即时通信，2 万个城市监控摄像头实时入会，实现"一事一群、事毕群闭"。</p>
+          <div class="case-card__result"><div class="case-result-item"><div class="case-result-item__num">7000</div><div class="case-result-item__lbl">网格员</div></div><div class="case-result-item"><div class="case-result-item__num">2万+</div><div class="case-result-item__lbl">监控接入</div></div><div class="case-result-item"><div class="case-result-item__num">一事一群</div><div class="case-result-item__lbl">事件处置</div></div></div>
+        </div>
+      </div>
+    </div>    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a>
+        <a href="ai-travel.html">AI伴游</a><a href="support.html">技术支持</a><a href="docs.html">使用文档</a>
+        <a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+<script>
+const nav=document.getElementById('mainNav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+document.querySelectorAll('.nav__links > li').forEach(li=>{const t=li.querySelector('span');if(!t)return;t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});li.classList.toggle('dropdown-open');});});document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
+</script>
+</body>
+</html>
