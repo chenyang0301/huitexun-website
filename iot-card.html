@@ -220,10 +220,12 @@
     let fmt = card.iccid.replace(/(.{4})/g,'$1 ').trim();
     resIccid.textContent = fmt;
 
-    // status — only meaningful when expiry is known
+    // status — 到期为空 且 续费为空 → 已到期；仅到期未知 → 未知；否则按到期时间判断
     const now = new Date(); now.setHours(0,0,0,0);
     let statusText, statusClass;
-    if (!card.expiry_date) {
+    if (!card.expiry_date && !card.renewal_date) {
+      statusText = '已到期'; statusClass = 'iot-result__status--exp';
+    } else if (!card.expiry_date) {
       statusText = '未知'; statusClass = 'iot-result__status--na';
     } else {
       const exp = new Date(card.expiry_date + 'T00:00:00');
