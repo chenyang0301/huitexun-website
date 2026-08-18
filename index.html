@@ -6,125 +6,96 @@
 <title>汇特讯 · 5G数智化融合通信平台</title>
 <link rel="stylesheet" href="shared.css"/>
 <style>
-/* ── HERO ── */
+/* ── HERO SLIDER ── */
 .hero {
-  padding: calc(var(--nav-h) + 80px) 0 90px;
-  background: var(--grad-hero);
-  position: relative; overflow: hidden;
+  position: relative;
+  height: clamp(460px, 74vh, 640px);
+  min-height: 480px;
+  overflow: hidden;
+  padding: 0;
+  background: #0D3B7A;
 }
-.hero::before {
-  content:'';
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 600px 500px at 75% 50%, rgba(41,182,246,.15) 0%,transparent 65%),
-    radial-gradient(ellipse 400px 350px at 15% 70%, rgba(21,101,192,.09) 0%,transparent 60%);
-  pointer-events:none;
+.hero__slide {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.1s ease;
+  z-index: 0;
 }
-.hero::after {
-  content:'';
-  position:absolute; right:-80px; top:-80px;
-  width:560px; height:560px;
-  background-image:
-    linear-gradient(rgba(21,101,192,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(21,101,192,.05) 1px,transparent 1px);
-  background-size:44px 44px;
-  border-radius:50%; transform:rotate(-10deg);
-  pointer-events:none;
+.hero__slide.active { opacity: 1; }
+.hero__scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(8,36,77,.94) 0%, rgba(13,59,122,.78) 42%, rgba(13,59,122,.28) 100%);
+  z-index: 1;
 }
-.hero__inner {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:56px; align-items:center;
-  position:relative; z-index:1;
+.hero__content {
+  position: relative; z-index: 2;
+  height: 100%;
+  display: flex; flex-direction: column; justify-content: center;
+  color: #fff;
 }
 .hero__eyebrow {
   display:inline-flex; align-items:center; gap:7px;
-  background:rgba(21,101,192,.1); color:var(--c-primary);
+  background:rgba(255,255,255,.12); color:#fff;
   font-size:12px; font-weight:700;
   padding:5px 14px; border-radius:99px;
-  border:1px solid rgba(21,101,192,.18);
-  margin-bottom:20px;
+  border:1px solid rgba(255,255,255,.25);
+  margin-bottom:20px; width: fit-content;
 }
 .hero__dot {
   width:7px;height:7px;border-radius:50%;
-  background:var(--c-accent);
+  background:var(--c-accent2);
   animation:blink 2s infinite;
 }
 @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
 .hero__title {
   font-size:clamp(28px,4vw,50px);
   font-weight:800; line-height:1.2;
-  color:var(--c-text); margin-bottom:18px;
+  color:#fff; margin-bottom:18px;
+  text-shadow: 0 2px 24px rgba(0,0,0,.35);
 }
 .hero__title em {
   font-style:normal;
-  background:var(--grad-btn);
+  background:linear-gradient(90deg, #4FC3F7, #00E5FF);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
 }
 .hero__desc {
-  font-size:16px; color:var(--c-text-sub);
+  font-size:16px; color:rgba(255,255,255,.85);
   line-height:1.85; margin-bottom:36px;
-  max-width:460px;
+  max-width:520px;
+  text-shadow: 0 1px 12px rgba(0,0,0,.3);
 }
 .hero__btns { display:flex; gap:14px; flex-wrap:wrap; }
-
-/* hero visual */
-.hero__visual { position:relative; }
-.hero__screen {
-  background:var(--c-surface);
-  border-radius:var(--radius-lg);
-  border:1px solid var(--c-border);
-  box-shadow:var(--shadow-lg);
-  padding:24px;
-}
-.hero__screen-bar {
-  display:flex; align-items:center; gap:7px;
-  padding-bottom:16px; margin-bottom:18px;
-  border-bottom:1px solid var(--c-border);
-}
-.hero__screen-dot { width:10px;height:10px;border-radius:50%; }
-.hero__screen-title { font-size:13px;color:var(--c-text-sub);margin-left:6px; }
-.stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
-.stat-item {
-  background:var(--c-bg);
-  border:1px solid var(--c-border);
-  border-radius:var(--radius-sm);
-  padding:14px 16px;
-}
-.stat-item__num {
-  font-size:24px;font-weight:800;
-  background:var(--grad-btn);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  line-height:1;margin-bottom:3px;
-}
-.stat-item__lbl { font-size:11.5px;color:var(--c-text-pale); }
-.hero__band {
-  background:linear-gradient(90deg,var(--c-primary),var(--c-accent));
-  border-radius:var(--radius-sm);
-  padding:13px 18px;
-  display:flex;justify-content:space-between;align-items:center;
+.hero__btns .btn--outline {
+  background:rgba(255,255,255,.08);
   color:#fff;
+  border:1.5px solid rgba(255,255,255,.4);
 }
-.hero__band-l { font-size:12px;opacity:.8; }
-.hero__band-r { font-size:17px;font-weight:700; }
-.hero__float-a {
-  position:absolute; top:-16px; right:-16px;
-  background:var(--c-surface);border:1px solid var(--c-border);
-  border-radius:var(--radius-sm); padding:10px 14px;
-  box-shadow:var(--shadow-md);
-  display:flex;align-items:center;gap:7px;
-  font-size:13px;font-weight:600;color:#26A69A;
+.hero__btns .btn--outline:hover { background:rgba(255,255,255,.18); }
+.hero__dots {
+  position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+  z-index:3; display:flex; gap:9px;
 }
-.hero__float-b {
-  position:absolute; bottom:-16px; left:-16px;
-  background:var(--c-surface);border:1px solid var(--c-border);
-  border-radius:var(--radius-sm); padding:10px 14px;
-  box-shadow:var(--shadow-md); font-size:11.5px;color:var(--c-text-sub);
+.hero__dot-btn {
+  width:10px; height:10px; border-radius:99px;
+  background:rgba(255,255,255,.35); border:none; cursor:pointer;
+  transition:all var(--transition); padding:0;
 }
-.hero__float-b strong {color:var(--c-primary);}
+.hero__dot-btn.active { width:30px; background:#fff; }
+.hero__arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:3; width:46px; height:46px; border-radius:50%;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3);
+  color:#fff; font-size:24px; cursor:pointer; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  transition:all var(--transition);
+}
+.hero__arrow:hover { background:rgba(255,255,255,.3); }
+.hero__arrow--prev { left:22px; }
+.hero__arrow--next { right:22px; }
 
 /* ── MODULES GRID ── */
 .modules { background:var(--c-surface); }
@@ -186,8 +157,10 @@
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .hero__inner,.modules__grid{grid-template-columns:1fr;}
-  .hero__visual{display:none;}
+  .modules__grid{grid-template-columns:1fr;}
+  .hero{height:480px;}
+  .hero__scrim{background:linear-gradient(90deg,rgba(8,36,77,.96) 0%,rgba(13,59,122,.88) 100%);}
+  .hero__arrow{display:none;}
   .stats-bar__grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
@@ -224,45 +197,26 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="container hero__inner">
-    <div>
-      <div class="hero__eyebrow"><span class="hero__dot"></span>5G · AIoT · 云计算 · SaaS</div>
-      <h1 class="hero__title">面向未来的<br><em>融合通信</em><br>调度平台</h1>
-      <p class="hero__desc">汇特讯依托 5G/4G 宽带无线网络，整合多媒体指挥调度、视觉 AI 识别、高精定位等核心技术，为政企行业提供一体化数智融合通信解决方案。</p>
-      <div class="hero__btns">
-        <a href="5g-cluster.html" class="btn btn--primary btn--lg">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          了解5G集群
-        </a>
-        <a href="products.html" class="btn btn--outline btn--lg">查看产品方案</a>
-      </div>
-    </div>
-    <div class="hero__visual">
-      <div style="position:relative;">
-        <div class="hero__float-a">🟢 系统运行正常</div>
-        <div class="hero__screen">
-          <div class="hero__screen-bar">
-            <div class="hero__screen-dot" style="background:#FF5F57"></div>
-            <div class="hero__screen-dot" style="background:#FEBC2E"></div>
-            <div class="hero__screen-dot" style="background:#28C840"></div>
-            <span class="hero__screen-title">平台运营总览</span>
-          </div>
-          <div class="stat-grid">
-            <div class="stat-item"><div class="stat-item__num">5G</div><div class="stat-item__lbl">网络融合接入</div></div>
-            <div class="stat-item"><div class="stat-item__num">AI+</div><div class="stat-item__lbl">视觉识别引擎</div></div>
-            <div class="stat-item"><div class="stat-item__num">6+</div><div class="stat-item__lbl">行业应用场景</div></div>
-            <div class="stat-item"><div class="stat-item__num">全端</div><div class="stat-item__lbl">多终端统一接入</div></div>
-          </div>
-          <div class="hero__band">
-            <div><div class="hero__band-l">SaaS 业务平台</div><div class="hero__band-r">产业互联网服务</div></div>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-        </div>
-        <div class="hero__float-b"><strong>京ICP备2021038921号-2</strong><br>七山创智 · 汇特讯</div>
-      </div>
+<section class="hero" id="heroSlider">
+  <div class="hero__slide active" style="background-image:url('img/hero/hero-1-tech.png');"></div>
+  <div class="hero__slide" style="background-image:url('img/hero/hero-3-port.png');"></div>
+  <div class="hero__slide" style="background-image:url('img/hero/hero-4-command.png');"></div>
+  <div class="hero__scrim"></div>
+  <div class="container hero__content">
+    <div class="hero__eyebrow"><span class="hero__dot"></span>5G · AIoT · 云计算 · SaaS</div>
+    <h1 class="hero__title">面向未来的<br><em>融合通信</em><br>调度平台</h1>
+    <p class="hero__desc">汇特讯依托 5G/4G 宽带无线网络，整合多媒体指挥调度、视觉 AI 识别、高精定位等核心技术，为政企行业提供一体化数智融合通信解决方案。</p>
+    <div class="hero__btns">
+      <a href="5g-cluster.html" class="btn btn--primary btn--lg">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        了解5G集群
+      </a>
+      <a href="products.html" class="btn btn--outline btn--lg">查看产品方案</a>
     </div>
   </div>
+  <button class="hero__arrow hero__arrow--prev" onclick="heroPrev()" aria-label="上一张">‹</button>
+  <button class="hero__arrow hero__arrow--next" onclick="heroNext()" aria-label="下一张">›</button>
+  <div class="hero__dots" id="heroDots"></div>
 </section>
 
 <!-- STATS -->
@@ -361,6 +315,31 @@ document.querySelectorAll('.nav__links > li').forEach(li=>{
   });
 });
 document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
+// hero slider
+const heroSlides = document.querySelectorAll('.hero__slide');
+const heroDots = document.getElementById('heroDots');
+let heroIdx = 0, heroTimer = null;
+if (heroSlides.length && heroDots) {
+  heroSlides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'hero__dot-btn' + (i === 0 ? ' active' : '');
+    b.onclick = () => heroGo(i);
+    heroDots.appendChild(b);
+  });
+  function heroGo(i) {
+    heroSlides[heroIdx].classList.remove('active');
+    heroDots.children[heroIdx].classList.remove('active');
+    heroIdx = (i + heroSlides.length) % heroSlides.length;
+    heroSlides[heroIdx].classList.add('active');
+    heroDots.children[heroIdx].classList.add('active');
+    heroRestart();
+  }
+  window.heroNext = () => heroGo(heroIdx + 1);
+  window.heroPrev = () => heroGo(heroIdx - 1);
+  function heroRestart() { clearInterval(heroTimer); heroTimer = setInterval(() => heroGo(heroIdx + 1), 6000); }
+  heroRestart();
+}
+
 </script>
 </body>
 </html>
