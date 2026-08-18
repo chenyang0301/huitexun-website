@@ -115,6 +115,16 @@ img { display: block; max-width: 100%; }
   margin-top: -2px; letter-spacing: .5px;
 }
 
+/* Real brand logo image (overrides the '汇' text mark) */
+.nav__logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  /* logo.png has a white opaque background; blends with the light nav */
+  border-radius: 4px;
+}
+
 /* Links */
 .nav__links {
   display: flex;
