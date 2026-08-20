@@ -13,8 +13,10 @@ Usage:
 import os
 import re
 import json
+import gzip
 import zipfile
 import datetime
+import hashlib
 import openpyxl
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -159,9 +161,20 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
 
+    # gzip + version file for the query page (7MB plain JSON is slow to load)
+    gz_path = os.path.join(SITE, "iot-cards.json.gz")
+    with open(out_path, "rb") as f:
+        raw = f.read()
+    with open(gz_path, "wb") as f:
+        f.write(gzip.compress(raw, compresslevel=9))
+    version = hashlib.md5(raw).hexdigest()[:12]
+    with open(os.path.join(SITE, "iot-cards.version"), "w") as f:
+        f.write(version)
+
     with_exp = sum(1 for r in out if r["expiry_date"])
     with_ren = sum(1 for r in out if r["renewal_date"])
     size = os.path.getsize(out_path)
+    gz_size = os.path.getsize(gz_path)
     print(f"\nTotal unique ICCIDs : {len(out)}")
     print(f"  with 到期时间      : {with_exp}")
     print(f"  with 续费时间      : {with_ren}")
@@ -169,6 +182,8 @@ def main():
     print(f"  merged (later exp) : {stats['merged']}")
     print(f"  dup dropped        : {stats['dup_dropped']}")
     print(f"Wrote {out_path} ({size/1024:.0f} KB)")
+    print(f"Wrote {gz_path} ({gz_size/1024:.0f} KB, {gz_size*100.0/size:.1f}% of plain)")
+    print(f"Wrote iot-cards.version = {version}")
 
 
 if __name__ == "__main__":
