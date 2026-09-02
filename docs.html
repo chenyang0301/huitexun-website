@@ -75,11 +75,13 @@
   padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;
   transition:all var(--transition);display:flex;align-items:center;gap:4px;
   white-space:nowrap;cursor:pointer;border:none;font-family:var(--font);
+  text-decoration:none;
 }
 .doc-action--view { background:rgba(21,101,192,.08);color:var(--c-primary); }
 .doc-action--view:hover { background:var(--c-primary);color:#fff; }
 .doc-action--dl { background:rgba(38,166,154,.08);color:#00897B; }
 .doc-action--dl:hover { background:#26A69A;color:#fff; }
+.doc-action[disabled] { opacity:.45;cursor:not-allowed; }
 
 /* ── QUICK LINKS ── */
 .quick-links { background:linear-gradient(135deg,#EBF4FF,#F0F8FF); }
@@ -177,8 +179,8 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
+          <button class="doc-action doc-action--view" disabled>在线阅读</button>
+          <button class="doc-action doc-action--dl" disabled>下载</button>
         </div>
       </div>
       <div class="doc-card" data-cat="guide">
@@ -190,8 +192,8 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
+          <button class="doc-action doc-action--view" disabled>在线阅读</button>
+          <button class="doc-action doc-action--dl" disabled>下载</button>
         </div>
       </div>
       <div class="doc-card" data-cat="guide">
@@ -203,92 +205,129 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
+          <button class="doc-action doc-action--view" disabled>在线阅读</button>
+          <button class="doc-action doc-action--dl" disabled>下载</button>
         </div>
       </div>
       <div class="doc-card" data-cat="guide">
         <div class="doc-card__icon doc-card__icon--guide">📘</div>
         <div class="doc-card__body">
-          <div class="doc-card__title">GIS 可视化调度操作说明</div>
+          <div class="doc-card__title">AMP操作手册</div>
           <div class="doc-card__meta">
-            <span>📑 操作指南</span><span>📄 PDF · 5.1MB</span><span>📅 2024-01</span>
+            <span>📑 操作指南</span><span>📄 DOC · 1.6MB</span><span>📅 2026-09</span>
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
+          <a href="docs/AMP操作手册.doc" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/AMP操作手册.doc" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-APP标准版操作手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOCX · 5.3MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-APP标准版操作手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-APP标准版操作手册.docx" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-Cat1对讲机用户手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOCX · 0.9MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-Cat1对讲机用户手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-Cat1对讲机用户手册.docx" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-Web调度台软件使用手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOCX · 13.2MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-Web调度台软件使用手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-Web调度台软件使用手册.docx" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-工作语言规范稽查平台使用手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOCX · 11.6MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-工作语言规范稽查平台使用手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-工作语言规范稽查平台使用手册.docx" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-视频对讲机使用手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOCX · 1.7MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-视频对讲机使用手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-视频对讲机使用手册.docx" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-小屏对讲机用户手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOC · 1.1MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-小屏对讲机用户手册.doc" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-小屏对讲机用户手册.doc" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-一张图调度台软件使用手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOCX · 57.9MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-一张图调度台软件使用手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-一张图调度台软件使用手册.docx" class="doc-action doc-action--dl" download>下载</a>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="guide">
+        <div class="doc-card__icon doc-card__icon--guide">📘</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">汇特讯-执法记录仪用户手册</div>
+          <div class="doc-card__meta">
+            <span>📑 操作指南</span><span>📄 DOCX · 3.5MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/汇特讯-执法记录仪用户手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/汇特讯-执法记录仪用户手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
 
-      <!-- 部署接入 -->
-      <div class="doc-card" data-cat="setup">
-        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">私有化部署指南（Linux）</div>
-          <div class="doc-card__meta">
-            <span>🔧 部署接入</span><span>📄 PDF · 4.8MB</span><span>📅 2024-03</span>
-          </div>
-        </div>
-        <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
-        </div>
-      </div>
-      <div class="doc-card" data-cat="setup">
-        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">5G 专用终端接入配置手册</div>
-          <div class="doc-card__meta">
-            <span>🔧 部署接入</span><span>📄 PDF · 3.6MB</span><span>📅 2024-02</span>
-          </div>
-        </div>
-        <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
-        </div>
-      </div>
-      <div class="doc-card" data-cat="setup">
-        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">SaaS 版快速上手指南</div>
-          <div class="doc-card__meta">
-            <span>🔧 部署接入</span><span>📄 PDF · 2.9MB</span><span>📅 2024-03</span>
-          </div>
-        </div>
-        <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
-        </div>
-      </div>
-      <div class="doc-card" data-cat="setup">
-        <div class="doc-card__icon doc-card__icon--doc">🔧</div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">高精定位设备对接文档</div>
-          <div class="doc-card__meta">
-            <span>🔧 部署接入</span><span>📄 PDF · 3.3MB</span><span>📅 2024-01</span>
-          </div>
-        </div>
-        <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
-        </div>
-      </div>
-
-      <!-- API -->
-      <div class="doc-card" data-cat="api">
-        <div class="doc-card__icon doc-card__icon--api">⚡</div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">REST API 开发者文档（v3.2）</div>
-          <div class="doc-card__meta">
-            <span>⚡ API文档</span><span>📄 PDF · 7.1MB</span><span>📅 2024-03</span>
-          </div>
-        </div>
-        <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
-        </div>
-      </div>
+      <!-- API文档 -->
       <div class="doc-card" data-cat="api">
         <div class="doc-card__icon doc-card__icon--api">⚡</div>
         <div class="doc-card__body">
@@ -298,25 +337,12 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
-        </div>
-      </div>
-      <div class="doc-card" data-cat="api">
-        <div class="doc-card__icon doc-card__icon--api">⚡</div>
-        <div class="doc-card__body">
-          <div class="doc-card__title">Webhook 回调通知配置说明</div>
-          <div class="doc-card__meta">
-            <span>⚡ API文档</span><span>📄 PDF · 1.8MB</span><span>📅 2024-01</span>
-          </div>
-        </div>
-        <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
+          <button class="doc-action doc-action--view" disabled>在线阅读</button>
+          <button class="doc-action doc-action--dl" disabled>下载</button>
         </div>
       </div>
 
-      <!-- FAQ -->
+      <!-- 常见问题 -->
       <div class="doc-card" data-cat="faq">
         <div class="doc-card__icon doc-card__icon--faq">❓</div>
         <div class="doc-card__body">
@@ -326,8 +352,8 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
+          <button class="doc-action doc-action--view" disabled>在线阅读</button>
+          <button class="doc-action doc-action--dl" disabled>下载</button>
         </div>
       </div>
       <div class="doc-card" data-cat="faq">
@@ -339,8 +365,21 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view">在线阅读</button>
-          <button class="doc-action doc-action--dl">下载</button>
+          <button class="doc-action doc-action--view" disabled>在线阅读</button>
+          <button class="doc-action doc-action--dl" disabled>下载</button>
+        </div>
+      </div>
+      <div class="doc-card" data-cat="faq">
+        <div class="doc-card__icon doc-card__icon--faq">❓</div>
+        <div class="doc-card__body">
+          <div class="doc-card__title">常见故障-问题排查手册</div>
+          <div class="doc-card__meta">
+            <span>❓ 常见问题</span><span>📄 DOCX · 1.8MB</span><span>📅 2026-09</span>
+          </div>
+        </div>
+        <div class="doc-card__actions">
+          <a href="docs/常见故障-问题排查手册.docx" class="doc-action doc-action--view" target="_blank">在线阅读</a>
+          <a href="docs/常见故障-问题排查手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
     </div>
@@ -358,16 +397,16 @@
       <div class="ql-card" onclick="filterCat('guide',document.querySelectorAll('.cat-tab')[1])">
         <div class="ql-card__icon">📘</div>
         <div class="ql-card__name">操作指南</div>
-        <div class="ql-card__count">4 篇文档</div>
-      </div>
-      <div class="ql-card" onclick="filterCat('setup',document.querySelectorAll('.cat-tab')[2])">
-        <div class="ql-card__icon">🔧</div>
-        <div class="ql-card__name">部署接入</div>
-        <div class="ql-card__count">4 篇文档</div>
+        <div class="ql-card__count">12 篇文档</div>
       </div>
       <div class="ql-card" onclick="filterCat('api',document.querySelectorAll('.cat-tab')[3])">
         <div class="ql-card__icon">⚡</div>
         <div class="ql-card__name">API文档</div>
+        <div class="ql-card__count">1 篇文档</div>
+      </div>
+      <div class="ql-card" onclick="filterCat('faq',document.querySelectorAll('.cat-tab')[4])">
+        <div class="ql-card__icon">❓</div>
+        <div class="ql-card__name">常见问题</div>
         <div class="ql-card__count">3 篇文档</div>
       </div>
     </div>
@@ -398,7 +437,7 @@
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
-document.querySelectorAll('.nav__links > li').forEach(li=>{const t=li.querySelector('span');if(!t)return;t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});li.classList.toggle('dropdown-open');});});document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
+document.querySelectorAll('.nav__links > li').forEach(li=>{const t=li.querySelector('span');if(!t)return;t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});li.classList.toggle('dropdown-open');});});document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open')););
 let currentCat='all';
 function filterCat(cat,btn){
   currentCat=cat;
