@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>常见故障-问题排查手册 · 使用文档 · 汇特讯</title>
+<link rel="stylesheet" href="../shared.css"/>
+<link rel="stylesheet" href="kb.css"/>
+</head>
+<body>
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="../index.html" class="nav__logo">
+      <img src="../img/brand/logo.png" alt="汇特讯" class="nav__logo-img"/>
+      <div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../products.html">产品方案</a></li>
+      <li><a href="../5g-cluster.html">5G集群</a></li>
+      <li><a href="../ai-travel.html">AI伴游</a></li>
+      <li>
+        <span class="active" style="color:var(--c-primary)!important;background:rgba(21,101,192,.07)!important;border-radius:var(--radius-sm);">技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="../support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="../docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="../demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="../iot-card.html">物联网卡</a></li>
+      <li><a href="../contact.html">联系我们</a></li>
+    </ul>
+    <a href="../contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+<div class="kb-wrap">
+  <nav class="kb-toc"><div class="kb-toc__title">目录</div><ul class="kb-toc__list"><li><a href="#sec-1">Web调度台-Q&amp;amp;A</a></li><li class="kb-toc__sub"><a href="#sec-2">调度台登录加载缓慢</a></li><li class="kb-toc__sub"><a href="#sec-3">调度台登录不显示新功能</a></li><li class="kb-toc__sub"><a href="#sec-4">调度台提示账号不存在</a></li><li><a href="#sec-5">App/终端问题-Q&amp;amp;A</a></li><li class="kb-toc__sub"><a href="#sec-6">终端开机后账号无法登录</a></li><li class="kb-toc__sub"><a href="#sec-7">解析服务器错误，提示账号不存在；</a></li><li><a href="#sec-8">管理平台（AMP\EMP）-Q&amp;amp;A</a></li><li class="kb-toc__sub"><a href="#sec-9">终端开机后账号无法登录</a></li></ul></nav>
+  <div class="kb-main">
+    <div class="kb-breadcrumb"><a href="../docs.html">使用文档</a> / 常见故障-问题排查手册</div>
+    <h1 class="kb-title">常见故障-问题排查手册</h1>
+    <div class="kb-meta"><span>📄 1.8MB</span><span>📅 2026-09</span><span>🏷️ 汇特讯知识库</span></div>
+    <a class="kb-dl-btn" href="docs/常见故障-问题排查手册.docx" target="_blank" rel="noopener">⬇ 下载原文件</a>
+    
+    <article class="kb-article">
+<h1>常见故障/问题排查手册</h1><h2 id="sec-1">Web调度台-Q&amp;A	</h2><p><em>使用Web调度台时，优先保证使用“谷歌浏览器”、“微软edge浏览器”两款浏览器已保证Web调度台达到最优效果。详细电脑配置可以参考Web调度台使用手册推荐配置。</em></p><h3 id="sec-2">调度台登录加载缓慢</h3><p><img src="assets/guzhang-paicha/guzhang-paicha-001.png" /></p><p>如调度台登录后出现白屏，右上角始终为正在登录状态；</p><ul><li>首先确保现场网络状态正常。</li><li>清除浏览器缓存。</li></ul><p><img src="assets/guzhang-paicha/guzhang-paicha-002.png" /></p><p>清除完成后刷新调度台网页进行重新登录，即可恢复。</p><h3 id="sec-3">调度台登录不显示新功能</h3><p>该问题由于首次登录后缓存导致，清理浏览器缓存后重新登录，即可显示新功能。</p><p><img src="assets/guzhang-paicha/guzhang-paicha-003.png" /></p><h3 id="sec-4">调度台提示账号不存在</h3><p><img src="assets/guzhang-paicha/guzhang-paicha-004.png" /></p><p>调度台登录时提示账号不存在；</p><ol><li>请及时查看调度台账号是否输入错误；</li><li>查看调度台套餐是否到期；</li><li>查看该账号是否停用。</li></ol><h2 id="sec-5">App/终端问题-Q&amp;A</h2><h3 id="sec-6">终端开机后账号无法登录</h3><p>首先查看终端提示：</p><ul><li>网络无法链接；</li></ul><ol><li>查看设备使用卡槽是否识别到卡；</li></ol><p><img src="assets/guzhang-paicha/guzhang-paicha-005.png" /></p><ol><li>检查设备使用物联网卡是否正常，确定是否无法链接网络；</li></ol><p><img src="assets/guzhang-paicha/guzhang-paicha-006.png" /></p><p>以上问题排查后，终端显示网络信号、显示4G网络时终端即可自动登录。</p><p><strong><em>如终端显示4G网络后仍无法正常登录，检查设备移动网络是否打开，或终端需设置APN配置才可访问网络。</em></strong></p><h3 id="sec-7">解析服务器错误，提示账号不存在；</h3><p><img src="assets/guzhang-paicha/guzhang-paicha-007.png" /></p><ol><li>检查管理平台绑定终端信息是否有误，或终端套餐是否到期；</li><li>检查终端是否设置停用状态；</li></ol><h2 id="sec-8">管理平台（AMP\EMP）-Q&amp;A</h2><h3 id="sec-9">终端开机后账号无法登录</h3>
+    </article>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="../products.html">产品方案</a><a href="../5g-cluster.html">5G集群</a>
+        <a href="../ai-travel.html">AI伴游</a><a href="../support.html">技术支持</a><a href="../docs.html">使用文档</a>
+        <a href="../demo.html">功能演示</a><a href="../contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 七山官网 版权所有</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a>
+    </div>
+  </div>
+</footer>
+<script>
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+document.querySelectorAll('.nav__links > li').forEach(li=>{const t=li.querySelector('span');if(!t)return;t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open');});li.classList.toggle('dropdown-open');});});document.addEventListener('click',()=>{document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open'));});
+(function(){
+  const links=[...document.querySelectorAll('.kb-toc__list a')];
+  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  const obs=new IntersectionObserver(es=>{
+    es.forEach(en=>{
+      if(en.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=map.get(en.target.id); if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-80px 0px -70% 0px',threshold:0});
+  document.querySelectorAll('.kb-article h2[id],.kb-article h3[id]').forEach(h=>obs.observe(h));
+})();
+</script>
+</body>
+</html>

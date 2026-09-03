@@ -104,42 +104,9 @@
 .ql-card__name { font-size:15px;font-weight:700;color:var(--c-text);margin-bottom:5px; }
 .ql-card__count { font-size:12px;color:var(--c-text-pale); }
 
-/* ── DOC VIEWER MODAL ── */
-.doc-modal{
-  position:fixed;inset:0;z-index:1000;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;transition:opacity var(--transition),visibility var(--transition);
-}
-.doc-modal.open{opacity:1;visibility:visible;}
-.doc-modal__backdrop{position:absolute;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(2px);}
-.doc-modal__panel{
-  position:relative;z-index:1;
-  width:min(1100px,94vw);height:min(90vh,880px);
-  background:var(--c-surface);border-radius:var(--radius-md);
-  box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;
-  transform:translateY(14px) scale(.98);transition:transform var(--transition);
-}
-.doc-modal.open .doc-modal__panel{transform:none;}
-.doc-modal__bar{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:12px 16px;border-bottom:1px solid var(--c-border);flex-shrink:0;
-}
-.doc-modal__title{font-size:14px;font-weight:700;color:var(--c-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.doc-modal__bar-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.doc-modal__dl{font-size:12px;font-weight:600;color:var(--c-primary);text-decoration:none;padding:6px 12px;border-radius:99px;background:rgba(21,101,192,.08);transition:all var(--transition);}
-.doc-modal__dl:hover{background:var(--c-primary);color:#fff;}
-.doc-modal__close{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;background:rgba(15,23,42,.06);color:var(--c-text-sub);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all var(--transition);}
-.doc-modal__close:hover{background:#ef4444;color:#fff;}
-.doc-modal__frame-wrap{position:relative;flex:1;background:#525659;}
-.doc-modal__frame{width:100%;height:100%;border:none;display:block;}
-.doc-modal__loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#525659;color:#fff;z-index:2;transition:opacity var(--transition);}
-.doc-modal__loading.hide{opacity:0;pointer-events:none;}
-.doc-modal__spinner{width:38px;height:38px;border-radius:50%;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.doc-modal__hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:rgba(15,23,42,.82);color:#fff;font-size:12px;padding:6px 14px;border-radius:99px;pointer-events:none;white-space:nowrap;}
+
 @media(max-width:600px){.doc-grid{grid-template-columns:1fr;}}
 @media(max-width:600px){.ql-grid{grid-template-columns:1fr;}}
-@media(max-width:600px){.doc-modal__panel{width:100vw;height:100vh;border-radius:0;}}
 </style>
 </head>
 <body>
@@ -252,7 +219,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/AMP操作手册.doc','AMP操作手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/amp-caozuoshouce.html">在线阅读</a>
           <a href="docs/AMP操作手册.doc" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -265,7 +232,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/汇特讯-APP标准版操作手册.docx','汇特讯-APP标准版操作手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/app-biaozhunban.html">在线阅读</a>
           <a href="docs/汇特讯-APP标准版操作手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -278,7 +245,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/汇特讯-Cat1对讲机用户手册.docx','汇特讯-Cat1对讲机用户手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/cat1-duijiangji.html">在线阅读</a>
           <a href="docs/汇特讯-Cat1对讲机用户手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -291,7 +258,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/汇特讯-Web调度台软件使用手册.docx','汇特讯-Web调度台软件使用手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/web-diaodu.html">在线阅读</a>
           <a href="docs/汇特讯-Web调度台软件使用手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -304,7 +271,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/汇特讯-工作语言规范稽查平台使用手册.docx','汇特讯-工作语言规范稽查平台使用手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/gongzuoyuyan-jicha.html">在线阅读</a>
           <a href="docs/汇特讯-工作语言规范稽查平台使用手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -317,7 +284,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/汇特讯-视频对讲机使用手册.docx','汇特讯-视频对讲机使用手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/shipin-duijiangji.html">在线阅读</a>
           <a href="docs/汇特讯-视频对讲机使用手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -330,7 +297,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/汇特讯-小屏对讲机用户手册.doc','汇特讯-小屏对讲机用户手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/xiaoping-duijiangji.html">在线阅读</a>
           <a href="docs/汇特讯-小屏对讲机用户手册.doc" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -343,7 +310,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://github.com/chenyang0301/huitexun-website/releases/download/doc-center-manuals/htx-yizhangtu-diaodu-manual.docx','汇特讯-一张图调度台软件使用手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/yizhangtu-diaodu.html">在线阅读</a>
           <a href="https://github.com/chenyang0301/huitexun-website/releases/download/doc-center-manuals/htx-yizhangtu-diaodu-manual.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -356,7 +323,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/汇特讯-执法记录仪用户手册.docx','汇特讯-执法记录仪用户手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/zhifajiluyi.html">在线阅读</a>
           <a href="docs/汇特讯-执法记录仪用户手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -412,7 +379,7 @@
           </div>
         </div>
         <div class="doc-card__actions">
-          <button class="doc-action doc-action--view" onclick="openViewer('https://chenyang0301.github.io/huitexun-website/docs/常见故障-问题排查手册.docx','常见故障-问题排查手册')">在线阅读</button>
+          <a class="doc-action doc-action--view" href="kb/guzhang-paicha.html">在线阅读</a>
           <a href="docs/常见故障-问题排查手册.docx" class="doc-action doc-action--dl" download>下载</a>
         </div>
       </div>
@@ -468,28 +435,6 @@
   </div>
 </footer>
 
-<!-- DOC VIEWER MODAL -->
-<div class="doc-modal" id="docModal" aria-hidden="true">
-  <div class="doc-modal__backdrop" onclick="closeViewer()"></div>
-  <div class="doc-modal__panel" role="dialog" aria-modal="true" aria-label="文档预览">
-    <div class="doc-modal__bar">
-      <div class="doc-modal__title" id="docModalTitle">文档预览</div>
-      <div class="doc-modal__bar-actions">
-        <a id="docModalDl" class="doc-modal__dl" target="_blank" rel="noopener">下载原文件</a>
-        <button class="doc-modal__close" onclick="closeViewer()" aria-label="关闭">✕</button>
-      </div>
-    </div>
-    <div class="doc-modal__frame-wrap">
-      <iframe id="docModalFrame" class="doc-modal__frame" title="文档预览" allow="fullscreen"></iframe>
-      <div class="doc-modal__loading" id="docModalLoading">
-        <div class="doc-modal__spinner"></div>
-        <div>正在加载文档预览…</div>
-      </div>
-      <div class="doc-modal__hint">若预览区域空白或加载缓慢，请点右上角「下载原文件」</div>
-    </div>
-  </div>
-</div>
-
 <script>
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
@@ -513,32 +458,7 @@ function applyFilter(){
   });
 }
 
-/* ── DOC VIEWER MODAL ── */
-function openViewer(rawUrl,title){
-  const modal=document.getElementById('docModal');
-  const frame=document.getElementById('docModalFrame');
-  const loading=document.getElementById('docModalLoading');
-  document.getElementById('docModalTitle').textContent=title||'文档预览';
-  document.getElementById('docModalDl').href=rawUrl;
-  const embed='https://view.officeapps.live.com/op/embed.aspx?src='+encodeURIComponent(rawUrl);
-  frame.src=embed;
-  loading.classList.remove('hide');
-  frame.onload=()=>loading.classList.add('hide');
-  clearTimeout(window.__docLoadTimer);
-  window.__docLoadTimer=setTimeout(()=>loading.classList.add('hide'),8000);
-  modal.classList.add('open');
-  modal.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
-}
-function closeViewer(){
-  const modal=document.getElementById('docModal');
-  const frame=document.getElementById('docModalFrame');
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden','true');
-  document.body.style.overflow='';
-  setTimeout(()=>{frame.src='about:blank';},300);
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeViewer();});
+
 </script>
 </body>
 </html>
