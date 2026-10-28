@@ -107,73 +107,82 @@
   font-size: 13px; color: #1A237E; font-weight: 600; line-height: 1.7;
 }
 
-/* ── Device key diagram (annotated callouts) ── */
-.key-diagram {
+/* ── Slide 1: device keys — annotated figure + key cards ── */
+.keys-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Annotated device figure */
+.key-figure {
   position: relative;
   width: 100%;
-  max-width: 860px;
-  margin: 0 auto 6px;
-  aspect-ratio: 860 / 560;
+  aspect-ratio: 600 / 400;
   container-type: inline-size;
 }
-.key-diagram__device {
+.key-figure__device {
   position: absolute;
-  left: 27.91%;
-  top: 18.75%;
-  width: 44.19%;
-  margin: 0;
+  left: 28%;
+  top: 15%;
+  width: 44%;
 }
-.key-diagram__device img { width: 100%; height: auto; display: block; }
-.key-diagram__lines {
+.key-figure__device img { width: 100%; height: auto; display: block; }
+.key-figure__lines {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   pointer-events: none;
 }
-.key-callout {
-  position: absolute;
-  font-size: 1.42cqw;
-  line-height: 1.6;
-  color: var(--c-text-sub);
+.key-figure__label { position: absolute; }
+.key-figure__name {
+  font-size: clamp(15px, 2.5cqw, 17px);
+  font-weight: 800; color: #1A237E;
+  line-height: 1.3; margin-bottom: 3px;
 }
-.key-callout__title {
-  display: flex; align-items: center; gap: .45em;
-  font-size: 1.72cqw; font-weight: 800; color: #1A237E;
-  letter-spacing: .2px; margin-bottom: .32em;
+.key-figure__action {
+  font-size: clamp(12.5px, 2.2cqw, 14px);
+  font-weight: 600; color: #455A64; line-height: 1.5;
 }
-.key-callout__title::before {
-  content: '';
-  width: .6em; height: .6em; border-radius: 50%;
-  background: linear-gradient(135deg, #1A237E, #2962FF);
-  flex-shrink: 0;
+.key-figure__label--power { left: 0;   top: 31%;   width: 26%; text-align: right; }
+.key-figure__label--talk  { left: 0;   top: 63%;   width: 26%; text-align: right; }
+.key-figure__label--func  { left: 71%; top: 1.5%;  width: 29%; text-align: left; }
+.key-figure__label--ai    { left: 71%; top: 31%;   width: 29%; text-align: left; }
+
+/* Key cards */
+.key-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
-.key-callout--function { left: 36%;   top: 1.4%;  width: 42%;   text-align: center; }
-.key-callout--function .key-callout__title { justify-content: center; }
-.key-callout--power    { left: 0.9%;  top: 26.8%; width: 25.5%; text-align: right; }
-.key-callout--power .key-callout__title { justify-content: flex-end; }
-.key-callout--ai       { left: 73.5%; top: 26.8%; width: 26.5%; text-align: left; }
-.key-callout--talk     { left: 2%;    top: 71.4%; width: 27%;   text-align: right; }
-.key-callout--talk .key-callout__title { justify-content: flex-end; }
+.key-card {
+  background: linear-gradient(135deg, #E8EAF6, #E3F2FD);
+  border: 1px solid rgba(26,35,126,.15);
+  border-radius: var(--radius-md);
+  padding: 18px 16px;
+  text-align: center;
+  transition: var(--transition);
+}
+.key-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(26,35,126,.35);
+  box-shadow: 0 6px 16px rgba(26,35,126,.12);
+}
+.key-card__icon { font-size: 26px; line-height: 1; margin-bottom: 8px; }
+.key-card__title { font-size: 15px; font-weight: 800; color: #1A237E; margin-bottom: 6px; }
+.key-card__desc { font-size: 12.5px; color: #455A64; line-height: 1.65; }
 
 @media (max-width: 900px) {
-  .key-diagram {
-    aspect-ratio: auto;
-    display: flex; flex-direction: column; gap: 12px;
-    container-type: normal;
-  }
-  .key-diagram__lines { display: none; }
-  .key-diagram__device {
-    position: static; width: 68%; margin: 0 auto 6px;
-    filter: none; order: -1;
-  }
-  .key-callout {
-    position: static; width: 100%;
-    font-size: 13px; text-align: left !important;
-    background: linear-gradient(135deg, #E8EAF6, #E3F2FD);
-    border: 1px solid rgba(26,35,126,.15);
-    border-radius: var(--radius-md);
-    padding: 14px 18px;
-  }
-  .key-callout__title { font-size: 15px; justify-content: flex-start !important; }
+  .keys-grid { grid-template-columns: 1fr; gap: 26px; }
+  .key-figure { max-width: 560px; margin: 0 auto; }
+}
+@media (max-width: 700px) {
+  .key-figure { aspect-ratio: auto; container-type: normal; }
+  .key-figure__lines, .key-figure__label { display: none; }
+  .key-figure__device { position: static; width: 62%; margin: 0 auto; }
+}
+@media (max-width: 520px) {
+  .key-cards { grid-template-columns: 1fr; }
 }
 
 /* Slide 2: Operations */
@@ -309,41 +318,66 @@
       </div>
       <div class="guide-slide__body">
         <div class="guide-slide__intro">悦享版机身仅四枚实体按键，长按 / 单击即可完成全部操作。先认识各按键功能，再开始使用。</div>
-        <div class="key-diagram">
-          <div class="key-diagram__device">
-            <img src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机（悦享版）TM02 设备外观与四枚实体按键位置"/>
+        <div class="keys-grid">
+          <div class="key-figure">
+            <div class="key-figure__device">
+              <img src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机（悦享版）TM02 四枚实体按键位置"/>
+            </div>
+
+            <svg class="key-figure__lines" viewBox="0 0 600 400" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <g fill="none" stroke="#2962FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
+                <path d="M428 46 L428 66 L303 95"/>
+                <path d="M158 152 L188 152 L221 149"/>
+                <path d="M428 152 L404 152 L379 144"/>
+                <path d="M158 275 L212 275 L303 279"/>
+              </g>
+              <g fill="#2962FF" opacity=".95">
+                <circle cx="303" cy="95" r="3.8"/>
+                <circle cx="221" cy="149" r="3.8"/>
+                <circle cx="379" cy="144" r="3.8"/>
+                <circle cx="303" cy="279" r="3.8"/>
+              </g>
+            </svg>
+
+            <div class="key-figure__label key-figure__label--func">
+              <div class="key-figure__name">功能键</div>
+              <div class="key-figure__action">翻译 · 讲解开关</div>
+            </div>
+            <div class="key-figure__label key-figure__label--power">
+              <div class="key-figure__name">电源键</div>
+              <div class="key-figure__action">开关机 · 暂停/继续</div>
+            </div>
+            <div class="key-figure__label key-figure__label--ai">
+              <div class="key-figure__name">AI 键</div>
+              <div class="key-figure__action">AI 问答 · 音量</div>
+            </div>
+            <div class="key-figure__label key-figure__label--talk">
+              <div class="key-figure__name">对讲键</div>
+              <div class="key-figure__action">按住说话 · 松开收听</div>
+            </div>
           </div>
 
-          <svg class="key-diagram__lines" viewBox="0 0 860 560" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <g fill="none" stroke="#2962FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".55">
-              <path d="M490 92 L490 116 L447 158"/>
-              <path d="M228 190 L252 190 L318 231"/>
-              <path d="M630 196 L604 196 L546 228"/>
-              <path d="M250 426 L300 426 L352 430"/>
-            </g>
-            <g fill="#2962FF" opacity=".85">
-              <circle cx="447" cy="158" r="3.4"/>
-              <circle cx="318" cy="231" r="3.4"/>
-              <circle cx="546" cy="228" r="3.4"/>
-              <circle cx="352" cy="430" r="3.4"/>
-            </g>
-          </svg>
-
-          <div class="key-callout key-callout--function">
-            <div class="key-callout__title">功能键</div>
-            <div class="key-callout__desc">长按 2 秒：打开 / 关闭翻译或讲解功能；<br>单击：音量 +</div>
-          </div>
-          <div class="key-callout key-callout--power">
-            <div class="key-callout__title">电源键</div>
-            <div class="key-callout__desc">长按 3 秒：开关机；<br>单击：停止 / 继续讲解</div>
-          </div>
-          <div class="key-callout key-callout--ai">
-            <div class="key-callout__title">AI 键</div>
-            <div class="key-callout__desc">按住：听到"嘟"声后向 AI 发起提问；<br>单击：音量 −</div>
-          </div>
-          <div class="key-callout key-callout--talk">
-            <div class="key-callout__title">对讲键</div>
-            <div class="key-callout__desc">按住：听到"嘟"声后讲话；<br>松开：收听其他人讲话</div>
+          <div class="key-cards">
+            <div class="key-card">
+              <div class="key-card__icon">🔘</div>
+              <div class="key-card__title">电源键</div>
+              <div class="key-card__desc">长按 3 秒：开关机<br>单击：停止 / 继续讲解</div>
+            </div>
+            <div class="key-card">
+              <div class="key-card__icon">⚙️</div>
+              <div class="key-card__title">功能键</div>
+              <div class="key-card__desc">长按 2 秒：翻译 / 讲解开关<br>单击：音量 +</div>
+            </div>
+            <div class="key-card">
+              <div class="key-card__icon">🤖</div>
+              <div class="key-card__title">AI 键</div>
+              <div class="key-card__desc">按住：听到"嘟"声后提问<br>单击：音量 −</div>
+            </div>
+            <div class="key-card">
+              <div class="key-card__icon">📡</div>
+              <div class="key-card__title">对讲键</div>
+              <div class="key-card__desc">按住：听到"嘟"声后讲话<br>松开：收听其他人讲话</div>
+            </div>
           </div>
         </div>
         <div class="guide-slide__notice">
