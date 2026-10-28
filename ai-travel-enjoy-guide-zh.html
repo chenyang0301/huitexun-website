@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>讯脉AI伴游机（悦享版）快速使用指南 · 汇特讯</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── Page Layout ── */
+.guide-page {
+  padding: calc(var(--nav-h) + 48px) 0 80px;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #E8EAF6 0%, #E3F2FD 35%, #E0F7FA 100%);
+}
+.guide-page__back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--c-text-sub); text-decoration: none;
+  margin-bottom: 36px; transition: var(--transition);
+}
+.guide-page__back:hover { color: var(--c-primary); }
+
+.guide-page__header {
+  text-align: center; margin-bottom: 52px;
+}
+.guide-page__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #1A237E, #2962FF); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;
+}
+.guide-page__title {
+  font-size: clamp(24px, 3.5vw, 40px); font-weight: 800;
+  background: linear-gradient(135deg, #1A237E, #1565C0);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px;
+}
+.guide-page__sub {
+  font-size: 14px; color: var(--c-text-sub);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.guide-page__lang {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 99px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: #1A237E; text-decoration: none;
+  transition: var(--transition);
+}
+.guide-page__lang:hover { border-color: #2962FF; background: rgba(41,98,255,.06); }
+
+/* ── Slide Cards ── */
+.guide-slide {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.guide-slide:hover { box-shadow: var(--shadow-lg); }
+.guide-slide__head {
+  display: flex; align-items: center; gap: 14px;
+  padding: 28px 0 0 28px;
+}
+.guide-slide__num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, #1A237E, #2962FF);
+  color: #fff; font-size: 16px; font-weight: 800;
+  flex-shrink: 0;
+}
+.guide-slide__subtitle {
+  font-size: 19px; font-weight: 800; color: #1A237E;
+  letter-spacing: .3px;
+}
+
+/* Slide 1: Device Keys */
+.guide-slide--overview .guide-slide__body {
+  padding: 32px 40px 44px;
+}
+.guide-slide__intro {
+  text-align: center; font-size: 14px; color: var(--c-text-sub);
+  line-height: 1.8; margin-bottom: 28px;
+}
+.guide-slide__keys {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+  max-width: 720px; margin: 0 auto;
+}
+.guide-slide__key {
+  background: linear-gradient(135deg, #E8EAF6, #E3F2FD);
+  border: 1px solid rgba(26,35,126,.15);
+  border-radius: var(--radius-md); padding: 18px 20px;
+  transition: var(--transition);
+}
+.guide-slide__key:hover {
+  transform: translateY(-2px);
+  border-color: rgba(26,35,126,.35);
+  box-shadow: 0 4px 12px rgba(26,35,126,.1);
+}
+.guide-slide__key-icon { font-size: 28px; margin-bottom: 6px; }
+.guide-slide__key-title { font-size: 15px; font-weight: 700; color: #1A237E; margin-bottom: 4px; }
+.guide-slide__key-desc { font-size: 12px; color: var(--c-text-sub); line-height: 1.6; }
+.guide-slide__notice {
+  margin: 28px auto 0; max-width: 720px;
+  background: linear-gradient(135deg, #E8EAF6, #E3F2FD);
+  border: 1px solid rgba(26,35,126,.2);
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  font-size: 13px; color: #1A237E; font-weight: 600; line-height: 1.7;
+}
+
+/* Device product image */
+.guide-slide__device { max-width:440px; margin:0 auto 28px; text-align:center; }
+.guide-slide__device img { width:100%; height:auto; display:block; border-radius:var(--radius-lg); background:#fff; box-shadow:var(--shadow-md); }
+
+/* Slide 2: Operations */
+.guide-slide--ops .guide-slide__body {
+  padding: 32px 40px 44px;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.guide-slide__op {
+  background: var(--grad-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg); padding: 28px 24px;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.guide-slide__op::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: linear-gradient(180deg, #1A237E, #2962FF);
+  border-radius: 0 4px 4px 0;
+}
+.guide-slide__op:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow-sm);
+  border-color: rgba(26,35,126,.25);
+}
+.guide-slide__op-icon { font-size: 32px; margin-bottom: 14px; }
+.guide-slide__op-title {
+  font-size: 18px; font-weight: 800; color: #1A237E; margin-bottom: 12px;
+}
+.guide-slide__op-steps {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+}
+.guide-slide__op-step {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--c-text-sub); line-height: 1.6;
+}
+.guide-slide__op-step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(26,35,126,.12); color: #1A237E;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.guide-slide__op-step strong {
+  color: var(--c-text); font-weight: 600;
+}
+
+/* Slide 3: Phone-assisted */
+.guide-slide--phone .guide-slide__body {
+  padding: 32px 40px 44px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  align-items: start;
+}
+.guide-slide__phone-header {
+  font-size: 20px; font-weight: 800; color: #1A237E; margin-bottom: 16px;
+}
+.guide-slide__phone-desc {
+  font-size: 14px; color: var(--c-text-sub); line-height: 1.8; margin-bottom: 20px;
+}
+.guide-slide__phone-notice {
+  background: linear-gradient(135deg, #E8EAF6, #E3F2FD);
+  border: 1px solid rgba(26,35,126,.2);
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  font-size: 13px; color: #1A237E; font-weight: 600; line-height: 1.7;
+}
+.guide-slide__phone-imgs {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.guide-slide__phone-img {
+  background: linear-gradient(135deg, #E8EAF6, #E3F2FD);
+  border: 1px solid rgba(26,35,126,.15);
+  border-radius: var(--radius-md); padding: 18px 20px;
+}
+.guide-slide__phone-img h4 { font-size: 15px; color: #1A237E; margin: 0 0 8px; }
+.guide-slide__phone-img p { font-size: 13px; color: var(--c-text-sub); line-height: 1.7; margin: 0; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .guide-slide--ops .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide--phone .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide__keys { grid-template-columns: 1fr 1fr; }
+  .guide-slide__body { padding: 24px 20px 32px !important; }
+  .guide-slide__head { padding: 20px 0 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="img/brand/logo.png" alt="汇特讯" class="nav__logo-img"/>
+      <div><div class="nav__logo-tag">5G数智化融合通信平台</div></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="products.html">产品方案</a></li>
+      <li><a href="5g-cluster.html">5G集群</a></li>
+      <li><a href="ai-travel.html" class="active" style="color:#1A237E!important;background:#1A237E10!important;font-weight:700;">AI伴游</a></li>
+      <li><span>技术支持<svg class="nav__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        <div class="nav__dropdown">
+          <a href="support.html"><span class="dd-icon">🛠️</span>支持中心</a>
+          <a href="docs.html"><span class="dd-icon">📚</span>使用文档</a>
+          <a href="demo.html"><span class="dd-icon">▶️</span>功能演示</a>
+        </div>
+      </li>
+      <li><a href="iot-card.html">物联网卡</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <a href="contact.html" class="nav__cta">联系我们</a>
+  </div>
+</nav>
+
+<section class="guide-page">
+  <div class="container">
+    <a href="ai-travel.html" class="guide-page__back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      返回AI伴游
+    </a>
+
+    <div class="guide-page__header">
+      <span class="guide-page__badge">🎧 悦享版 · 快速使用指南</span>
+      <h1 class="guide-page__title">讯脉AI伴游机（悦享版）<br>快速使用指南</h1>
+      <div class="guide-page__sub">
+        <span>3 步快速上手</span>
+        <span style="color:var(--c-border);">|</span>
+        <a href="ai-travel-enjoy-guide-en.html" class="guide-page__lang">🌐 查看英文版</a>
+      </div>
+    </div>
+
+    <!-- Slide 1: Device Keys -->
+    <div class="guide-slide guide-slide--overview">
+      <div class="guide-slide__head">
+        <div class="guide-slide__num">01</div>
+        <div class="guide-slide__subtitle">设备按键说明</div>
+      </div>
+      <div class="guide-slide__body">
+        <div class="guide-slide__intro">悦享版机身仅四枚实体按键，长按 / 单击即可完成全部操作。先认识各按键功能，再开始使用。</div>
+        <div class="guide-slide__device">
+          <img src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机（悦享版）TM02 设备外观与实体按键"/>
+        </div>
+        <div class="guide-slide__keys">
+          <div class="guide-slide__key">
+            <div class="guide-slide__key-icon">🔘</div>
+            <div class="guide-slide__key-title">电源键</div>
+            <div class="guide-slide__key-desc">长按 3 秒：开关机；单击：停止 / 继续讲解</div>
+          </div>
+          <div class="guide-slide__key">
+            <div class="guide-slide__key-icon">⚙️</div>
+            <div class="guide-slide__key-title">功能键</div>
+            <div class="guide-slide__key-desc">长按 2 秒：打开 / 关闭翻译或讲解功能；单击：音量 +</div>
+          </div>
+          <div class="guide-slide__key">
+            <div class="guide-slide__key-icon">🤖</div>
+            <div class="guide-slide__key-title">AI 键</div>
+            <div class="guide-slide__key-desc">按住：听到"嘟"声后向 AI 发起提问；单击：音量 −</div>
+          </div>
+          <div class="guide-slide__key">
+            <div class="guide-slide__key-icon">📡</div>
+            <div class="guide-slide__key-title">对讲键</div>
+            <div class="guide-slide__key-desc">按住：听到"嘟"声后讲话；松开：收听其他人讲话</div>
+          </div>
+        </div>
+        <div class="guide-slide__notice">
+          💡 微信扫码添加"讯脉AI伴游"小程序，扫机身二维码即可与设备组队。
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Function Overview -->
+    <div class="guide-slide guide-slide--ops">
+      <div class="guide-slide__head">
+        <div class="guide-slide__num">02</div>
+        <div class="guide-slide__subtitle">功能简介说明</div>
+      </div>
+      <div class="guide-slide__body">
+        <!-- 自动讲解 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎙️</div>
+          <div class="guide-slide__op-title">自动讲解</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>单击"对讲键"</strong>→ 一键讲解当前所在位置附近的景点</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>单击"电源键"</strong>停止 / 继续讲解</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- AI问答 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🤖</div>
+          <div class="guide-slide__op-title">AI 问答</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>按住"AI 键"</strong>，听到"嘟"声后向 AI 发起提问</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>松开"AI 键"</strong>，等待语音回答</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">3</span>
+              <span><strong>单击"电源键"</strong>停止当前语音回答</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 同传讲解 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎧</div>
+          <div class="guide-slide__op-title">同传讲解</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span>打开<strong>"讯脉AI伴游"</strong>小程序，进入<strong>"群组"</strong>页面，将设备设为<strong>同声翻译讲解模式</strong></span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>长按"功能键"2 秒</strong>启动 / 关闭同传讲解</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 翻译模式 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🌐</div>
+          <div class="guide-slide__op-title">翻译模式</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>长按"功能键"2 秒</strong>开启语音翻译模式</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>再次长按"功能键"2 秒</strong>关闭翻译模式</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 蓝牙耳机 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">🎧</div>
+          <div class="guide-slide__op-title">蓝牙耳机</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span>打开手机蓝牙，进入<strong>"讯脉AI伴游"</strong>小程序设备详情页，点击<strong>"蓝牙配对"</strong></span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span>在手机蓝牙列表中选择本机完成连接，即可用耳机收听讲解</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 微信组队 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">👥</div>
+          <div class="guide-slide__op-title">微信组队</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span>微信扫<strong>机身二维码</strong>，添加<strong>"讯脉AI伴游"</strong>小程序</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span>进入<strong>"群组"</strong>页面，邀请队员加入同一群组即可组队</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 团队对讲 -->
+        <div class="guide-slide__op">
+          <div class="guide-slide__op-icon">📡</div>
+          <div class="guide-slide__op-title">团队对讲</div>
+          <ul class="guide-slide__op-steps">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">1</span>
+              <span><strong>按住"对讲键"</strong>，听到"嘟"声后讲话，组内成员可同时说话</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">2</span>
+              <span><strong>松开"对讲键"</strong>收听其他队员讲话</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Phone-assisted -->
+    <div class="guide-slide guide-slide--phone">
+      <div class="guide-slide__head">
+        <div class="guide-slide__num">03</div>
+        <div class="guide-slide__subtitle">小程序操作</div>
+      </div>
+      <div class="guide-slide__body">
+        <div>
+          <div class="guide-slide__phone-header">提升体验</div>
+          <ul class="guide-slide__op-steps" style="margin-bottom:20px;">
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">①</span>
+              <span>在微信小程序扫机身二维码绑定设备，点击设备进入详情页面</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">②</span>
+              <span>打开设备的<strong>"手机辅助定位"</strong>开关，提高定位精度</span>
+            </li>
+            <li class="guide-slide__op-step">
+              <span class="guide-slide__op-step-num">③</span>
+              <span>点击<strong>"讲解音色"</strong>选择心怡的讲解语音音色</span>
+            </li>
+          </ul>
+          <div class="guide-slide__phone-notice">
+            ⚠️ 【注意绑定设备和手机必须同一个人携带，并且使用期间不要退出微信】
+          </div>
+        </div>
+        <div class="guide-slide__phone-imgs">
+          <div class="guide-slide__phone-img">
+            <h4>💡 蓝牙耳机收听</h4>
+            <p>连接蓝牙耳机后，讲解与 AI 回答将通过耳机播放，私密且清晰，适合团队同游场景。</p>
+          </div>
+          <div class="guide-slide__phone-img">
+            <h4>👥 群组对讲</h4>
+            <p>同一群组内的成员按住对讲键即可实时对讲，松开收听，导游与游客沟通零距离。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <div class="footer__logo-mark">汇</div>
+        <div><div class="footer__logo-name">汇特讯</div><div class="footer__logo-tag">七山创智（北京）科技有限公司</div></div>
+      </div>
+      <div class="footer__links">
+        <a href="products.html">产品方案</a><a href="5g-cluster.html">5G集群</a><a href="ai-travel.html">AI伴游</a>
+        <a href="support.html">技术支持</a><a href="docs.html">使用文档</a><a href="demo.html">功能演示</a><a href="contact.html">联系我们</a>
+      </div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 七山官网 版权所有</span><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2021038921号-2</a></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10);
+window.addEventListener('scroll',function(){document.getElementById('mainNav').classList.toggle('scrolled',scrollY>10)});
+document.querySelectorAll('.nav__links > li').forEach(li=>{
+  const t=li.querySelector('span');if(!t)return;
+  t.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>{if(el!==li)el.classList.remove('dropdown-open')});li.classList.toggle('dropdown-open')})
+});
+document.addEventListener('click',()=>document.querySelectorAll('.nav__links > li.dropdown-open').forEach(el=>el.classList.remove('dropdown-open')));
+</script>
+</body>
+</html>

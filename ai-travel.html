@@ -180,6 +180,7 @@
   gap:16px; min-height:280px;
 }
 .ai-prod-visual__icon { font-size:56px; }
+.ai-prod-visual__img { width:172px; height:auto; display:block; margin:0 auto; border-radius:14px; background:#fff; box-shadow:0 10px 24px rgba(21,101,192,.18); }
 .ai-prod-visual__label {
   font-size:22px; font-weight:800;
   background:linear-gradient(135deg,#2E7D32,#1565C0);
@@ -199,6 +200,10 @@
 .ai-prod-visual__tag--pure {
   background:rgba(76,175,80,.12); color:#2E7D32;
   border:1px solid rgba(76,175,80,.22);
+}
+.ai-prod-visual__tag--enjoy {
+  background:linear-gradient(135deg,rgba(26,35,126,.14),rgba(41,98,255,.08));
+  color:#1A237E; border:1px solid rgba(41,98,255,.25);
 }
 .ai-prod-features { display:flex; flex-direction:column; gap:14px; }
 .ai-prod-feat {
@@ -528,8 +533,8 @@
   <div class="container">
     <div class="section__head section__head--center">
       <div class="section__eyebrow">产品选择</div>
-      <h2 class="section__title">AI伴游机 · 两版随心选</h2>
-      <p class="section__desc">至臻版功能全面，纯臻版轻量高效，根据您的需求选择最适合的版本。</p>
+      <h2 class="section__title">AI伴游机 · 三版随心选</h2>
+      <p class="section__desc">至臻版功能全面，纯臻版轻量高效，悦享版快速上手，根据您的需求选择最适合的版本。</p>
     </div>
 
     <!-- Version Dropdowns -->
@@ -550,13 +555,21 @@
           <option value="lite">轻量自由行套餐</option>
         </select>
       </div>
+      <div class="ai-prod-select-item">
+        <div class="ai-prod-select-item__label">🎧 <em>AI伴游机（悦享版）</em></div>
+        <select class="ai-prod-select" onchange="switchProdVer('enjoy',this.value)">
+          <option value="standard">标准畅游套餐</option>
+          <option value="family">家庭出游套餐</option>
+          <option value="business">商务接待套餐</option>
+        </select>
+      </div>
     </div>
 
     <!-- Premium Version Detail -->
     <div class="ai-prod-panel active" id="prod-panel-premium-full">
       <div class="ai-prod-grid">
         <div class="ai-prod-visual">
-          <div class="ai-prod-visual__icon">📱</div>
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机 TM02 实拍图"/>
           <div class="ai-prod-visual__label">AI伴游机（至臻版）</div>
           <span class="ai-prod-visual__tag ai-prod-visual__tag--premium">✨ 全功能旗舰</span>
           <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">高性能硬件 + 全部AI能力 + 专属运维支持</p>
@@ -584,7 +597,7 @@
     <div class="ai-prod-panel" id="prod-panel-premium-city">
       <div class="ai-prod-grid">
         <div class="ai-prod-visual">
-          <div class="ai-prod-visual__icon">🏙️</div>
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机 TM02 实拍图"/>
           <div class="ai-prod-visual__label">AI伴游机（至臻版）</div>
           <span class="ai-prod-visual__tag ai-prod-visual__tag--premium">✨ 城市文旅</span>
           <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">为城市文旅局量身打造，覆盖地标导览与公共出行</p>
@@ -612,7 +625,7 @@
     <div class="ai-prod-panel" id="prod-panel-premium-scenic">
       <div class="ai-prod-grid">
         <div class="ai-prod-visual">
-          <div class="ai-prod-visual__icon">🏔️</div>
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机 TM02 实拍图"/>
           <div class="ai-prod-visual__label">AI伴游机（至臻版）</div>
           <span class="ai-prod-visual__tag ai-prod-visual__tag--premium">✨ 景区定制</span>
           <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">面向5A/4A级景区，深度定制的智慧导览解决方案</p>
@@ -642,7 +655,7 @@
     <div class="ai-prod-panel" id="prod-panel-pure-basic">
       <div class="ai-prod-grid">
         <div class="ai-prod-visual" style="background:linear-gradient(135deg,#F1F8E9,#E8F5E9);">
-          <div class="ai-prod-visual__icon">📱</div>
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机 TM02 实拍图"/>
           <div class="ai-prod-visual__label">AI伴游机（纯臻版）</div>
           <span class="ai-prod-visual__tag ai-prod-visual__tag--pure">🌿 基础伴游</span>
           <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">轻量高效，核心功能全覆盖，适合中小规模部署</p>
@@ -670,7 +683,7 @@
     <div class="ai-prod-panel" id="prod-panel-pure-student">
       <div class="ai-prod-grid">
         <div class="ai-prod-visual" style="background:linear-gradient(135deg,#F1F8E9,#E8F5E9);">
-          <div class="ai-prod-visual__icon">🎒</div>
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机 TM02 实拍图"/>
           <div class="ai-prod-visual__label">AI伴游机（纯臻版）</div>
           <span class="ai-prod-visual__tag ai-prod-visual__tag--pure">🌿 研学教育</span>
           <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">为学校研学和营地教育场景设计的互动学习版本</p>
@@ -698,7 +711,7 @@
     <div class="ai-prod-panel" id="prod-panel-pure-lite">
       <div class="ai-prod-grid">
         <div class="ai-prod-visual" style="background:linear-gradient(135deg,#F1F8E9,#E8F5E9);">
-          <div class="ai-prod-visual__icon">🧳</div>
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机 TM02 实拍图"/>
           <div class="ai-prod-visual__label">AI伴游机（纯臻版）</div>
           <span class="ai-prod-visual__tag ai-prod-visual__tag--pure">🌿 轻量自由行</span>
           <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">小巧便携，即开即用，专为个人旅行者打造</p>
@@ -724,10 +737,97 @@
       </div>
     </div>
 
+    <!-- Enjoy Version Detail -->
+    <div class="ai-prod-panel" id="prod-panel-enjoy-standard">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual" style="background:linear-gradient(135deg,#E8EAF6,#E3F2FD);">
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机（悦享版）TM02 实拍图"/>
+          <div class="ai-prod-visual__label">AI伴游机（悦享版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--enjoy">🎧 标准畅游</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">七大核心功能，一键快速上手，适合绝大多数出游场景</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>七大核心功能</strong> — 自动讲解、AI问答、同传讲解、翻译模式、蓝牙耳机、微信组队、团队对讲一应俱全</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>一键快速上手</strong> — 四枚实体按键，长按/单击即可完成全部操作，无需培训</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>12语种实时翻译</strong> — 多语种自动切换，国际游客无障碍沟通</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>微信小程序组队</strong> — 扫码即连，导游与游客实时对讲零距离</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-prod-panel" id="prod-panel-enjoy-family">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual" style="background:linear-gradient(135deg,#E8EAF6,#E3F2FD);">
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机（悦享版）TM02 实拍图"/>
+          <div class="ai-prod-visual__label">AI伴游机（悦享版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--enjoy">🎧 家庭出游</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">为亲子与家庭出游设计，组队看护 + 即时对讲更安心</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>家庭群组对讲</strong> — 长按对讲键全家实时通话，走散也不怕</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>成员位置看护</strong> — 微信组队实时查看家人位置，安心畅游</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>面对面语音翻译</strong> — 翻译模式随身，出国旅行沟通无碍</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>蓝牙耳机私享</strong> — 连接个人耳机收听讲解，不打扰他人</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-prod-panel" id="prod-panel-enjoy-business">
+      <div class="ai-prod-grid">
+        <div class="ai-prod-visual" style="background:linear-gradient(135deg,#E8EAF6,#E3F2FD);">
+          <img class="ai-prod-visual__img" src="img/ai-travel/tm02-device.png" alt="讯脉AI伴游机（悦享版）TM02 实拍图"/>
+          <div class="ai-prod-visual__label">AI伴游机（悦享版）</div>
+          <span class="ai-prod-visual__tag ai-prod-visual__tag--enjoy">🎧 商务接待</span>
+          <p style="font-size:13px;color:var(--c-text-sub);max-width:260px;">面向外宾接待与商务导览，同传翻译 + AI答疑更专业</p>
+        </div>
+        <div class="ai-prod-features">
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>同声传译讲解</strong> — 团队同传模式，外宾接待专业得体</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>AI智能答疑</strong> — 按住AI键随时提问，接待更从容</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>多语种形象名片</strong> — 12语种自动切换，提升国际接待形象</div>
+          </div>
+          <div class="ai-prod-feat">
+            <div class="ai-prod-feat__check">✓</div>
+            <div class="ai-prod-feat__text"><strong>团队协同对讲</strong> — 工作人员一键互通，调度高效</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Tabs -->
     <div class="ai-prod-tabs" style="display:none;" id="prod-tabs">
       <button class="ai-prod-tab active" onclick="switchProdTab('premium',this)">✨ AI伴游机（至臻版）</button>
       <button class="ai-prod-tab" onclick="switchProdTab('pure',this)">🌿 AI伴游机（纯臻版）</button>
+      <button class="ai-prod-tab" onclick="switchProdTab('enjoy',this)">🎧 AI伴游机（悦享版）</button>
     </div>
   </div>
 </section>
@@ -736,7 +836,7 @@
 <style>
 .ai-guides { background:var(--c-surface); }
 .ai-guides__grid {
-  display:grid; grid-template-columns:repeat(2,1fr); gap:24px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
 }
 .ai-guide-card {
   background:var(--grad-card); border:1px solid var(--c-border);
@@ -760,6 +860,9 @@
 }
 .ai-guide-card__icon--pure {
   background:linear-gradient(135deg,rgba(76,175,80,.15),rgba(0,150,136,.1));
+}
+.ai-guide-card__icon--enjoy {
+  background:linear-gradient(135deg,rgba(26,35,126,.15),rgba(41,98,255,.1));
 }
 .ai-guide-card__title {
   font-size:17px; font-weight:800; color:var(--c-text); margin-bottom:4px;
@@ -788,7 +891,11 @@
   color:#2E7D32; background:linear-gradient(135deg,rgba(76,175,80,.04),rgba(0,150,136,.02));
 }
 .ai-guide-card__btn--pure:hover { background:linear-gradient(135deg,#4CAF50,#009688); color:#fff; }
-@media(max-width:640px){
+.ai-guide-card__btn--enjoy {
+  color:#1A237E; background:linear-gradient(135deg,rgba(26,35,126,.04),rgba(41,98,255,.02));
+}
+.ai-guide-card__btn--enjoy:hover { background:linear-gradient(135deg,#1A237E,#2962FF); color:#fff; }
+@media(max-width:980px){
   .ai-guides__grid{grid-template-columns:1fr;}
 }
 </style>
@@ -840,6 +947,28 @@
             中文版
           </a>
           <a href="ai-travel-pure-guide-en.html" class="ai-guide-card__btn ai-guide-card__btn--pure">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            English
+          </a>
+        </div>
+      </div>
+      <div class="ai-guide-card">
+        <div class="ai-guide-card__top">
+          <div class="ai-guide-card__icon ai-guide-card__icon--enjoy">🎧</div>
+          <div>
+            <div class="ai-guide-card__title">悦享版 快速使用指南</div>
+            <p class="ai-guide-card__desc">涵盖设备按键操作、一键讲解、AI问答、团队对讲等核心功能说明，含中/英文双语版本。</p>
+            <div class="ai-guide-card__meta">
+              <span>📄 图文详解</span><span>🌐 中/EN独立</span>
+            </div>
+          </div>
+        </div>
+        <div class="ai-guide-card__action">
+          <a href="ai-travel-enjoy-guide-zh.html" class="ai-guide-card__btn ai-guide-card__btn--enjoy">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            中文版
+          </a>
+          <a href="ai-travel-enjoy-guide-en.html" class="ai-guide-card__btn ai-guide-card__btn--enjoy">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
             English
           </a>
