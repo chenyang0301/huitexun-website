@@ -231,8 +231,19 @@
 /* Slide 3: Phone-assisted */
 .guide-slide--phone .guide-slide__body {
   padding: 32px 40px 44px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 32px;
   align-items: start;
+}
+.mp-figure { margin: 0; }
+.mp-figure img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  background: #fff;
+}
+.mp-figure figcaption {
+  font-size: 12px; color: var(--c-text-sub);
+  line-height: 1.6; margin-top: 10px;
 }
 .guide-slide__phone-header {
   font-size: 20px; font-weight: 800; color: #1A237E; margin-bottom: 16px;
@@ -247,7 +258,8 @@
   font-size: 13px; color: #1A237E; font-weight: 600; line-height: 1.7;
 }
 .guide-slide__phone-imgs {
-  display: flex; flex-direction: column; gap: 14px;
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
 }
 .guide-slide__phone-img {
   background: linear-gradient(135deg, #E8EAF6, #E3F2FD);
@@ -261,6 +273,7 @@
 @media (max-width: 900px) {
   .guide-slide--ops .guide-slide__body { grid-template-columns: 1fr; }
   .guide-slide--phone .guide-slide__body { grid-template-columns: 1fr; }
+  .guide-slide__phone-imgs { grid-template-columns: 1fr; }
   .guide-slide__keys { grid-template-columns: 1fr 1fr; }
   .guide-slide__body { padding: 24px 20px 32px !important; }
   .guide-slide__head { padding: 20px 0 0 20px; }
@@ -527,7 +540,7 @@
             </li>
             <li class="guide-slide__op-step">
               <span class="guide-slide__op-step-num">②</span>
-              <span>打开设备的<strong>"手机辅助定位"</strong>开关，提高定位精度</span>
+              <span>打开设备的<strong>"手机辅助定位"</strong>开关，提高定位精度，延长设备续航时间</span>
             </li>
             <li class="guide-slide__op-step">
               <span class="guide-slide__op-step-num">③</span>
@@ -535,9 +548,12 @@
             </li>
           </ul>
           <div class="guide-slide__phone-notice">
-            ⚠️ 【注意绑定设备和手机必须同一个人携带，并且使用期间不要退出微信】
+            ⚠️ 【注意绑定设备和手机必须同一个人携带，<br>并且使用期间不要退出微信】
           </div>
         </div>
+        <figure class="mp-figure">
+          <img src="img/ai-travel/mp-guide.png" alt="小程序操作示意：点击设备进入详情页、切换翻译模式、选择讲解音色、切换 AI 键和对讲键、打开手机辅助定位开关"/>
+        </figure>
         <div class="guide-slide__phone-imgs">
           <div class="guide-slide__phone-img">
             <h4>💡 蓝牙耳机收听</h4>
