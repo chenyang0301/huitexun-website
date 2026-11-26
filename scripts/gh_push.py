@@ -51,6 +51,7 @@ def main():
     ref = gh_api("GET", "/git/refs/heads/master")
     commit_sha = ref["object"]["sha"]
     tree = gh_api("GET", "/git/trees/" + commit_sha + "?recursive=1")
+    base_tree_sha = tree["sha"]
     old = {e["path"]: e for e in tree["tree"] if e["type"] == "blob"}
 
     # 2. create blobs for changed/new files
@@ -62,16 +63,18 @@ def main():
         shas[f] = r["sha"]
         print("blob  %-32s %d KB -> %s" % (f, len(data) // 1024, r["sha"][:8]))
 
-    # 3. build new tree (keep all old blobs, override changed, add new)
-    entries = []
-    for path, e in old.items():
-        sha = shas.get(path, e["sha"])
-        entries.append({"path": path, "mode": e["mode"], "type": "blob", "sha": sha})
-    for f in files:
-        if f not in old:
-            entries.append({"path": f, "mode": "100644", "type": "blob", "sha": shas[f]})
+    # 3. incremental tree: base off the current root tree, send only changed
+    #    blobs. Sending the whole tree (>500 entries) times out with HTTP 422.
+    entries = [
+        {"path": f,
+         "mode": old[f]["mode"] if f in old else "100644",
+         "type": "blob",
+         "sha": shas[f]}
+        for f in files
+    ]
 
-    new_tree = gh_api("POST", "/git/trees", {"tree": entries})
+    new_tree = gh_api("POST", "/git/trees",
+                      {"base_tree": base_tree_sha, "tree": entries})
     print("tree  ->", new_tree["sha"][:8])
 
     # 4. commit
